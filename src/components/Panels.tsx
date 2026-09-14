@@ -36,6 +36,7 @@ import type { Reading, Mode } from "../content/types";
 import { lessons } from "../content/lessons";
 import { wordCount, validateText, normalize, minutesLabel } from "../text";
 import Reader, { modeNames } from "./Reader";
+import { Confirm } from "./Confirm";
 import Games from "./Games";
 import Book, { Course } from "./Book";
 export default function Panels({
@@ -711,6 +712,7 @@ function Custom({
   const [save, setSave] = useState(false);
   const [error, setError] = useState("");
   const [savedId, setSavedId] = useState<string | null>(null);
+  const [pendingDelete, setPendingDelete] = useState<string | null>(null);
   async function file(f: File | undefined) {
     if (!f) return;
     try {
@@ -892,17 +894,7 @@ function Custom({
                 <button
                   className="icon-button"
                   aria-label={`${c.title} metnini sil`}
-                  onClick={() => {
-                    if (
-                      confirm(
-                        "Bu metin yerel kütüphanenden silinecek. Oturum özetleri kalacak. Silinsin mi?",
-                      )
-                    )
-                      store.update((s) => ({
-                        ...s,
-                        custom: s.custom.filter((x) => x.id !== c.id),
-                      }));
-                  }}
+                  onClick={() => setPendingDelete(c.id)}
                 >
                   <Trash2 size={15} />
                 </button>
@@ -910,6 +902,20 @@ function Custom({
             ))
           ) : (
             <p className="subtle">Henüz saklanmış metnin yok.</p>
+          )}
+          {pendingDelete && (
+            <Confirm
+              title="Metin silinsin mi?"
+              body="Bu metin yerel kütüphanenden silinecek. Oturum özetleri kalacak."
+              confirmLabel="Metni sil"
+              onClose={() => setPendingDelete(null)}
+              onConfirm={() =>
+                store.update((s) => ({
+                  ...s,
+                  custom: s.custom.filter((x) => x.id !== pendingDelete),
+                }))
+              }
+            />
           )}
         </aside>
       </div>
@@ -1532,26 +1538,44 @@ function Settings({ store, go }: { store: Store; go: Navigate }) {
             )}
             {message && <p role="status">{message}</p>}
             <hr />
-            <button
-              className="text-button danger"
-              onClick={() => {
-                if (
-                  confirm(
-                    "Bütün ders ilerlemesi, okuma ve oyun kayıtları, tercihler ve saklanan metinler bu tarayıcıdan silinecek. Bu işlem geri alınamaz; JSON yedeğin varsa yeniden yükleyebilirsin. Her şey sıfırlansın mı?",
-                  )
-                ) {
-                  if (update((s) => ({ ...fresh(), revision: s.revision }))) {
-                    setMessage("Yerel ilerleme sıfırlandı.");
-                    go("home");
-                  }
-                }
+            <ResetSection
+              onDone={(msg) => {
+                setMessage(msg);
+                go("home");
               }}
-            >
-              <Trash2 size={16} /> Yerel ilerlemeyi sıfırla
-            </button>
+              update={update}
+            />
           </section>
         </div>
       </div>
+    </>
+  );
+}
+function ResetSection({
+  update,
+  onDone,
+}: {
+  update: Store["update"];
+  onDone: (msg: string) => void;
+}) {
+  const [asking, setAsking] = useState(false);
+  return (
+    <>
+      <button className="text-button danger" onClick={() => setAsking(true)}>
+        <Trash2 size={16} /> Yerel ilerlemeyi sıfırla
+      </button>
+      {asking && (
+        <Confirm
+          title="Yerel ilerleme sıfırlansın mı?"
+          body="Bütün ders ilerlemesi, okuma ve oyun kayıtları, tercihler ve saklanan metinler bu tarayıcıdan silinecek. Bu işlem geri alınamaz; JSON yedeğin varsa yeniden yükleyebilirsin."
+          confirmLabel="Her şeyi sıfırla"
+          onClose={() => setAsking(false)}
+          onConfirm={() => {
+            if (update((s) => ({ ...fresh(), revision: s.revision })))
+              onDone("Yerel ilerleme sıfırlandı.");
+          }}
+        />
+      )}
     </>
   );
 }

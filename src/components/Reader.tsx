@@ -22,6 +22,7 @@ import {
 } from "../core";
 import type { Reading, Mode } from "../content/types";
 import { minutesLabel, wordCount } from "../text";
+import { Confirm } from "./Confirm";
 export const modeNames: Record<Mode, string> = {
   natural: "Doğal okuma",
   guide: "Rehberli tempo",
@@ -106,6 +107,7 @@ export default function Reader({
   );
   const [result, setResult] = useState<Result | null>(null);
   const [saved, setSaved] = useState(false);
+  const [savedId, setSavedId] = useState<string | null>(null);
   const [finishedText, setFinishedText] = useState(false);
   const id = useRef(crypto.randomUUID());
   const repeated = useRef(!!state.exposure[reading.id]);
@@ -317,6 +319,7 @@ export default function Reader({
     };
     setResult(r);
     setStage("result");
+    setSavedId(r.id);
     setSaved(update((s) => record(s, r)));
   }
   useEffect(() => {
@@ -333,15 +336,12 @@ export default function Reader({
     // timer.interrupted is a mutable ref mirror; the question-stage subscription only depends on stage.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stage]);
+  const [confirming, setConfirming] = useState<null | "exit" | "restart">(null);
   function exit() {
     if (stage === "reading" || stage === "questions") {
       timer.pause(true);
-      if (
-        !window.confirm(
-          "Bu çalışma tamamlanmış sonuç sayılmayacak. Açılan metin görülmüş olarak kalacak. Çıkılsın mı?",
-        )
-      )
-        return;
+      setConfirming("exit");
+      return;
     }
     onExit();
   }
@@ -361,14 +361,11 @@ export default function Reader({
   function pause() {
     timer.pause(true);
   }
-  function restart() {
+  function requestRestart() {
     timer.pause(true);
-    if (
-      !window.confirm(
-        "Açık çalışma tamamlanmış sonuç sayılmadan yeni oturuma geçilecek. Metin görülmüş olarak kalacak. Baştan başlansın mı?",
-      )
-    )
-      return;
+    setConfirming("restart");
+  }
+  function doRestart() {
     timer.reset();
     id.current = crypto.randomUUID();
     repeated.current = !!state.exposure[reading.id];
@@ -405,7 +402,9 @@ export default function Reader({
       ? reading.questions.filter((q) => q.skill === "Ana düşünce")
       : reading.questions;
   const persisted =
-    saved && !store.conflict && state.results.some((r) => r.id === id.current);
+    saved &&
+    !store.conflict &&
+    state.results.some((r) => r.id === (savedId ?? ""));
   const text = (
     <div className="reading-text" style={textStyle}>
       {reading.paragraphs.map((p, i) => (
@@ -661,7 +660,7 @@ export default function Reader({
             <button
               className="icon-button"
               aria-label="Yeni oturumla baştan başlat"
-              onClick={restart}
+              onClick={requestRestart}
             >
               <RotateCcw size={16} />
             </button>
@@ -1349,6 +1348,30 @@ export default function Reader({
             <ArrowLeft size={16} /> Çalışma alanına dön
           </button>
         </div>
+      )}
+      {confirming === "exit" && (
+        <Confirm
+          title="Çalışmadan çıkılsın mı?"
+          body="Bu çalışma tamamlanmış sonuç sayılmayacak. Açılan metin görülmüş olarak kalacak."
+          confirmLabel="Çalışmadan çık"
+          onClose={() => {
+            setConfirming(null);
+            if (stage === "reading" || stage === "questions") timer.start();
+          }}
+          onConfirm={onExit}
+        />
+      )}
+      {confirming === "restart" && (
+        <Confirm
+          title="Baştan başlansın mı?"
+          body="Açık çalışma tamamlanmış sonuç sayılmadan yeni oturuma geçilecek. Metin görülmüş olarak kalacak."
+          confirmLabel="Baştan başlat"
+          onClose={() => {
+            setConfirming(null);
+            if (stage === "reading" || stage === "questions") timer.start();
+          }}
+          onConfirm={doRestart}
+        />
       )}
     </div>
   );
