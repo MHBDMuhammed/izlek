@@ -160,7 +160,7 @@ export default function App() {
             <button
               className="brand"
               onClick={() => go("home")}
-              aria-label="İzlek, başlangıç"
+              aria-label="İzlek başlangıç sayfası: izlek"
             >
               <Logo />
               <span>

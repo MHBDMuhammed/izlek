@@ -4,7 +4,7 @@
   --surface-alt: #f0f0e9;
   --sidebar: #fbfaf7;
   --text: #292e2b;
-  --muted: #777d74;
+  --muted: #565c55;
   --line: #e1e4da;
   --accent: #716095;
   --accent-dark: #5e4b82;
@@ -679,7 +679,7 @@ hr {
   font-size: 12px;
   line-height: 1.95;
   max-width: 355px;
-  color: #6b7763;
+  color: #4e5a47;
   margin-bottom: 21px;
 }
 .hero-copy > .button {
@@ -1069,7 +1069,7 @@ hr {
   height: 157px;
   transform: rotate(-9deg);
   width: 108px;
-  background: #71836a;
+  background: #55684d;
   box-shadow:
     4px 6px 0 #dfddd1,
     5px 7px 0 #c7c9b9,
@@ -1101,7 +1101,7 @@ hr {
   margin-top: 14px;
 }
 .little-book small {
-  color: #d8dec9;
+  color: #eef1df;
   font-size: 5px;
   letter-spacing: 1px;
   display: block;
