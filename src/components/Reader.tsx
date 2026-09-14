@@ -15,7 +15,6 @@ import {
 import {
   type Store,
   type Result,
-  record,
   useClock,
   comparable,
   expose,
@@ -73,7 +72,7 @@ export default function Reader({
   assessment,
   initialTempo = 180,
 }: Props) {
-  const { state, update } = store;
+  const { state, update, saveResult, retryPending } = store;
   const [mode, setMode] = useState<Mode>(assessment ? "natural" : initialMode);
   const [stage, setStage] = useState<
     "prepare" | "reading" | "questions" | "result"
@@ -320,7 +319,7 @@ export default function Reader({
     setResult(r);
     setStage("result");
     setSavedId(r.id);
-    setSaved(update((s) => record(s, r)));
+    setSaved(saveResult(r));
   }
   useEffect(() => {
     if (stage !== "questions") return;
@@ -1259,12 +1258,18 @@ export default function Reader({
             </p>
           )}
           {!persisted && (
-            <button
-              className="button primary"
-              onClick={() => setSaved(update((s) => record(s, result)))}
-            >
-              Sonucu yeniden kaydet
-            </button>
+            <div className="notice" role="status">
+              <p>
+                Sonuç bu ekranda duruyor; günlüğe yazılamadı (depolama dolu,
+                kapalı veya başka sekmede yeni kayıt var).
+              </p>
+              <button
+                className="button primary"
+                onClick={() => setSaved(retryPending())}
+              >
+                Sonucu yeniden kaydet
+              </button>
+            </div>
           )}
           {finishedText && mode === "scan" && reading.scan ? (
             <div className="feedback">

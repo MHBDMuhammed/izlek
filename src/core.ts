@@ -280,6 +280,7 @@ export function useStore() {
     window.addEventListener("storage", listener);
     return () => window.removeEventListener("storage", listener);
   }, []);
+  const pendingResult = useRef<{ result: Result; attempts: number } | null>(null);
   const update = useCallback((fn: (s: State) => State) => {
     if (conflictRef.current) {
       setError(
@@ -328,7 +329,60 @@ export function useStore() {
     setConflict(false);
     setError(next.warning);
   };
-  return { state, update, error, setError, conflict, sync };
+  const saveResult = (result: Result): boolean => {
+    const ok = update((s) => record(s, result));
+    if (!ok) {
+      pendingResult.current = { result, attempts: 0 };
+      try {
+        sessionStorage.setItem(
+          `${KEY}:pending`,
+          JSON.stringify({ result, attempts: 0 }),
+        );
+      } catch {
+        /* session backup is best-effort; the result stays on screen */
+      }
+    } else {
+      pendingResult.current = null;
+      try {
+        sessionStorage.removeItem(`${KEY}:pending`);
+      } catch {
+        /* ignore */
+      }
+    }
+    return ok;
+  };
+  const retryPending = (): boolean => {
+    let pending = pendingResult.current;
+    if (!pending) {
+      try {
+        const raw = sessionStorage.getItem(`${KEY}:pending`);
+        pending = raw ? (JSON.parse(raw) as typeof pending) : null;
+      } catch {
+        pending = null;
+      }
+    }
+    if (!pending) return true;
+    const ok = update((s) => record(s, pending.result));
+    if (ok) {
+      pendingResult.current = null;
+      try {
+        sessionStorage.removeItem(`${KEY}:pending`);
+      } catch {
+        /* ignore */
+      }
+    }
+    return ok;
+  };
+  return {
+    state,
+    update,
+    error,
+    setError,
+    conflict,
+    sync,
+    saveResult,
+    retryPending,
+  };
 }
 export type Store = ReturnType<typeof useStore>;
 export function expose(s: State, id: string): State {
