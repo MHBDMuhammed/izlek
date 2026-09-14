@@ -1,0 +1,16 @@
+name: İçerik önerisi
+description: Yeni okuma metni veya ders iyileştirmesi öner
+body:
+  - type: input
+    id: baslik
+    attributes:
+      label: Başlık ve tür
+    validations:
+      required: true
+  - type: textarea
+    id: metin
+    attributes:
+      label: Metin taslağı ve sorular
+      description: docs/icerik-rehberi.md kurallarına uyun; doğrulanmamış olgusal iddia eklemeyin.
+    validations:
+      required: true
