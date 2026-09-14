@@ -133,7 +133,7 @@ gevşetilmedi; `pnpm approve-builds` çıktısında bekleyen kurulum betiği yok
 
 ## Lisans
 
-- Uygulama kodu: [MIT](LICENSE) © 2026 İzlek contributors.
+- Uygulama kodu: [MIT](LICENSE) © 2026 Izlek contributors.
 - `src/content/` içindeki özgün Türkçe ders ve okuma metinleri: CC BY-SA 4.0
   (ayrıntı `LICENSE-CONTENT` dosyasındadır).
 - Yazıtipleri (OFL 1.1) ve ikonlar (ISC) için ayrıntı paketteki lisans
