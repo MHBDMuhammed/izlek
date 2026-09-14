@@ -290,7 +290,13 @@ export default function App() {
           <div className="storage-banner" role="alert">
             <p>{store.error}</p>
             {store.conflict && (
-              <button className="button small" onClick={store.sync}>
+              <button
+                className="button small"
+                onClick={() => {
+                  store.sync();
+                  store.retryPending();
+                }}
+              >
                 Yeni kaydı al
               </button>
             )}
