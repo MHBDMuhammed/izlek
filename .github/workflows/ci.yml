@@ -12,11 +12,11 @@ jobs:
   quality:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@de0de8e54994d954d65b8ea84d0f7b0d2a1619e4444
-      - uses: pnpm/action-setup@41ff0909d59d5785257ffbc851021972b0570f8c1fa
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v1
         with:
           version: 12.4.1
-      - uses: actions/setup-node@1a4442cacd436585af221b3dbfbfc9e799b8f32235
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: pnpm
