@@ -1,100 +1,915 @@
-import type {Lesson,Mode} from './types';
-export const chapters = ['I · Yönünü bul','II · Akışı kur','III · Anlamı derinleştir','IV · Kendi yolunu çiz'];
-export const lessons:Lesson[]=[];
-function lesson(n:number,title:string,subtitle:string,skill:string,sections:Lesson['sections'],example:Lesson['example'],decision:Lesson['decision'],reading:string,mode:Mode,practice:string,takeaway:string[],mistake:string,next:string){lessons.push({id:`l${n.toString().padStart(2,'0')}`,chapter:chapters[Math.floor((n-1)/4)],title,subtitle,skill,sections,example,decision,reading,mode,practice,takeaway,mistake,next,minutes:n>12?18: n>4?14:10});}
-lesson(1,'Önce bir neden','Daha hızlı başlamadan önce, ne için okuduğunu seç.','Amaç seçimi',[
-{title:'Bir metnin birden çok kapısı vardır',paragraphs:['Bir tren duyurusunu, bir sınav paragrafını ve sevdiğin bir öyküyü aynı biçimde okumazsın. Duyuruda kalkış saatini bulmak yeterli olabilir. Sınav paragrafında ise iki seçenek arasındaki küçük anlam farkı önemlidir. Öyküde bir cümlenin sesini duymak için yavaşlamak isteyebilirsin. Bu farklar iyi ve kötü okur ayrımı değildir; farklı amaçlara uygun davranışlardır.','Okumaya başlamadan önce şu cümleyi tamamla: “Bu metnin sonunda … yapabilmek istiyorum.” Bir bilgiyi bulmak, konuyu birine anlatmak, bir iddiayı değerlendirmek veya anlatıyı deneyimlemek farklı hedeflerdir. Hedefin açık olduğunda hangi ayrıntının üzerinde duracağını da daha kolay seçersin.']},
-{title:'Hız, tek başına bir sonuç değildir',paragraphs:['Kelime/dakika, belirli bir metnin sözcük sayısının aktif okuma süresine oranıdır. Ne kadar anladığını söylemez. Hız yükselirken önemli koşulları kaçırıyorsan, o amaç için daha iyi okumuş sayılmazsın. Buna karşılık yeni bir metinde ana düşünceyi daha doğru kuruyor, aynı tempoyu rahatça sürdürebiliyorsan anlamlı bir ilerleme vardır.','İzlek bu nedenle hızını, sorularını ve hatırlamanı ayrı gösterir. Bugün kendine sayısal bir hız hedefi koyman gerekmiyor. Önce doğal okuma biçiminde bir başlangıç gözlemi oluştur. Bu bir sıralama sınavı değildir; hangi pratiğin sana yarayacağını anlamak için başlangıç noktasıdır.']},
-{title:'İlk küçük uygulama',paragraphs:['Aşağıdaki notu bir bitkinin bakımını yapacak kişi gibi oku. Bitkinin adını tanımak yetmeyecek; ne yapmaman gerektiğini de fark etmen gerekecek. Bitirince metni kapat ve yönergeyi kendi cümlenle söyle. Bir sözcüğü hatırlamak ile yapılacak işi anlamak arasındaki farkı böyle görebilirsin.']}],
-{before:'“Not kısa; önemli sözcükleri görsem yeter.”',after:'“Fesleğene bugün su verecek miyim? Gerekçesi ne?”',explanation:'İkinci yaklaşım bir eylem ve bir gerekçe arar. Olumsuzluk eki kararın merkezine gelir.'},
-{prompt:'Bir etkinliğin nerede ve ne zaman yapılacağını öğrenmek istiyorsun. İlk okuma amacın hangisi?',options:['Her cümleyi ezberlemek','Belirli bilgiyi bulup çevresini doğrulamak','Metindeki bütün sözcükleri hızla bitirmek'],answer:1,why:'Yer ve zaman için hedefli tarama uygundur. Bulduğun bilginin hangi etkinliğe ait olduğunu çevresinden kontrol et.'},'r07','natural','Notu doğal biçimde oku. “Bugün ne yapacağım, neden?” sorusunu zihninde tut.',['Amacını bir cümleyle söyle.','Hız ve anlamayı birlikte, ayrı ölçüler olarak izle.'],'Her okumada tek bir hız hedeflemek, farklı görevleri aynı sayıya indirger.','Dikkatini hazırlayacağın küçük bir başlangıç düzeni kur.');
-lesson(2,'Dikkate bir yer aç','Kusursuz dikkat beklemek yerine, geri dönmeyi kolaylaştır.','Dikkat ve rahatlık',[
-{title:'Başlangıcı küçült',paragraphs:['“Uzun süre hiç dağılmadan okuyacağım” hedefi yerine, kısa ve açık bir iş seç. Bir paragrafın ne yaptığını anlamak, on dakika boyunca masada kalmaktan daha belirli bir hedeftir. Telefonu uzaklaştırmak dış bölünmeleri azaltır; fakat zihnindeki yapılacaklar listesi devam edebilir. Okumadan önce bekleyen işi bir kâğıda yazıp ne zaman döneceğini belirtmek, onu şimdilik bırakmanı kolaylaştırabilir.','Oturduğun yer, ışık ve yazı boyutu okumayı taşımalı. Satırı bulmak için çaba harcıyorsan puntayı ya da satır aralığını değiştir. Daha küçük yazı daha gelişmiş okurluk değildir. Ekrana daha çok kelime sığması da daha çok anlam kurduğunu göstermez.']},
-{title:'Dağılma anı bir işarettir',paragraphs:['Aynı cümleden birkaç kez geçtiğini ya da okurken başka bir konuşmayı düşündüğünü fark edebilirsin. Kendini azarlamak yerine son paragrafın işini söyle: bir örnek mi verdi, bir nedeni mi açıkladı? Söyleyemiyorsan anlamın koptuğu yere kısa bir dönüş yap. Bu, bütün bölümü baştan başlatmak zorunda olduğun anlamına gelmez.','Mola verirken çalışmayı duraklat. Ayağa kalkmak, uzağa bakmak ya da birkaç dakika sessiz kalmak sana uygunsa bunlardan birini seç. Mola bir ceza veya ödül değildir. Dönerken tek cümlelik bir işaretin olması yeniden başlamayı kolaylaştırır: “Yazar şu ana kadar iki farklı ihtiyacı karşılaştırdı.”']},
-{title:'Bugünün gerçek koşulu',paragraphs:['Rahat, kısa ve uzun çalışma seçenekleri aynı başarıyı vaat etmez. Yorgun bir günde kısa bir hatırlama, başka bir günün uzun okumasının yerini bütünüyle tutmaz; yine de kitaba yeniden bağlanmanı sağlayabilir. Düzeni sürdüren şey her gün aynı yük değil, anlamlı bir sonraki adımı seçmektir.']}],
-{before:'“On dakika geçti; demek ki on dakika okudum.”',after:'“Sekiz dakika çalıştım, iki dakika durakladım. Son paragrafın ana ilişkisini söyleyebiliyorum.”',explanation:'Süre, duraklama ve anlam kontrolü ayrı bilgilerdir. Masada olmak tek başına okuma değildir.'},
-{prompt:'Son iki paragrafta gözün ilerledi ama ne söylendiğini anlatamıyorsun. Ne yaparsın?',options:['Hedef süre dolana kadar hızlanırım','Son anladığım noktaya dönüp kısa bir anlam kontrolü yaparım','Oturumu başarılı tamamlandı diye kaydederim'],answer:1,why:'Amaçlı dönüş kopan bağlantıyı bulmaya yarar. Gerekirse duraklatıp dinlenebilirsin.'},'r20','natural','Rahat bir punto seç. Metnin sonunda dikkatini en çok neyin böldüğünü kısa not et.',['Rahatlık ayarları beceri eksikliği değildir.','Dikkate dönebildiğin bir başlangıç izi bırak.'],'Mola vermeyi başarısızlık saymak, anlam koptuğu hâlde ilerlemeyi ödüllendirir.','Bir sonraki derste metni okumadan önce yapısına bak.');
-lesson(3,'Metnin haritasını çıkar','Başlıkları cevap değil, soru üretmek için kullan.','Ön inceleme',[
-{title:'Harita okumak yolculuğun kendisi değildir',paragraphs:['Başlık, ara başlıklar, paragraf başlangıçları ve sonuç bölümü metnin yönünü gösterebilir. Bu kısa ön inceleme, ayrıntılı okumayı gereksiz kılmaz. “Yazar sanırım üç aşamalı bir süreç anlatacak” gibi geçici bir beklenti oluşturur. Okurken bu beklentiyi değiştirebilirsin. Başlığın çağrıştırdığı fikri metnin kesin savı sanmak, henüz okumadan sonuca karar vermektir.','Ön incelemede üç şey ara: konu ne, düzen nasıl kurulmuş, benim sorum nerede cevaplanabilir? Bir süreç yazısında sıralı adımlar; bir tartışmada sav, itiraz ve karşılık; bir anlatıda sahne geçişleri öne çıkabilir. Yapıyı fark etmek daha sonra ayrıntıların nereye bağlandığını anlamanı kolaylaştırır.']},
-{title:'Başlangıç cümlelerine nasıl bakılır?',paragraphs:['Bir paragrafın ilk cümlesi sık sık yön verir, ama her zaman ana düşünceyi taşımaz. Yazar önce örnek verip genellemeyi sonda kurabilir. Bu nedenle ilk cümleyi kesin cevap sayma. Paragrafın sonuna geldiğinde “Bu bölüm ilk cümleye ne ekledi?” diye sor. Örnek, karşı örnek veya koşul eklenmiş olabilir.','Kısa bir ön incelemeden sonra bir okuma sorusu yaz. “Bu yazı ne hakkında?” başlangıç için uygundur; “Önerinin hangi koşulda işe yaradığı söyleniyor?” daha yönlendiricidir. Soru çok darsa metindeki asıl düşünceyi kaçırabileceğini unutma. Yeni bir bilgi, sorunu genişletmeni gerektirebilir.']},
-{title:'Pratikte iki ayrı geçiş',paragraphs:['Göz gezdirme alanında önce yalnızca başlık ve paragraf girişleriyle genel bir fikir kur. Sonra bütün metni açıp ilk fikrinle karşılaştır. İlk geçişte bütün sözcükleri okumuş sayılmazsın. Buradaki başarı yüksek hız değil, metnin yönünü doğru tahmin edip gerektiğinde düzeltmektir.']}],
-{before:'Başlık: “Üç başlık, bir konu” → “Metnin bütün cevabını biliyorum.”',after:'“Başlıklar hangi ortak süreci kuruyor? İlk tahminim metnin sonunda değişecek mi?”',explanation:'Ön inceleme sınanabilir bir beklenti kurar; tam anlama iddiası üretmez.'},
-{prompt:'İlk paragrafta bir örnek var. Ana düşünceyi bulmak için ne yaparsın?',options:['Örneği hemen ana düşünce sayarım','Yalnızca başlığı tekrarlarım','Örneğin sonraki açıklamada neye bağlandığını izlerim'],answer:2,why:'Örnek daha geniş bir düşüncenin dayanağı olabilir. İşlevini devamındaki ilişki belirler.'},'r19','skim','Başlıklardan bir beklenti yaz; tam metni açtığında beklentini güncelle.',['Ön inceleme soru üretir.','İlk cümle her zaman ana düşünce değildir.'],'Başlıktan kesin sonuç çıkarmak, metindeki karşı görüşleri görünmez kılabilir.','Türkçe cümlelerin içindeki anlam gruplarına geç.');
-lesson(4,'Sözcüklerden anlam gruplarına','Bir cümleyi, birbirine ait parçalarıyla oku.','Anlam grupları',[
-{title:'Birlikte çalışan sözcükler',paragraphs:['“Pencerenin yanındaki küçük masada” ifadesindeki sözcükler birlikte bir yer kurar. Her birini ayrı bir görev gibi ele almak cümlenin akışını zorlaştırabilir. “Akşam eve döndüğünde” ise bir zaman çerçevesi sunar. Anlam grubu, sabit sayıda sözcükten oluşan kutu değildir; cümlede birlikte çalışan parçadır. İki kelimelik bir grup da olabilir, daha uzun bir grup da.','Cümleyi “Nerede?”, “Ne zaman?”, “Kim?”, “Ne yaptı?” sorularına göre anlamlı parçalara ayırmayı dene. Bu sorular her cümleye aynı biçimde uygulanmaz; yalnızca ilk gözlem için yardımcıdır. Özellikle tamlamaları ve fiille birlikte anlam kazanan ifadeleri gelişigüzel bölmemeye dikkat et.']},
-{title:'Akıcılık gözünü zorlamak değildir',paragraphs:['Bir anlam grubunu fark etmek, onu tek bir bakışta ve tek bir anda görmen gerektiği anlamına gelmez. Bu uygulama gözünün gerçek konumunu ölçmez. Amaç, sözcüklerin ilişkisini daha az kopararak izlemektir. Rahat olmadığında grubu tekrar okuyabilirsin. Anlamı kaybederek daha büyük gruplara geçmek bir üst düzey başarı sayılmaz.','Stüdyodaki erken örnekler editoryal olarak ayrılmıştır. Kendi metninde ise grup sınırlarını sen koyacaksın. Otomatik olarak her üç sözcüğü bir araya getiren seri gösterim başka bir sunum tercihidir; dilsel çözümleme değildir. Bu iki aracın amacı ve sonucu ayrı tutulur.']},
-{title:'Yardımdan doğal metne',paragraphs:['İşaretli cümleyi oku, sonra aynı cümleyi çizgiler olmadan söyle. Ardından yeni paragrafı normal görünümde oku. Yardımlı grupları rahat izlemek iyi bir pratik işaretidir; ancak asıl aktarım yeni, işaretsiz metinde anlam ilişkilerini koruyabildiğinde görülür.']}],
-{before:'“Pencerenin / yanındaki küçük / masada not / duruyordu.”',after:'“Pencerenin yanındaki küçük masada / bir not duruyordu.”',explanation:'İkinci ayrım yer bildiren tamlamayı korur. Grup sayısı değil, ilişkinin korunması önemlidir.'},
-{prompt:'“Akşam eve döndüğünde küçük bir not buldu.” için hangi ayrım daha anlamlı?',options:['Akşam eve / döndüğünde küçük / bir not buldu','Akşam eve döndüğünde / küçük bir not buldu','Akşam / eve döndüğünde küçük bir / not buldu'],answer:1,why:'Zaman çerçevesi ile temel eylem ayrı ve bütünlüklü kalıyor.'},'r07','groups','Editoryal grupları izle; ardından doğal görünümde notun yönergesini tekrar kur.',['Gruplar eşit kelime sayısı değildir.','Tamlamaları ve eylem ilişkilerini koru.'],'Grubu büyütmeyi her koşulda gelişim saymak anlamı ikinci plana iter.','Uzun Türkçe sözcüklerde anlamı değiştiren ekleri fark et.');
-lesson(5,'Türkçenin küçük dönemeçleri','Ekler, bağlaçlar ve gönderimler cümlenin yönünü değiştirir.','Türkçe anlam ilişkileri',[
-{title:'Uzun sözcüğün içindeki karar',paragraphs:['Türkçede tanıdık bir köke eklenen parçalar cümlenin sonucunu değiştirebilir. “Getirdik” ile “getiremedik” aynı olay değildir. Uzun bir sözcükte yalnızca tanıdık kökü seçersen, gerçekleşmeyen bir işi gerçekleşmiş gibi anlayabilirsin. Her eki ders kitabındaki adıyla çözümlemen gerekmez. Cümleyi gündelik bir soruyla sınamak yeterli olabilir: İş olmuş mu, olmamış mı; kim yapmış, kim etkilenmiş?','Yeni veya yoğun bir sözcük geldiğinde kısa süre yavaşla. Sözcüğü cümleden koparıp uzun uzun tekrar etmek yerine, taşıdığı ilişkiyi bul. Olumsuzluk, olasılık, zaman ve aitlik gibi ayrımlar özellikle yönergelerde, iş notlarında ve soru köklerinde sonucu belirler.']},
-{title:'Düşüncenin yön levhaları',paragraphs:['“Ama” bir sınırlama ya da karşıtlık açabilir. “Bu nedenle” bir sonucu, “oysa” beklenenle gerçekleşen arasındaki farkı gösterebilir. Bağlacı görmek tek başına yetmez; iki yanında neyin ilişkilendirildiğini söyle. “Yol kısa ama karanlık” cümlesinde kısalık silinmez; seçimin başka bir ölçütü ortaya çıkar.','“Bu”, “o”, “böyle” gibi sözcüklerde neye dönüldüğünü izle. Bazen önceki bir nesneye, bazen bütün bir düşünceye gönderim vardır. Birden çok olası karşılık varsa metin gerçekten belirsiz olabilir. Her belirsizliği kendi dikkat eksikliğin sayma; gerekirse yeniden okuyup iki olasılığı koru.']},
-{title:'Üç kısa kontrol',paragraphs:['Cümlenin sonucunu tersine çevirecek bir ek var mı? Bağlaç iki düşünceyi nasıl birleştiriyor? İşaret sözcüğü neye dönüyor? Bu üç soruyu sürekli her cümlede sorman gerekmiyor. Anlam zorlaştığında kullanacağın küçük bir onarım çantası gibi düşün. Zamanla sık ilişkileri daha rahat fark edebilirsin.']}],
-{before:'“Getiremediklerimizden biri masaydı.” → “Masa getirildi.”',after:'“Masa getirilemeyenler arasında; burada değil.”',explanation:'Kök tanındıktan sonra yapamama ve içinden seçme anlamı korunuyor.'},
-{prompt:'“Erken geldi, buna rağmen yer bulamadı.” cümlesi ne anlatır?',options:['Erken gelmenin beklenen sonucu gerçekleşmedi.','Erken geldiği için kesin yer buldu.','Geç gelmesi yer bulamamasına neden oldu.'],answer:0,why:'“Buna rağmen” erken geliş beklentisi ile yer bulamama arasındaki karşıtlığı kurar.'},'r12','natural','Uzun sözcükteki sonucu kendi cümlenle söyle. Ardından “Ama’dan sonrası” ve “Kaybolan o” metinleriyle devam edebilirsin.',['Kök kadar ekin etkisini de koru.','Bağlacın iki yanındaki ilişkiyi söyle.','Gönderimin karşılığını ara.'],'Bütün uzun sözcüklerde aynı hızda ısrar etmek belirleyici ayrıntıları kaybettirebilir.','Kontrollü tempoyu destek olarak dene, sonra yardımı kaldır.');
-lesson(6,'Ritmini bul, gerektiğinde değiştir','Tempo bir araçtır; seni yöneten hedef değildir.','Akıcılık ve aktarım',[
-{title:'Akıcı okumak neye benzer?',paragraphs:['Akıcılık, metnin akışını koparmadan anlam kurabilmektir. Her sözcük üzerinde aynı süreyi geçirmek gerekmez. Tanıdık bir örnekte hızlanabilir, yoğun bir koşulda yavaşlayabilirsin. İçinden ses duyman tek başına kötü okuma değildir. İç sesi bütünüyle yok etmeyi hedeflemek yerine, okuma amacına uygun anlamı takip edip edemediğine bak.','İsteğe bağlı bir rehber, satır veya cümle boyunca ritim duygusu sağlayabilir. Rehberi yetişilecek bir yarışçı gibi görme. Cümlenin anlamı geride kalıyorsa duraklat ya da tempoyu azalt. Geri dönmen gerektiğinde bunu yap. Yardım, doğru ilişkiyi fark etmeni engelliyorsa artık o anda yardım etmiyordur.']},
-{title:'Kontrollü küçük değişim',paragraphs:['Yeni ve benzer düzeyde birkaç doğal okumada anlaman tutarlıysa, bir sonraki pratikte daha akıcı bir ilerleme denemek isteyebilirsin. Bunun için birden büyük hız artışları gerekmez. Rehber temposunu küçük bir adımla değiştir, kısa bir metin oku ve sonra rehbersiz yeni bir metne geç. Değişimin anlamana ve rahatlığına ne yaptığını birlikte değerlendir.','Seri sunumda kelimeler aynı noktada sırayla belirir. Bu, ekran üzerindeki bir deneyimdir. Metnin yerleşimini, geri dönüşleri ve doğal göz hareketlerini değiştirir. Gösterim temposu, normal okuma hızın olarak kaydedilmez. Bu araçla iyi gitmen doğal metindeki gelişimi ayrıca gözlemleme ihtiyacını kaldırmaz.']},
-{title:'Yardımın çekildiği an',paragraphs:['Bir rehber çalışmasından sonraki en değerli adım doğal okumadır. Aynı metni hemen yeniden okumak tanıdıklık etkisi taşır. Bu nedenle yeni bir metinde, kendi hızınla ve yardımsız bir gözlem oluştur. Anlama soruları kadar rahatlık bildirimin de sonraki tempo önerisini etkiler; zorlandığını söylemek geri gitmek değildir.']}],
-{before:'“Rehber 300 kelime/dakikada bitti; doğal hızım 300.”',after:'“300 gösterim temposunu denedim. Doğal hızımı ayrı, yeni bir metinde ölçeceğim.”',explanation:'Sunum ayarı ile kullanıcının doğal okuma davranışı ayrı tutulur.'},
-{prompt:'Rehber ilerlerken cümlenin anlamını kaybettin. Ne yaparsın?',options:['Anlamadan takip etmeyi sürdürürüm','Duraklatır, gerekirse geri döner ve tempoyu azaltırım','Sonucu doğal hız rekoru diye kaydederim'],answer:1,why:'Amaç anlamı koruyan akıcılıktır. Rehberin temposu anlamdan önce gelmez.'},'r13','guide','Rahat bir rehber temposu seç. Sonuçtan sonra “İki durak arası”nı yardımsız oku.',['Rehber temposu ölçülmüş doğal hız değildir.','İç ses ve amaçlı geri dönüş yasak değildir.'],'Tek bir yardımlı başarıdan doğal okumaya ilişkin büyük sonuç çıkarmak doğru değildir.','Paragrafların taşıdığı ana düşünceyi ayır.');
-lesson(7,'Paragrafın yaptığı işi gör','Konu bir alanı, ana düşünce o alan hakkındaki görüşü söyler.','Ana düşünce',[
-{title:'“Ne hakkında?” ile “Ne söylüyor?”',paragraphs:['Bir metnin konusu “ortak alanlar” olabilir. Ana düşüncesi ise “Ortak alanlar farklı kullanım amaçları gözetilerek düzenlenmelidir” olabilir. Konu bir ad veya kısa ifade olabilir; ana düşünce genellikle tamamlanmış bir yargıdır. Sadece konuyu söylemek, yazarın ne savunduğunu henüz söylemek değildir.','Paragrafta ayrıntıları sayarken aralarındaki ortak işi bul. Fırın, ağaç ve merdiven farklı nesnelerdir; bir yazıda yön bulma işaretlerine örnek olabilirler. Ana düşünce bu örneklerin listesi değil, onların birlikte desteklediği ilişkidir. Yine de her ayrıntıyı önemsiz sayma. Bazıları savı sınırlar veya karşı örnek oluşturur.']},
-{title:'Bir cümlelik etiket',paragraphs:['Paragraf bittiğinde ona işlev etiketi ver: “sorunu tanımlıyor”, “bir neden gösteriyor”, “itiraza cevap veriyor” gibi. Bu etiket, paragrafın özetinden farklıdır; metindeki görevini söyler. Uzun okumada etiketler birbirine bağlanınca metnin örgüsü görünür olur. Her paragraf aynı ana düşünceyi tekrar etmek zorunda değildir.','Bir ana düşünce adayı seçtiğinde onu iki yönden sınayabilirsin. Çok dar mı: yalnızca tek örneği mi kapsıyor? Çok geniş mi: metnin söylemediği “herkes”, “daima”, “yalnızca” gibi kesinlikler mi ekliyor? İyi bir ifade, kapsamı aşmadan önemli parçaları bir arada tutar.']},
-{title:'Kendi cümleni kur',paragraphs:['Sorudaki seçeneklere bakmadan önce bir cümle yazmak, uzun veya etkileyici görünen seçeneğe kapılmayı azaltabilir. Cümlen yazarınkine birebir benzemek zorunda değil. Anlamın odağı, koşulları ve kapsamı korunmalı. Gerekirse metne dönüp savı taşıyan bölümden kanıt bul.']}],
-{before:'Konu: “Raf ve eşyalar.”',after:'Ana düşünce: “Düzen, her yeri doldurmaktan çok eşyayı amaca uygun yerleştirip bulabilmektir.”',explanation:'İkinci cümle nesneleri değil, onlar hakkında ileri sürülen düşünceyi söyler.'},
-{prompt:'Bir yazıda üç farklı dinlenme örneğiyle bankların işlevi anlatılıyor. En uygun ana düşünce nasıl seçilir?',options:['Yalnızca ilk örneği anlatan cümleyle','En uzun seçenekle','Örneklerin ortak işlevini, belirtilen sınırla birlikte söyleyen cümleyle'],answer:2,why:'Ana düşünce örnekleri kapsar; metnin koşul ve sınırlarını aşmaz.'},'r16','meaning','Önce konu ile ana düşünceyi ayrı yaz. Sonra metindeki örneğin hangi savı desteklediğini seç.',['Konu ile yargıyı ayır.','Örneğin ne işe yaradığını sor.','Kapsamı daraltma veya büyütme.'],'İlk cümleyi her zaman ana düşünce saymak örnekle başlayan metinlerde yanıltır.','Savın dayanağını ve çıkarımın sınırını incele.');
-lesson(8,'Kanıttan çıkarıma','Söylenmeyeni bulurken, söylenenin dışına taşma.','Çıkarım ve kanıt',[
-{title:'Çıkarım bir tahmin yarışması değildir',paragraphs:['Meral iki fincan çıkarıp birini geri koyuyorsa, sonra kapı çalınca ikinciyi yeniden alıyorsa birini beklediğini düşünebiliriz. Bu çıkarım metindeki davranışlara dayanır. Ama gelen kişinin kardeşi olduğunu söylemek için yeterli bilgi yoktur. İyi çıkarım mümkün olan her hikâyeyi değil, metnin en güçlü biçimde desteklediği bağlantıyı seçer.','Bir çıkarım yaparken “Bunu hangi ayrıntıya dayanarak söylüyorum?” diye sor. İki ayrı ipucunu birleştirmek gerekebilir. Soğuyan çay zaman geçtiğini, “Daha yeni oldu” sözü ise bu süreyi küçülterek sunmayı gösterir. Buradan mahcubiyeti azaltma niyeti düşünülebilir; yine de kişinin iç dünyasını kesin ölçmüş olmayız.']},
-{title:'Neden, sıra ve kanıt',paragraphs:['Bir olayın diğerinden sonra gelmesi, onun yüzünden olduğu anlamına gelmez. “Yeni afiş asıldı, ziyaretçi arttı” bilgisi bir ilişki gösterir, ama başka etkenler de bulunabilir. Metin nedeni açıkça kuruyorsa bunu aktar; yalnızca sıralıyorsa neden ekleme. “Bu nedenle” gibi bağlaçlar yazarın kurduğu ilişkiyi gösterir, ilişkinin dünyada kesin kanıtlandığını tek başına garanti etmez.','Sav bir iddiadır; kanıt veya gerekçe onu destekleyen bilgidir. Dört kişinin görüşü, o dört kişi hakkında dayanak verir. “Herkes böyle düşünüyor” sonucuna tek başına yetmez. İddianın kapsamı, dayanağının kapsamıyla uyumlu olmalıdır. Eleştirel okumada önce yazarın ne söylediğini doğru kur, sonra desteğin yeterliliğini değerlendir.']},
-{title:'Kanıt zinciri kur',paragraphs:['Pratikte önce bir ayrıntı seç, sonra hangi çıkarımı desteklediğini söyle. Araya “çünkü” koyarak bağlantıyı açıklaştır. Cümlenin ortasında metinde olmayan bir varsayım kullanıyorsan bunu fark et. Kanıt avı oyununda doğru paragrafı seçmen, sadece doğru seçeneği bulmaktan farklı bir beceri gösterecek.']}],
-{before:'“Çay soğuk; misafir kesin iki saat gecikti.”',after:'“Çay soğumuş; Meral bir süredir beklemiş olabilir.”',explanation:'Bekleme çıkarımı desteklenir; iki saat ayrıntısı metinde yoktur.'},
-{prompt:'Dört kişinin görüşünden bütün okul hakkında kesin sonuç çıkaran bir sav için ne dersin?',options:['Kapsamı kanıtından geniştir.','Dört kişi konuştuysa herkes aynıdır.','Hiçbir görüş değersiz sayılamaz; o yüzden sav kesindir.'],answer:0,why:'Dört görüş gerçektir, fakat temsil kapsamı gösterilmeden bütün okula genellenemez.'},'r18','meaning','Çıkarım cevabını seçmeden önce iki metin ayrıntısını zihninde birleştir.',['Çıkarımı bir dayanağa bağla.','Zaman sırasını otomatik neden sayma.','İddianın kapsamını koru.'],'Metnin boşluklarını kendi yaşam bilgisiyle doldurmak, mümkün olanı kanıtlanmış gibi gösterebilir.','Yeni bir ara değerlendirmeyle öğrendiklerini yardımsız okumada gözle.');
-lesson(9,'Bir metin, üç okuma yolu','Genel fikir, bilgi arama ve derin okuma arasında geçiş yap.','Strateji seçimi',[
-{title:'Göz gezdirme ile tarama aynı şey değildir',paragraphs:['Göz gezdirme genel yönü bulur: Metin hangi sorunu ele alıyor, nasıl düzenlenmiş, benim işime yarar mı? Tarama belirli hedefi arar: tarih, isim, sayı veya bir karar. Göz gezdirirken yapı öne çıkar; tararken hedefin biçimi ve yakınındaki bağlam. İkisi de metnin bütününü ayrıntılı anlama iddiası taşımaz.','Bir duyuruda “15 Mayıs”ı bulmak yeterli olmayabilir. Bu tarih ziyaret için mi, görevli kaydı için mi? Hedefi bulduktan sonra cümlesini ve gerektiğinde komşu cümleyi oku. Bilgi taramanın doğruluğu bu bağlam kontrolüne bağlıdır. İlk görülen sayıyı seçmek hızlı olabilir ama yanlış işi yaptırabilir.']},
-{title:'Strateji okumayı bitirmek zorunda değildir',paragraphs:['Bir yazıyı gözden geçirip ilgili olduğuna karar verebilir, sonra ayrıntılı okuyabilirsin. Derin okumada bir tarihe ihtiyaç duyup kısa süre taramaya geçebilirsin. Stratejiler ayrı odalar değil, amaç değişince kullanılan farklı hareketlerdir. Önemli olan geçişin farkında olmaktır.','Ders çalışırken başlıkları taramak, konuyu öğrenmenin yerine geçmez. İş notunda sorumlunu bulmak ise her cümleyi ezberlemeyi gerektirmez. Yaptığın işin ölçüsünü doğru adlandır. Stüdyo taramada doğru hedef bulmayı, göz gezdirmede genel düşünceyi izler; bütün sayfanın kelimelerini okumuşsun gibi hız üretmez.']},
-{title:'Görevi bir cümleye indir',paragraphs:['Metin açılmadan önce “Burada neyi arıyorum?” diye yaz. Bulduktan sonra “Bu bilgi benim sorumun cevabı mı?” sorusuyla kapat. Eğer hedefin değişirse yeni amacı belirt. Böylece kısa yoldan bilgi bulma ile anlamı aceleye getirmeyi birbirinden ayırabilirsin.']}],
-{before:'“Duyuruda bir tarih gördüm: 18 Mayıs. Demek ki görevli kaydı o gün.”',after:'“18 Mayıs etkinlik günü; görevli kaydı için 15 Mayıs sınırı var.”',explanation:'İki tarih iki ayrı eyleme bağlı. Bağlam doğrulanınca karışıklık çözülür.'},
-{prompt:'Bir makalenin senin soruna ilgili olup olmadığını anlamak için ilk adım?',options:['Bütün örnekleri ezberlemek','Yapısına ve genel savına göz gezdirmek','Rastgele bir sayı bulmak'],answer:1,why:'İlgi kararı için genel yön gerekir. İlgili bulursan ayrıntılı okumaya geçebilirsin.'},'r09','scan','Önce hedef soruyu oku. Bilgiyi bulunca ait olduğu koşulu da belirt.',['Göz gezdirme genel yön içindir.','Tarama hedef bilgi içindir.','Hedef bulunduğunda bağlamı doğrula.'],'Taranan bütün kelimeleri derin okuma hızına katmak yapılan işi yanlış adlandırır.','Anlamın koptuğu yeri nasıl onaracağını öğren.');
-lesson(10,'Anlam koptuğunda','Yavaşlamak ve yeniden okumak için bir karar yöntemi.','Anlama takibi',[
-{title:'Kopuşu fark etmek',paragraphs:['Bazen bütün sözcükler tanıdıktır ama paragrafın ne dediğini söyleyemezsin. Bunun nedeni yoğun bir ilişki, belirsiz bir gönderim veya dikkatinin dağılması olabilir. Tek çözüm her şeyi baştan okumak değildir. Önce güçlüğü adlandırmayı dene: Sözcük mü yabancı, kimin ne yaptığı mı belirsiz, iki düşüncenin bağlantısı mı kayıp?','Kısa bir durakta paragrafın işini kendi sözlerinle söyle. “Bir seçenek önerdi, sonra bakım koşulunu ekledi” gibi bir cümle, anlamın ana çizgisini gösterir. Bunu yapamadığında son açık noktayı bul ve oradan ilerle. Her paragrafı ezberlemek değil, bağlantıları korumak istiyoruz.']},
-{title:'Onarımın büyüklüğünü seç',paragraphs:['Bir sözcük sorun yaratıyorsa cümleyi yeniden oku; bağlamdaki karşılığını dene. İki paragraf kopuk görünüyorsa önce bağlaca ve gönderime bak. Metnin bütün amacı kaybolduysa başlıklara veya başlangıç soruna dön. Sorunun büyüklüğüne uygun bir dönüş, bütün bölümü otomatik tekrar etmekten daha amaçlıdır.','Yeniden okuma bazen gerçekten gerekli değildir. Aynı cümleye sırf emin olma isteğiyle dönüyor, her dönüşte aynı anlamı buluyorsan küçük bir bölüm daha ilerleyip anlamı orada kontrol etmeyi deneyebilirsin. Ancak bu, bütün geri dönüşleri engelleyen bir kural değildir. Geri dönüşün işe yarayıp yaramadığını anlamak için neyi onardığını söyle.']},
-{title:'Tempo kararını sonuçla bağla',paragraphs:['Hız yükselip anlama birkaç farklı metinde düşüyorsa tempo baskısını azalt. Sadece çıkarım sorularında güçlük varsa aynı metni daha yavaş döndürmek yerine çıkarım öğretimine dön. Bir kötü oturum ise tek başına kalıcı seviye değişimi için yeterli değildir. Zorlanmanın günü, metni ve koşulu vardır.']}],
-{before:'“Anlamadım, ilk sayfaya dönmeliyim.”',after:'“Koşul ile sonuç arasındaki bağ koptu; bu iki cümleyi birlikte okuyacağım.”',explanation:'Dönüşün hedefi ve sınırı belli. Çözülen ilişki sonrasında kendi cümlenle kontrol edilir.'},
-{prompt:'Bir cümlede “bu”nun neye döndüğü belirsiz. İlk onarım adımı?',options:['Bütün kitabı başlatmak','Önceki cümledeki olası karşılıkları kontrol etmek','Hız sayısını yükseltmek'],answer:1,why:'Gönderim sorunu için en yakın bağlam uygun başlangıçtır. Yetmezse daha geniş bölüme dönersin.'},'r14','natural','Belirsiz gönderimi fark et. Hangi noktada yeniden okumaya ihtiyaç duyduğunu sonuç notuna yaz.',['Güçlüğü adlandır.','Sorunun büyüklüğüne uygun dön.','Tek kötü oturumla kendini etiketleme.'],'Amaçsız tekrar tanıdıklığı artırabilir; hangi bağın onarıldığı belirsiz kalır.','Metin kapandıktan sonra anlamı yeniden kurmayı dene.');
-lesson(11,'Kitabı kapat, fikri açık tut','Özet ve aktif hatırlama, okumanın ikinci yarısıdır.','Hatırlama',[
-{title:'Tanıdık gelmek ile anlatabilmek',paragraphs:['Altı çizili bir sayfaya bakınca bilgi kolayca tanıdık gelir. Sayfa kapanınca onu kendi cümlelerinle kurmak başka bir iştir. Bu farkı görmek için okumadan sonra önce metni kapat. Ana düşünceyi, iki önemli bağlantıyı ve gerekiyorsa bir sınırı yaz. Güzel cümle kurmaya çalışmaktan önce neyi hatırladığını görünür yap.','Hatırlayamadığın yer başarısızlığın damgası değildir; tekrarın adresidir. Metni açınca ilk yazdığını silmek yerine eklediğin bilgiyi ayrı belirt. Böylece yardımsız hatırlama ile kaynağa bakarak tamamlama birbirine karışmaz. Bu ayrım bir sonraki çalışmayı daha doğru seçmeni sağlar.']},
-{title:'Özet, küçültülmüş kopya değildir',paragraphs:['İyi bir özet, önemli düşünceleri ve aralarındaki ilişkiyi korur. Bütün örnekleri sıralamak yerine ortak işlevlerini söyleyebilirsin. Ancak yazarın koşulunu silersen daha kısa ama yanlış bir özet oluşabilir. “Bakım paylaşılırsa maliyet azalabilir” düşüncesini “Paylaşım maliyeti azaltır” diye yazmak hem koşulu hem olasılığı kaybettirir.','İzlek serbest özetini anahtar sözcük sayısıyla güvenilir bir anlama puanına çevirmiyor. Önce kendi metnini yazarsın, sonra örnek özet ve temel fikir listesiyle karşılaştırırsın. İşaretlediklerin öz değerlendirmedir. Örnekteki sözcükleri aynen kullanman gerekmez; ilişkilerin senin anlatında bulunmasına bak.']},
-{title:'Biraz zaman geçsin',paragraphs:['Ertesi gün metni açmadan aynı ana soruya tekrar cevap ver. Hemen hatırlama ile gecikmeli hatırlama farklı gözlemlerdir. Uygulama aradan en az bir gün geçtiğinde bu dönüşü önerir. Süre uzadıysa ceza yok; neyin kaldığını gör, eksik bağı kontrol et ve yeni bir örnekte kullan. Hatırlama yalnızca tekrar söylemekten çok, bilgiyi yeniden kurma işidir.']}],
-{before:'“Fırın, ağaç, merdiven.”',after:'“Kentte yön bulurken ayırt edici çevre öğeleri kullanılır; köşedeki fırın buna örnektir.”',explanation:'Liste yerine ortak düşünce ve temsil eden örnek var.'},
-{prompt:'Özetini değerlendirmek için en uygun ölçüt hangisi?',options:['Örnekteki aynı sözcük sayısı','Ana düşünce, önemli ilişkiler ve koşulların korunması','Yazının olabildiğince uzun olması'],answer:1,why:'Özetin değeri aynı kelimelerden değil, doğru anlam örgüsünden gelir.'},'r27','recall','Metin kapanınca üç cümle yaz. Sonra listeyle karşılaştır ve eksik ilişkiyi işaretle.',['Önce kapalı metinle dene.','Koşulları özetten çıkarma.','Gecikmeli hatırlamayı ayrıca gözle.'],'Kendi yazını anahtar sözcük eşleşmesine göre kesin anlama puanı sayma.','Farklı metin türlerinde aynı becerileri uyarlamaya geç.');
-lesson(12,'Tür değişince bakışın değişsin','Anlatı, açıklama, sav ve yönerge farklı ilişkiler ister.','Türler arasında aktarım',[
-{title:'Tür bir başlangıç ipucudur',paragraphs:['Bilgilendirici bir yazıda kavramların tanımını ve örneklerin neyi gösterdiğini izle. Anlatıda olay sırasının yanında karakterlerin beklentileri, söylemedikleri ve değişen bakışları önemlidir. Tartışmada sav, gerekçe, karşı görüş ve sınırları ayır. Öğretici bir süreçte adım sırası ile koşullu adımların farkına bak. Bunlar katı kutular değildir; aynı metin birkaç işi birlikte yapabilir.','Tür, okuma amacının yerine geçmez. Bir öyküyü derinlemesine okuyabilir, aynı öyküde bir karakterin adını bulmak için tarama yapabilirsin. Yine de türü fark etmek nerede daha dikkatli olacağını tahmin etmeye yardım eder. Yönergede atlanan “yalnızca” sözcüğü uygulamayı değiştirirken, anlatıda küçük bir nesne karakterin duygusunu sezdirir.']},
-{title:'Anlatıda boşluklarla çalış',paragraphs:['Karakterin her duygusu adıyla yazılmaz. Davranış, nesne ve konuşma arasında bağ kurarsın. “Çay daha yeni oldu” cümlesi soğumuş bir fincanın yanında başka anlam taşır. Bu çıkarımı bir olasılık olarak koru; metnin vermediği kimlik, süre veya niyeti kesinleştirme.','Tartışmacı metinde ise yazarı anlamakla ona katılmayı ayır. Önce savını adil biçimde bir cümleye indir. Sonra hangi örneğin ne kadar destek sağladığını sor. Katılmadığın bir savı doğru aktarmak iyi okumanın parçasıdır. Kendi itirazını yazarın görüşüymüş gibi not etme.']},
-{title:'İki yeni metin arasında köprü',paragraphs:['Bugünkü bağımsız uygulamada kısa bir anlatı oku. Sonra kütüphaneden tartışma türünde yeni bir metin seç. İkisinde de “Hangi bilgi açık, hangisi benim çıkarımım?” sorusunu kullan. Aynı sorunun farklı türlerde nasıl çalıştığını görmek, tek egzersizin dışına çıkmanı sağlar.']}],
-{before:'Anlatı: “Meral bekledi.” Tartışma: “Herkes böyle düşünüyor.”',after:'Anlatıda beklemeyi davranışla destekle; tartışmada “herkes” iddiasının dayanağını sorgula.',explanation:'İkisinde de kanıt aranır, fakat kanıtın yaptığı iş ve kapsamı farklıdır.'},
-{prompt:'Bir tarifte “Ağır yük için tabanı destekle” deniyor. Bu adımın kapsamı nedir?',options:['Bütün kutular için zorunlu','Yalnızca ağır yük koşulunda gerekli','Süsleme bittiyse gereksiz'],answer:1,why:'Koşullu adımı genel zorunluluğa çevirmek yönergenin anlamını değiştirir.'},'r23','natural','Anlatıda açık olayları ve desteklenen duygusal çıkarımı ayır. Ardından “Bir iddianın ayakları”na geç.',['Tür başlangıç ipucudur, amaç yerine geçmez.','Açık bilgi ile yorumu ayır.'],'Her metne aynı ayrıntı listesiyle yaklaşmak türün önemli ilişkilerini kaçırabilir.','Bu becerileri sınav ve iş metinlerine taşı.');
-lesson(13,'Gerçek işin metinleri','Soru kökü, yönerge ve toplantı notunda belirleyici ayrıntıyı koru.','Ders, sınav ve iş',[
-{title:'Okumanın sonunda bir eylem var',paragraphs:['Gündelik ve mesleki okumada sonuç çoğu zaman bir karar veya eylemdir. Bir toplantı notunda konuşulan her şey yapılacak iş değildir. Öneri, kesin karar ve deneme farklı statüler taşır. “İpek cuma gününe kadar listeyi hazırlayacak” cümlesinde sorumlu, iş ve zaman birlikte korunmalıdır. Sadece İpek adını bulmak yeterli değildir.','Ders çalışırken kavramın tanımını okuyup geçmek yerine bir örneğe uygulayabilir misin diye dene. Tanım ile örneğin bağlantısını kuramıyorsan daha çok sayfa bitirmek boşluğu kendiliğinden kapatmaz. Bir kavramı kendi örneğinle açıklamak, metinden uzaklaştığında da kullanabildiğini gösteren yararlı bir denemedir.']},
-{title:'Soru kökünü kendi sözünle söyle',paragraphs:['“Değildir”, “çıkarılamaz”, “yalnızca”, “öncelikle” gibi ifadeler görevi değiştirir. Bunlara körlemesine işaret koymak yerine sorunun ne istediğini bir cümleyle söyle: “Desteklenmeyen seçeneği arıyorum.” Sonra seçeneklere geç. Tanıdık içerik doğru cevap olmak zorunda değildir; görevle ilişkisi belirleyicidir.','Sınavda zaman yönetimi önemlidir, fakat aceleyle bütün soruları aynı hızda geçmek yerine güçlüğü tanı. Bir soruda gereğinden fazla takıldığını fark ettiğinde mevcut sınav kuralları içinde daha sonra dönmeyi seçebilirsin. Burada herhangi bir sınav için özel süre garantisi veya puan artışı vaadi yok; çalışılan beceri metnin istediği işi doğru belirlemektir.']},
-{title:'Notu kullanılır bilgiye dönüştür',paragraphs:['İş metninde sorumlu, eylem, tarih ve açık kalan konu için kısa alanlar aç. Bu, her metin için büyük bir şablon kurmak demek değildir. Karar vermek için gereken ayrımları görünür kılmaktır. Kendi metin aracına bir toplantı notu yapıştırıp bu dört soruya cevap verebilirsin; hazır sorular olmadığında uygulama otomatik anlama puanı üretmeyecektir.']}],
-{before:'“Dosya adlarında tarih kullanılması önerildi.” → Yapılacak kesin iş.',after:'Öneri var; karar sonraki toplantıya bırakılmış. Henüz kesin görev değil.',explanation:'Konuşulmuş olması karar verilmiş olmasıyla aynı değildir.'},
-{prompt:'“Metinden çıkarılamaz” sorusunda ilk tanıdık öneriyi gördün. Ne yapmalısın?',options:['Hemen seçmek','Görevin desteklenmeyeni aradığını koruyup bütün seçenekleri değerlendirmek','Yalnızca en kısa seçeneği almak'],answer:1,why:'Tanıdıklık ile sorunun istediği ilişki farklıdır.'},'r26','scan','Görev, sorumlu ve zaman bilgilerini bağlamlarıyla bul. Sonuçta öneri ile kesin kararı ayır.',['Görev sözcüğünü kaçırma.','Sorumlu, iş ve zamanı birlikte koru.'],'Notta geçen her başlığı tamamlanmış karar gibi aktarmak eylem hatası yaratır.','Kısa metinden uzun okumaya geç.');
-lesson(14,'Uzun metinde yönünü koru','Dayanıklılık, yalnızca daha uzun oturmak değildir.','Uzun okuma',[
-{title:'Bütünü taşımak',paragraphs:['Uzun metinler daha fazla sözcükten ibaret değildir. İlk bölümde kurulan bir fikir ileride sınırlanabilir; bir örnek başka bir örnekle karşılaştırılabilir. Son paragrafı anlamak için birkaç bölümün ilişkisini zihninde tutman gerekir. Bu nedenle uzun okumayı kısa metinleri arka arkaya açmaya indirgemiyoruz. Aynı bütünün içinde yönünü korumayı çalışıyoruz.','Başlamadan önce amacını ve metnin genel yapısını belirle. Her paragrafı notla bölme. Anlamlı bölüm geçişlerinde bir cümlelik zihinsel özet yeterli olabilir: “İlk varsayım değişti, şimdi yeni düzen deneniyor.” Bu iz, ayrıntıları tekrar taramadan ana akışa dönmeni sağlar.']},
-{title:'Mola bütünlüğü bozmak zorunda değildir',paragraphs:['Gerektiğinde duraklat ve son anladığın ilişkinin kısa notunu bırak. Mola sonrası doğrudan rastgele satırdan başlamak yerine bu notu oku. Metin uzun diye bütün oturumu tek parça geçirmek zorunda değilsin. Duraklamalar kayıtta görünür; kesintili okuma ile kesintisiz değerlendirme aynı koşul sayılmaz.','Rahatsızlık veya yorgunluk varsa çalışmayı bitirmeden bırakabilirsin. Yarım metnin bütün kelimelerini hız hesabına katmıyoruz. Son okuduğun paragrafı seçerek yaklaşık bir pratik kaydı tutabilirsin; bu kendi beyanına dayanan kısmi çalışma olur. Yeni bir değerlendirmede aynı metin artık görülmüş sayılır.']},
-{title:'Sonunda parçaları birleştir',paragraphs:['Bitirince sadece son paragrafı hatırlamakla yetinme. Başlangıçtaki sorunun nasıl değiştiğini, iki önemli dönüm noktasını ve varılan sonucu anlat. Uzun metin soruları farklı bölümleri ilişkilendirmeni isteyecek. Hızın kısa metinlere göre düşerse bunu otomatik gerileme sayma; metin yükü ve koşulları farklıdır. Aynı düzeyde yeni uzun metinlerden birkaç gözlem daha anlamlıdır.']}],
-{before:'“Sonuna ulaştım, her bölümünü anlamış olmalıyım.”',after:'“Başlangıç varsayımını, değişimin nedenini ve sonuç ölçütünü birbirine bağlayabiliyorum.”',explanation:'Bütünlük, kaydırma konumundan değil kurduğun ilişkilerden anlaşılır.'},
-{prompt:'Uzun okumada mola vermeden önce hangi not en yararlı?',options:['Sayfa çok uzundu.','Burada kaldım.','Ekip eşya yerine kullanım amacına bakmaya başladı; sırada deneme var.'],answer:2,why:'Anlam ilişkisini taşıyan iz, dönüşte yön bulmayı kolaylaştırır.'},'r35','long','Uzun metni kendi ritminde oku. Gerekirse duraklatıp bir dönüş notu bırak; sonunda başlangıç ile sonuç arasındaki değişimi anlat.',['Bölüm ilişkilerini taşı.','Mola için anlam izi bırak.','Kısa ve uzun okumayı aynı koşul sayma.'],'Süreyi uzatmayı tek başına öğrenme saymak anlama takibini dışarıda bırakır.','Sonuçlarını dikkatli karşılaştırmayı öğren.');
-lesson(15,'Gelişimini doğru oku','Bir sayıdan hikâye çıkarmadan önce koşullarına bak.','Ölçüm okuryazarlığı',[
-{title:'Bir sonucun yanında ne olmalı?',paragraphs:['Doğal okuma hızının yanında metnin kelime sayısı, aktif süre, düzey, amaç ve daha önce görülüp görülmediği bulunmalı. Soruları cevaplarken geçen süre okumaya eklenmez. Rehber veya seri sunum temposu doğal hız değildir. Tarama, metnin tamamını okuma sayılmaz. Bu ayrımlar bazen grafiği sadeleştirmez; ama yorumunu dürüst kılar.','İzlek sözcükleri Unicode harf ve sayılardan oluşan birimler olarak sayar; sözcük içindeki kesme işareti ve tire birimi birleştirir. Örneğin “Ankara’da” ve “e-posta” birer birimdir. Fazla boşluk yeni sözcük yaratmaz. Kural her metinde aynıdır; bu sayı okuma davranışının eksiksiz bir resmi değildir, süre hesabının tutarlı temelidir.']},
-{title:'Karşılaştırmayı eşleştir',paragraphs:['Aynı metni tekrar okuyunca tanıdıklık hızını artırabilir. Bunu yeni metindeki gelişimle birleştirme. Benzer düzey, aynı amaç ve doğal görünümdeki yeni okumaları karşılaştır. Sekme değişimi, duraklama veya yardım varsa koşul farklılaşır. Uygulama kaydı atmaz, fakat karşılaştırılabilir değerlendirmeye katmaz.','Bir tek oturumda düşüş gördüğünde “geriledim” sonucuna atlama. Birkaç farklı metindeki anlama dağılımına bak. Ana düşüncede iyi, çıkarımda zorlanıyor olabilirsin; tek toplam bu farkı gizler. Az gözlemde sistem kesin seviye vermez. Bu temkin, gelişimin olmadığı değil henüz yeterince gözlenmediği anlamına gelir.']},
-{title:'Sonucu bir karara çevir',paragraphs:['Hız ve anlama birlikte düştüyse önce çalışma koşullarını düşün. Hız yükselirken anlama düşüyorsa baskıyı azalt ve zayıf soru türüne dön. Birkaç yeni metinde anlama tutarlıysa biraz daha yoğun metin seç. Hatırlama öz değerlendirmesinde ilişki eksikse ertesi gün geri çağırma ekle. Sonucun değeri seni sıralamasından çok, sonraki adımı değiştirmesindedir.']}],
-{before:'“Aynı metinde 100 kelime/dakika hızlandım; genel becerim kesin yükseldi.”',after:'“Tekrar metinde hızlandım. Yeni, benzer düzeydeki metinlerde anlama ve hızımı ayrıca gözlemleyeceğim.”',explanation:'Maruziyetin etkisi yeni içerikte gösterilen beceriden ayrılır.'},
-{prompt:'Hangi iki sonuç karşılaştırmaya daha uygundur?',options:['Seri sunum ile doğal okuma','Aynı amaçta, benzer düzeyde, yeni ve kesintisiz iki doğal değerlendirme','Tarama ile uzun öykü okuma'],answer:1,why:'Mod, amaç, güçlük ve kesinti koşulları benzer olmalıdır. Yine de metinler bilimsel olarak eşdeğer testler değildir.'},'r22','meaning','İddianın kapsamını kanıtıyla karşılaştır. Ardından gelişim alanındaki kendi kayıtlarının koşullarına bak.',['Hızı anlamadan ayırma, tek sayıya da sıkıştırma.','Yeni ve tekrar metinleri ayır.','Az veride kesin eğilim söyleme.'],'Hız ile anlama yüzdesini çarpıp bilimsel bir gerçek hız üretmek bu ölçümleri aşan bir iddia olur.','Bütün becerileri yeni bir metinde bir araya getir.');
-lesson(16,'Artık kendi izini sür','Kursun sonunda başka bir metne kendi kararlarınla başla.','Bağımsız okuma',[
-{title:'Araçsız kalan beceri',paragraphs:['Bir kursun sonunda her aracı kullanmayı öğrenmiş olmak yararlıdır; fakat asıl soru uygulama kapalıyken ne yapabildiğindir. Tanımadığın bir metni açıp amacını seçebiliyor, yapısına bakabiliyor, gerektiğinde yavaşlayıp ilişkiyi onarabiliyor musun? Bitirdiğinde ana düşünceyi ve sınırını kendi sözlerinle söyleyebiliyor musun? Bağımsız okuma bu küçük kararların bir araya gelmesidir.','Bitirme çalışmasında yeni bir metni doğal görünümde okuyacaksın. Bu sonuç kursun başındaki gözlemle benzer koşullarda yan yana gösterilecek. Metinler farklı olduğu için tek farkı kesin eğitim etkisi diye yorumlamayacağız. Yine de hızın, soru türlerin ve çalışma koşulların hangi yönde değiştiğine dair kişisel bir gözlem elde edeceksin.']},
-{title:'Kendine taşınabilir bir düzen kur',paragraphs:['Haftana üç tür temas yerleştir: yeni bir metinde amaçlı okuma, ertesi gün kısa geri çağırma ve keyif ya da gerçek iş için serbest okuma. Gün sayısı ve süre yaşamına uysun. Her gün aynı yük zorunlu değildir. Bir hafta ara verdiğinde eski en yüksek temponla başlamak yerine kısa doğal okuma ile yeniden gözlem yap.','Kütüphanenin yanında kendi ders, iş veya kişisel metinlerini kullanabilirsin. Hazır sorusu olmayan yazılarda anlama otomatik ölçülmez. Kendine bir ana soru belirle, metni kapatıp yanıtla, sonra kaynakla karşılaştır. Eksik ilişkiyi not et. Bu çalışma bir puan tablosu üretmese de anlamlı bir öğrenme davranışıdır.']},
-{title:'Neyi sürdürmeli?',paragraphs:['Bir tekniği sadece kursta yer aldığı için sürdürme. Rehber sana yardımcı oluyorsa kısa süre kullanıp doğal okumaya dön; yararı yoksa bırak. Oyunları ara pratik olarak seç, puanlarını genel okuma yeteneği sayma. Zaman zaman yeni bir metinde yardımsız gözlem oluştur. Başarı ölçütünü koru: Amacına uygun hızda, anlamı izleyerek, gerektiğinde yol değiştirerek okuyabilmek.','Kursun sonu tekrar zorunluluğu değildir. Gelişim sayfasında hangi becerinin daha fazla gözlem istediğini görebilirsin. İyi gidenleri koruyup yalnızca ihtiyaç duyduğun bölüme dön. Kitap bir kez tüketilip kapatılacak görev listesinden çok, karar verirken yeniden açabileceğin bir başvuru alanıdır.']}],
-{before:'“Kurs bitti; artık bütün metinleri daha hızlı okumalıyım.”',after:'“Her metinde amacımı seçeceğim; hızımı ve stratejimi anlamı koruyarak değiştireceğim.”',explanation:'Aktarım, tek bir hızın her yere uygulanması değil, koşula uygun karar verebilmektir.'},
-{prompt:'Bir ay ara verdikten sonra en uygun başlangıç hangisi?',options:['Eski en yüksek tempoyu zorunlu tutmak','Kaçan bütün günleri telafi etmek','Kısa bir yeni doğal okumayla güncel durumunu görmek'],answer:2,why:'Geri dönüş borç ödeme değildir. Güncel koşulunu görmek için küçük, yeni bir gözlem yeterli başlangıçtır.'},'r40','long','Bütünleştirici uzun okumayı bitir. Ardından yeni bitirme değerlendirmesini ve ertesi gün hatırlama dönüşünü tamamla.',['Yeni metne kendi amacınla başla.','Düzeni yaşamına göre sürdür.','Gerekli tekniği seç, gerekmeyeni bırak.'],'Bir bitirme sonucundan ömür boyu sabit beceri veya sınırsız hız garantisi çıkarma.','Kişisel planın: yeni okuma, bir gün sonra hatırlama ve haftalık uzun metin.');
+import type { Lesson, Mode } from "./types";
+export const chapters = [
+  "I · Yönünü bul",
+  "II · Akışı kur",
+  "III · Anlamı derinleştir",
+  "IV · Kendi yolunu çiz",
+];
+export const lessons: Lesson[] = [];
+function lesson(
+  n: number,
+  title: string,
+  subtitle: string,
+  skill: string,
+  sections: Lesson["sections"],
+  example: Lesson["example"],
+  decision: Lesson["decision"],
+  reading: string,
+  mode: Mode,
+  practice: string,
+  takeaway: string[],
+  mistake: string,
+  next: string,
+) {
+  lessons.push({
+    id: `l${n.toString().padStart(2, "0")}`,
+    chapter: chapters[Math.floor((n - 1) / 4)] ?? chapters[0] ?? "",
+    title,
+    subtitle,
+    skill,
+    sections,
+    example,
+    decision,
+    reading,
+    mode,
+    practice,
+    takeaway,
+    mistake,
+    next,
+    minutes: n > 12 ? 18 : n > 4 ? 14 : 10,
+  });
+}
+lesson(
+  1,
+  "Önce bir neden",
+  "Daha hızlı başlamadan önce, ne için okuduğunu seç.",
+  "Amaç seçimi",
+  [
+    {
+      title: "Bir metnin birden çok kapısı vardır",
+      paragraphs: [
+        "Bir tren duyurusunu, bir sınav paragrafını ve sevdiğin bir öyküyü aynı biçimde okumazsın. Duyuruda kalkış saatini bulmak yeterli olabilir. Sınav paragrafında ise iki seçenek arasındaki küçük anlam farkı önemlidir. Öyküde bir cümlenin sesini duymak için yavaşlamak isteyebilirsin. Bu farklar iyi ve kötü okur ayrımı değildir; farklı amaçlara uygun davranışlardır.",
+        "Okumaya başlamadan önce şu cümleyi tamamla: “Bu metnin sonunda … yapabilmek istiyorum.” Bir bilgiyi bulmak, konuyu birine anlatmak, bir iddiayı değerlendirmek veya anlatıyı deneyimlemek farklı hedeflerdir. Hedefin açık olduğunda hangi ayrıntının üzerinde duracağını da daha kolay seçersin.",
+      ],
+    },
+    {
+      title: "Hız, tek başına bir sonuç değildir",
+      paragraphs: [
+        "Kelime/dakika, belirli bir metnin sözcük sayısının aktif okuma süresine oranıdır. Ne kadar anladığını söylemez. Hız yükselirken önemli koşulları kaçırıyorsan, o amaç için daha iyi okumuş sayılmazsın. Buna karşılık yeni bir metinde ana düşünceyi daha doğru kuruyor, aynı tempoyu rahatça sürdürebiliyorsan anlamlı bir ilerleme vardır.",
+        "İzlek bu nedenle hızını, sorularını ve hatırlamanı ayrı gösterir. Bugün kendine sayısal bir hız hedefi koyman gerekmiyor. Önce doğal okuma biçiminde bir başlangıç gözlemi oluştur. Bu bir sıralama sınavı değildir; hangi pratiğin sana yarayacağını anlamak için başlangıç noktasıdır.",
+      ],
+    },
+    {
+      title: "İlk küçük uygulama",
+      paragraphs: [
+        "Aşağıdaki notu bir bitkinin bakımını yapacak kişi gibi oku. Bitkinin adını tanımak yetmeyecek; ne yapmaman gerektiğini de fark etmen gerekecek. Bitirince metni kapat ve yönergeyi kendi cümlenle söyle. Bir sözcüğü hatırlamak ile yapılacak işi anlamak arasındaki farkı böyle görebilirsin.",
+      ],
+    },
+  ],
+  {
+    before: "“Not kısa; önemli sözcükleri görsem yeter.”",
+    after: "“Fesleğene bugün su verecek miyim? Gerekçesi ne?”",
+    explanation:
+      "İkinci yaklaşım bir eylem ve bir gerekçe arar. Olumsuzluk eki kararın merkezine gelir.",
+  },
+  {
+    prompt:
+      "Bir etkinliğin nerede ve ne zaman yapılacağını öğrenmek istiyorsun. İlk okuma amacın hangisi?",
+    options: [
+      "Her cümleyi ezberlemek",
+      "Belirli bilgiyi bulup çevresini doğrulamak",
+      "Metindeki bütün sözcükleri hızla bitirmek",
+    ],
+    answer: 1,
+    why: "Yer ve zaman için hedefli tarama uygundur. Bulduğun bilginin hangi etkinliğe ait olduğunu çevresinden kontrol et.",
+  },
+  "r07",
+  "natural",
+  "Notu doğal biçimde oku. “Bugün ne yapacağım, neden?” sorusunu zihninde tut.",
+  [
+    "Amacını bir cümleyle söyle.",
+    "Hız ve anlamayı birlikte, ayrı ölçüler olarak izle.",
+  ],
+  "Her okumada tek bir hız hedeflemek, farklı görevleri aynı sayıya indirger.",
+  "Dikkatini hazırlayacağın küçük bir başlangıç düzeni kur.",
+);
+lesson(
+  2,
+  "Dikkate bir yer aç",
+  "Kusursuz dikkat beklemek yerine, geri dönmeyi kolaylaştır.",
+  "Dikkat ve rahatlık",
+  [
+    {
+      title: "Başlangıcı küçült",
+      paragraphs: [
+        "“Uzun süre hiç dağılmadan okuyacağım” hedefi yerine, kısa ve açık bir iş seç. Bir paragrafın ne yaptığını anlamak, on dakika boyunca masada kalmaktan daha belirli bir hedeftir. Telefonu uzaklaştırmak dış bölünmeleri azaltır; fakat zihnindeki yapılacaklar listesi devam edebilir. Okumadan önce bekleyen işi bir kâğıda yazıp ne zaman döneceğini belirtmek, onu şimdilik bırakmanı kolaylaştırabilir.",
+        "Oturduğun yer, ışık ve yazı boyutu okumayı taşımalı. Satırı bulmak için çaba harcıyorsan puntayı ya da satır aralığını değiştir. Daha küçük yazı daha gelişmiş okurluk değildir. Ekrana daha çok kelime sığması da daha çok anlam kurduğunu göstermez.",
+      ],
+    },
+    {
+      title: "Dağılma anı bir işarettir",
+      paragraphs: [
+        "Aynı cümleden birkaç kez geçtiğini ya da okurken başka bir konuşmayı düşündüğünü fark edebilirsin. Kendini azarlamak yerine son paragrafın işini söyle: bir örnek mi verdi, bir nedeni mi açıkladı? Söyleyemiyorsan anlamın koptuğu yere kısa bir dönüş yap. Bu, bütün bölümü baştan başlatmak zorunda olduğun anlamına gelmez.",
+        "Mola verirken çalışmayı duraklat. Ayağa kalkmak, uzağa bakmak ya da birkaç dakika sessiz kalmak sana uygunsa bunlardan birini seç. Mola bir ceza veya ödül değildir. Dönerken tek cümlelik bir işaretin olması yeniden başlamayı kolaylaştırır: “Yazar şu ana kadar iki farklı ihtiyacı karşılaştırdı.”",
+      ],
+    },
+    {
+      title: "Bugünün gerçek koşulu",
+      paragraphs: [
+        "Rahat, kısa ve uzun çalışma seçenekleri aynı başarıyı vaat etmez. Yorgun bir günde kısa bir hatırlama, başka bir günün uzun okumasının yerini bütünüyle tutmaz; yine de kitaba yeniden bağlanmanı sağlayabilir. Düzeni sürdüren şey her gün aynı yük değil, anlamlı bir sonraki adımı seçmektir.",
+      ],
+    },
+  ],
+  {
+    before: "“On dakika geçti; demek ki on dakika okudum.”",
+    after:
+      "“Sekiz dakika çalıştım, iki dakika durakladım. Son paragrafın ana ilişkisini söyleyebiliyorum.”",
+    explanation:
+      "Süre, duraklama ve anlam kontrolü ayrı bilgilerdir. Masada olmak tek başına okuma değildir.",
+  },
+  {
+    prompt:
+      "Son iki paragrafta gözün ilerledi ama ne söylendiğini anlatamıyorsun. Ne yaparsın?",
+    options: [
+      "Hedef süre dolana kadar hızlanırım",
+      "Son anladığım noktaya dönüp kısa bir anlam kontrolü yaparım",
+      "Oturumu başarılı tamamlandı diye kaydederim",
+    ],
+    answer: 1,
+    why: "Amaçlı dönüş kopan bağlantıyı bulmaya yarar. Gerekirse duraklatıp dinlenebilirsin.",
+  },
+  "r20",
+  "natural",
+  "Rahat bir punto seç. Metnin sonunda dikkatini en çok neyin böldüğünü kısa not et.",
+  [
+    "Rahatlık ayarları beceri eksikliği değildir.",
+    "Dikkate dönebildiğin bir başlangıç izi bırak.",
+  ],
+  "Mola vermeyi başarısızlık saymak, anlam koptuğu hâlde ilerlemeyi ödüllendirir.",
+  "Bir sonraki derste metni okumadan önce yapısına bak.",
+);
+lesson(
+  3,
+  "Metnin haritasını çıkar",
+  "Başlıkları cevap değil, soru üretmek için kullan.",
+  "Ön inceleme",
+  [
+    {
+      title: "Harita okumak yolculuğun kendisi değildir",
+      paragraphs: [
+        "Başlık, ara başlıklar, paragraf başlangıçları ve sonuç bölümü metnin yönünü gösterebilir. Bu kısa ön inceleme, ayrıntılı okumayı gereksiz kılmaz. “Yazar sanırım üç aşamalı bir süreç anlatacak” gibi geçici bir beklenti oluşturur. Okurken bu beklentiyi değiştirebilirsin. Başlığın çağrıştırdığı fikri metnin kesin savı sanmak, henüz okumadan sonuca karar vermektir.",
+        "Ön incelemede üç şey ara: konu ne, düzen nasıl kurulmuş, benim sorum nerede cevaplanabilir? Bir süreç yazısında sıralı adımlar; bir tartışmada sav, itiraz ve karşılık; bir anlatıda sahne geçişleri öne çıkabilir. Yapıyı fark etmek daha sonra ayrıntıların nereye bağlandığını anlamanı kolaylaştırır.",
+      ],
+    },
+    {
+      title: "Başlangıç cümlelerine nasıl bakılır?",
+      paragraphs: [
+        "Bir paragrafın ilk cümlesi sık sık yön verir, ama her zaman ana düşünceyi taşımaz. Yazar önce örnek verip genellemeyi sonda kurabilir. Bu nedenle ilk cümleyi kesin cevap sayma. Paragrafın sonuna geldiğinde “Bu bölüm ilk cümleye ne ekledi?” diye sor. Örnek, karşı örnek veya koşul eklenmiş olabilir.",
+        "Kısa bir ön incelemeden sonra bir okuma sorusu yaz. “Bu yazı ne hakkında?” başlangıç için uygundur; “Önerinin hangi koşulda işe yaradığı söyleniyor?” daha yönlendiricidir. Soru çok darsa metindeki asıl düşünceyi kaçırabileceğini unutma. Yeni bir bilgi, sorunu genişletmeni gerektirebilir.",
+      ],
+    },
+    {
+      title: "Pratikte iki ayrı geçiş",
+      paragraphs: [
+        "Göz gezdirme alanında önce yalnızca başlık ve paragraf girişleriyle genel bir fikir kur. Sonra bütün metni açıp ilk fikrinle karşılaştır. İlk geçişte bütün sözcükleri okumuş sayılmazsın. Buradaki başarı yüksek hız değil, metnin yönünü doğru tahmin edip gerektiğinde düzeltmektir.",
+      ],
+    },
+  ],
+  {
+    before:
+      "Başlık: “Üç başlık, bir konu” → “Metnin bütün cevabını biliyorum.”",
+    after:
+      "“Başlıklar hangi ortak süreci kuruyor? İlk tahminim metnin sonunda değişecek mi?”",
+    explanation:
+      "Ön inceleme sınanabilir bir beklenti kurar; tam anlama iddiası üretmez.",
+  },
+  {
+    prompt:
+      "İlk paragrafta bir örnek var. Ana düşünceyi bulmak için ne yaparsın?",
+    options: [
+      "Örneği hemen ana düşünce sayarım",
+      "Yalnızca başlığı tekrarlarım",
+      "Örneğin sonraki açıklamada neye bağlandığını izlerim",
+    ],
+    answer: 2,
+    why: "Örnek daha geniş bir düşüncenin dayanağı olabilir. İşlevini devamındaki ilişki belirler.",
+  },
+  "r19",
+  "skim",
+  "Başlıklardan bir beklenti yaz; tam metni açtığında beklentini güncelle.",
+  ["Ön inceleme soru üretir.", "İlk cümle her zaman ana düşünce değildir."],
+  "Başlıktan kesin sonuç çıkarmak, metindeki karşı görüşleri görünmez kılabilir.",
+  "Türkçe cümlelerin içindeki anlam gruplarına geç.",
+);
+lesson(
+  4,
+  "Sözcüklerden anlam gruplarına",
+  "Bir cümleyi, birbirine ait parçalarıyla oku.",
+  "Anlam grupları",
+  [
+    {
+      title: "Birlikte çalışan sözcükler",
+      paragraphs: [
+        "“Pencerenin yanındaki küçük masada” ifadesindeki sözcükler birlikte bir yer kurar. Her birini ayrı bir görev gibi ele almak cümlenin akışını zorlaştırabilir. “Akşam eve döndüğünde” ise bir zaman çerçevesi sunar. Anlam grubu, sabit sayıda sözcükten oluşan kutu değildir; cümlede birlikte çalışan parçadır. İki kelimelik bir grup da olabilir, daha uzun bir grup da.",
+        "Cümleyi “Nerede?”, “Ne zaman?”, “Kim?”, “Ne yaptı?” sorularına göre anlamlı parçalara ayırmayı dene. Bu sorular her cümleye aynı biçimde uygulanmaz; yalnızca ilk gözlem için yardımcıdır. Özellikle tamlamaları ve fiille birlikte anlam kazanan ifadeleri gelişigüzel bölmemeye dikkat et.",
+      ],
+    },
+    {
+      title: "Akıcılık gözünü zorlamak değildir",
+      paragraphs: [
+        "Bir anlam grubunu fark etmek, onu tek bir bakışta ve tek bir anda görmen gerektiği anlamına gelmez. Bu uygulama gözünün gerçek konumunu ölçmez. Amaç, sözcüklerin ilişkisini daha az kopararak izlemektir. Rahat olmadığında grubu tekrar okuyabilirsin. Anlamı kaybederek daha büyük gruplara geçmek bir üst düzey başarı sayılmaz.",
+        "Stüdyodaki erken örnekler editoryal olarak ayrılmıştır. Kendi metninde ise grup sınırlarını sen koyacaksın. Otomatik olarak her üç sözcüğü bir araya getiren seri gösterim başka bir sunum tercihidir; dilsel çözümleme değildir. Bu iki aracın amacı ve sonucu ayrı tutulur.",
+      ],
+    },
+    {
+      title: "Yardımdan doğal metne",
+      paragraphs: [
+        "İşaretli cümleyi oku, sonra aynı cümleyi çizgiler olmadan söyle. Ardından yeni paragrafı normal görünümde oku. Yardımlı grupları rahat izlemek iyi bir pratik işaretidir; ancak asıl aktarım yeni, işaretsiz metinde anlam ilişkilerini koruyabildiğinde görülür.",
+      ],
+    },
+  ],
+  {
+    before: "“Pencerenin / yanındaki küçük / masada not / duruyordu.”",
+    after: "“Pencerenin yanındaki küçük masada / bir not duruyordu.”",
+    explanation:
+      "İkinci ayrım yer bildiren tamlamayı korur. Grup sayısı değil, ilişkinin korunması önemlidir.",
+  },
+  {
+    prompt:
+      "“Akşam eve döndüğünde küçük bir not buldu.” için hangi ayrım daha anlamlı?",
+    options: [
+      "Akşam eve / döndüğünde küçük / bir not buldu",
+      "Akşam eve döndüğünde / küçük bir not buldu",
+      "Akşam / eve döndüğünde küçük bir / not buldu",
+    ],
+    answer: 1,
+    why: "Zaman çerçevesi ile temel eylem ayrı ve bütünlüklü kalıyor.",
+  },
+  "r07",
+  "groups",
+  "Editoryal grupları izle; ardından doğal görünümde notun yönergesini tekrar kur.",
+  [
+    "Gruplar eşit kelime sayısı değildir.",
+    "Tamlamaları ve eylem ilişkilerini koru.",
+  ],
+  "Grubu büyütmeyi her koşulda gelişim saymak anlamı ikinci plana iter.",
+  "Uzun Türkçe sözcüklerde anlamı değiştiren ekleri fark et.",
+);
+lesson(
+  5,
+  "Türkçenin küçük dönemeçleri",
+  "Ekler, bağlaçlar ve gönderimler cümlenin yönünü değiştirir.",
+  "Türkçe anlam ilişkileri",
+  [
+    {
+      title: "Uzun sözcüğün içindeki karar",
+      paragraphs: [
+        "Türkçede tanıdık bir köke eklenen parçalar cümlenin sonucunu değiştirebilir. “Getirdik” ile “getiremedik” aynı olay değildir. Uzun bir sözcükte yalnızca tanıdık kökü seçersen, gerçekleşmeyen bir işi gerçekleşmiş gibi anlayabilirsin. Her eki ders kitabındaki adıyla çözümlemen gerekmez. Cümleyi gündelik bir soruyla sınamak yeterli olabilir: İş olmuş mu, olmamış mı; kim yapmış, kim etkilenmiş?",
+        "Yeni veya yoğun bir sözcük geldiğinde kısa süre yavaşla. Sözcüğü cümleden koparıp uzun uzun tekrar etmek yerine, taşıdığı ilişkiyi bul. Olumsuzluk, olasılık, zaman ve aitlik gibi ayrımlar özellikle yönergelerde, iş notlarında ve soru köklerinde sonucu belirler.",
+      ],
+    },
+    {
+      title: "Düşüncenin yön levhaları",
+      paragraphs: [
+        "“Ama” bir sınırlama ya da karşıtlık açabilir. “Bu nedenle” bir sonucu, “oysa” beklenenle gerçekleşen arasındaki farkı gösterebilir. Bağlacı görmek tek başına yetmez; iki yanında neyin ilişkilendirildiğini söyle. “Yol kısa ama karanlık” cümlesinde kısalık silinmez; seçimin başka bir ölçütü ortaya çıkar.",
+        "“Bu”, “o”, “böyle” gibi sözcüklerde neye dönüldüğünü izle. Bazen önceki bir nesneye, bazen bütün bir düşünceye gönderim vardır. Birden çok olası karşılık varsa metin gerçekten belirsiz olabilir. Her belirsizliği kendi dikkat eksikliğin sayma; gerekirse yeniden okuyup iki olasılığı koru.",
+      ],
+    },
+    {
+      title: "Üç kısa kontrol",
+      paragraphs: [
+        "Cümlenin sonucunu tersine çevirecek bir ek var mı? Bağlaç iki düşünceyi nasıl birleştiriyor? İşaret sözcüğü neye dönüyor? Bu üç soruyu sürekli her cümlede sorman gerekmiyor. Anlam zorlaştığında kullanacağın küçük bir onarım çantası gibi düşün. Zamanla sık ilişkileri daha rahat fark edebilirsin.",
+      ],
+    },
+  ],
+  {
+    before: "“Getiremediklerimizden biri masaydı.” → “Masa getirildi.”",
+    after: "“Masa getirilemeyenler arasında; burada değil.”",
+    explanation:
+      "Kök tanındıktan sonra yapamama ve içinden seçme anlamı korunuyor.",
+  },
+  {
+    prompt: "“Erken geldi, buna rağmen yer bulamadı.” cümlesi ne anlatır?",
+    options: [
+      "Erken gelmenin beklenen sonucu gerçekleşmedi.",
+      "Erken geldiği için kesin yer buldu.",
+      "Geç gelmesi yer bulamamasına neden oldu.",
+    ],
+    answer: 0,
+    why: "“Buna rağmen” erken geliş beklentisi ile yer bulamama arasındaki karşıtlığı kurar.",
+  },
+  "r12",
+  "natural",
+  "Uzun sözcükteki sonucu kendi cümlenle söyle. Ardından “Ama’dan sonrası” ve “Kaybolan o” metinleriyle devam edebilirsin.",
+  [
+    "Kök kadar ekin etkisini de koru.",
+    "Bağlacın iki yanındaki ilişkiyi söyle.",
+    "Gönderimin karşılığını ara.",
+  ],
+  "Bütün uzun sözcüklerde aynı hızda ısrar etmek belirleyici ayrıntıları kaybettirebilir.",
+  "Kontrollü tempoyu destek olarak dene, sonra yardımı kaldır.",
+);
+lesson(
+  6,
+  "Ritmini bul, gerektiğinde değiştir",
+  "Tempo bir araçtır; seni yöneten hedef değildir.",
+  "Akıcılık ve aktarım",
+  [
+    {
+      title: "Akıcı okumak neye benzer?",
+      paragraphs: [
+        "Akıcılık, metnin akışını koparmadan anlam kurabilmektir. Her sözcük üzerinde aynı süreyi geçirmek gerekmez. Tanıdık bir örnekte hızlanabilir, yoğun bir koşulda yavaşlayabilirsin. İçinden ses duyman tek başına kötü okuma değildir. İç sesi bütünüyle yok etmeyi hedeflemek yerine, okuma amacına uygun anlamı takip edip edemediğine bak.",
+        "İsteğe bağlı bir rehber, satır veya cümle boyunca ritim duygusu sağlayabilir. Rehberi yetişilecek bir yarışçı gibi görme. Cümlenin anlamı geride kalıyorsa duraklat ya da tempoyu azalt. Geri dönmen gerektiğinde bunu yap. Yardım, doğru ilişkiyi fark etmeni engelliyorsa artık o anda yardım etmiyordur.",
+      ],
+    },
+    {
+      title: "Kontrollü küçük değişim",
+      paragraphs: [
+        "Yeni ve benzer düzeyde birkaç doğal okumada anlaman tutarlıysa, bir sonraki pratikte daha akıcı bir ilerleme denemek isteyebilirsin. Bunun için birden büyük hız artışları gerekmez. Rehber temposunu küçük bir adımla değiştir, kısa bir metin oku ve sonra rehbersiz yeni bir metne geç. Değişimin anlamana ve rahatlığına ne yaptığını birlikte değerlendir.",
+        "Seri sunumda kelimeler aynı noktada sırayla belirir. Bu, ekran üzerindeki bir deneyimdir. Metnin yerleşimini, geri dönüşleri ve doğal göz hareketlerini değiştirir. Gösterim temposu, normal okuma hızın olarak kaydedilmez. Bu araçla iyi gitmen doğal metindeki gelişimi ayrıca gözlemleme ihtiyacını kaldırmaz.",
+      ],
+    },
+    {
+      title: "Yardımın çekildiği an",
+      paragraphs: [
+        "Bir rehber çalışmasından sonraki en değerli adım doğal okumadır. Aynı metni hemen yeniden okumak tanıdıklık etkisi taşır. Bu nedenle yeni bir metinde, kendi hızınla ve yardımsız bir gözlem oluştur. Anlama soruları kadar rahatlık bildirimin de sonraki tempo önerisini etkiler; zorlandığını söylemek geri gitmek değildir.",
+      ],
+    },
+  ],
+  {
+    before: "“Rehber 300 kelime/dakikada bitti; doğal hızım 300.”",
+    after:
+      "“300 gösterim temposunu denedim. Doğal hızımı ayrı, yeni bir metinde ölçeceğim.”",
+    explanation:
+      "Sunum ayarı ile kullanıcının doğal okuma davranışı ayrı tutulur.",
+  },
+  {
+    prompt: "Rehber ilerlerken cümlenin anlamını kaybettin. Ne yaparsın?",
+    options: [
+      "Anlamadan takip etmeyi sürdürürüm",
+      "Duraklatır, gerekirse geri döner ve tempoyu azaltırım",
+      "Sonucu doğal hız rekoru diye kaydederim",
+    ],
+    answer: 1,
+    why: "Amaç anlamı koruyan akıcılıktır. Rehberin temposu anlamdan önce gelmez.",
+  },
+  "r13",
+  "guide",
+  "Rahat bir rehber temposu seç. Sonuçtan sonra “İki durak arası”nı yardımsız oku.",
+  [
+    "Rehber temposu ölçülmüş doğal hız değildir.",
+    "İç ses ve amaçlı geri dönüş yasak değildir.",
+  ],
+  "Tek bir yardımlı başarıdan doğal okumaya ilişkin büyük sonuç çıkarmak doğru değildir.",
+  "Paragrafların taşıdığı ana düşünceyi ayır.",
+);
+lesson(
+  7,
+  "Paragrafın yaptığı işi gör",
+  "Konu bir alanı, ana düşünce o alan hakkındaki görüşü söyler.",
+  "Ana düşünce",
+  [
+    {
+      title: "“Ne hakkında?” ile “Ne söylüyor?”",
+      paragraphs: [
+        "Bir metnin konusu “ortak alanlar” olabilir. Ana düşüncesi ise “Ortak alanlar farklı kullanım amaçları gözetilerek düzenlenmelidir” olabilir. Konu bir ad veya kısa ifade olabilir; ana düşünce genellikle tamamlanmış bir yargıdır. Sadece konuyu söylemek, yazarın ne savunduğunu henüz söylemek değildir.",
+        "Paragrafta ayrıntıları sayarken aralarındaki ortak işi bul. Fırın, ağaç ve merdiven farklı nesnelerdir; bir yazıda yön bulma işaretlerine örnek olabilirler. Ana düşünce bu örneklerin listesi değil, onların birlikte desteklediği ilişkidir. Yine de her ayrıntıyı önemsiz sayma. Bazıları savı sınırlar veya karşı örnek oluşturur.",
+      ],
+    },
+    {
+      title: "Bir cümlelik etiket",
+      paragraphs: [
+        "Paragraf bittiğinde ona işlev etiketi ver: “sorunu tanımlıyor”, “bir neden gösteriyor”, “itiraza cevap veriyor” gibi. Bu etiket, paragrafın özetinden farklıdır; metindeki görevini söyler. Uzun okumada etiketler birbirine bağlanınca metnin örgüsü görünür olur. Her paragraf aynı ana düşünceyi tekrar etmek zorunda değildir.",
+        "Bir ana düşünce adayı seçtiğinde onu iki yönden sınayabilirsin. Çok dar mı: yalnızca tek örneği mi kapsıyor? Çok geniş mi: metnin söylemediği “herkes”, “daima”, “yalnızca” gibi kesinlikler mi ekliyor? İyi bir ifade, kapsamı aşmadan önemli parçaları bir arada tutar.",
+      ],
+    },
+    {
+      title: "Kendi cümleni kur",
+      paragraphs: [
+        "Sorudaki seçeneklere bakmadan önce bir cümle yazmak, uzun veya etkileyici görünen seçeneğe kapılmayı azaltabilir. Cümlen yazarınkine birebir benzemek zorunda değil. Anlamın odağı, koşulları ve kapsamı korunmalı. Gerekirse metne dönüp savı taşıyan bölümden kanıt bul.",
+      ],
+    },
+  ],
+  {
+    before: "Konu: “Raf ve eşyalar.”",
+    after:
+      "Ana düşünce: “Düzen, her yeri doldurmaktan çok eşyayı amaca uygun yerleştirip bulabilmektir.”",
+    explanation:
+      "İkinci cümle nesneleri değil, onlar hakkında ileri sürülen düşünceyi söyler.",
+  },
+  {
+    prompt:
+      "Bir yazıda üç farklı dinlenme örneğiyle bankların işlevi anlatılıyor. En uygun ana düşünce nasıl seçilir?",
+    options: [
+      "Yalnızca ilk örneği anlatan cümleyle",
+      "En uzun seçenekle",
+      "Örneklerin ortak işlevini, belirtilen sınırla birlikte söyleyen cümleyle",
+    ],
+    answer: 2,
+    why: "Ana düşünce örnekleri kapsar; metnin koşul ve sınırlarını aşmaz.",
+  },
+  "r16",
+  "meaning",
+  "Önce konu ile ana düşünceyi ayrı yaz. Sonra metindeki örneğin hangi savı desteklediğini seç.",
+  [
+    "Konu ile yargıyı ayır.",
+    "Örneğin ne işe yaradığını sor.",
+    "Kapsamı daraltma veya büyütme.",
+  ],
+  "İlk cümleyi her zaman ana düşünce saymak örnekle başlayan metinlerde yanıltır.",
+  "Savın dayanağını ve çıkarımın sınırını incele.",
+);
+lesson(
+  8,
+  "Kanıttan çıkarıma",
+  "Söylenmeyeni bulurken, söylenenin dışına taşma.",
+  "Çıkarım ve kanıt",
+  [
+    {
+      title: "Çıkarım bir tahmin yarışması değildir",
+      paragraphs: [
+        "Meral iki fincan çıkarıp birini geri koyuyorsa, sonra kapı çalınca ikinciyi yeniden alıyorsa birini beklediğini düşünebiliriz. Bu çıkarım metindeki davranışlara dayanır. Ama gelen kişinin kardeşi olduğunu söylemek için yeterli bilgi yoktur. İyi çıkarım mümkün olan her hikâyeyi değil, metnin en güçlü biçimde desteklediği bağlantıyı seçer.",
+        "Bir çıkarım yaparken “Bunu hangi ayrıntıya dayanarak söylüyorum?” diye sor. İki ayrı ipucunu birleştirmek gerekebilir. Soğuyan çay zaman geçtiğini, “Daha yeni oldu” sözü ise bu süreyi küçülterek sunmayı gösterir. Buradan mahcubiyeti azaltma niyeti düşünülebilir; yine de kişinin iç dünyasını kesin ölçmüş olmayız.",
+      ],
+    },
+    {
+      title: "Neden, sıra ve kanıt",
+      paragraphs: [
+        "Bir olayın diğerinden sonra gelmesi, onun yüzünden olduğu anlamına gelmez. “Yeni afiş asıldı, ziyaretçi arttı” bilgisi bir ilişki gösterir, ama başka etkenler de bulunabilir. Metin nedeni açıkça kuruyorsa bunu aktar; yalnızca sıralıyorsa neden ekleme. “Bu nedenle” gibi bağlaçlar yazarın kurduğu ilişkiyi gösterir, ilişkinin dünyada kesin kanıtlandığını tek başına garanti etmez.",
+        "Sav bir iddiadır; kanıt veya gerekçe onu destekleyen bilgidir. Dört kişinin görüşü, o dört kişi hakkında dayanak verir. “Herkes böyle düşünüyor” sonucuna tek başına yetmez. İddianın kapsamı, dayanağının kapsamıyla uyumlu olmalıdır. Eleştirel okumada önce yazarın ne söylediğini doğru kur, sonra desteğin yeterliliğini değerlendir.",
+      ],
+    },
+    {
+      title: "Kanıt zinciri kur",
+      paragraphs: [
+        "Pratikte önce bir ayrıntı seç, sonra hangi çıkarımı desteklediğini söyle. Araya “çünkü” koyarak bağlantıyı açıklaştır. Cümlenin ortasında metinde olmayan bir varsayım kullanıyorsan bunu fark et. Kanıt avı oyununda doğru paragrafı seçmen, sadece doğru seçeneği bulmaktan farklı bir beceri gösterecek.",
+      ],
+    },
+  ],
+  {
+    before: "“Çay soğuk; misafir kesin iki saat gecikti.”",
+    after: "“Çay soğumuş; Meral bir süredir beklemiş olabilir.”",
+    explanation:
+      "Bekleme çıkarımı desteklenir; iki saat ayrıntısı metinde yoktur.",
+  },
+  {
+    prompt:
+      "Dört kişinin görüşünden bütün okul hakkında kesin sonuç çıkaran bir sav için ne dersin?",
+    options: [
+      "Kapsamı kanıtından geniştir.",
+      "Dört kişi konuştuysa herkes aynıdır.",
+      "Hiçbir görüş değersiz sayılamaz; o yüzden sav kesindir.",
+    ],
+    answer: 0,
+    why: "Dört görüş gerçektir, fakat temsil kapsamı gösterilmeden bütün okula genellenemez.",
+  },
+  "r18",
+  "meaning",
+  "Çıkarım cevabını seçmeden önce iki metin ayrıntısını zihninde birleştir.",
+  [
+    "Çıkarımı bir dayanağa bağla.",
+    "Zaman sırasını otomatik neden sayma.",
+    "İddianın kapsamını koru.",
+  ],
+  "Metnin boşluklarını kendi yaşam bilgisiyle doldurmak, mümkün olanı kanıtlanmış gibi gösterebilir.",
+  "Yeni bir ara değerlendirmeyle öğrendiklerini yardımsız okumada gözle.",
+);
+lesson(
+  9,
+  "Bir metin, üç okuma yolu",
+  "Genel fikir, bilgi arama ve derin okuma arasında geçiş yap.",
+  "Strateji seçimi",
+  [
+    {
+      title: "Göz gezdirme ile tarama aynı şey değildir",
+      paragraphs: [
+        "Göz gezdirme genel yönü bulur: Metin hangi sorunu ele alıyor, nasıl düzenlenmiş, benim işime yarar mı? Tarama belirli hedefi arar: tarih, isim, sayı veya bir karar. Göz gezdirirken yapı öne çıkar; tararken hedefin biçimi ve yakınındaki bağlam. İkisi de metnin bütününü ayrıntılı anlama iddiası taşımaz.",
+        "Bir duyuruda “15 Mayıs”ı bulmak yeterli olmayabilir. Bu tarih ziyaret için mi, görevli kaydı için mi? Hedefi bulduktan sonra cümlesini ve gerektiğinde komşu cümleyi oku. Bilgi taramanın doğruluğu bu bağlam kontrolüne bağlıdır. İlk görülen sayıyı seçmek hızlı olabilir ama yanlış işi yaptırabilir.",
+      ],
+    },
+    {
+      title: "Strateji okumayı bitirmek zorunda değildir",
+      paragraphs: [
+        "Bir yazıyı gözden geçirip ilgili olduğuna karar verebilir, sonra ayrıntılı okuyabilirsin. Derin okumada bir tarihe ihtiyaç duyup kısa süre taramaya geçebilirsin. Stratejiler ayrı odalar değil, amaç değişince kullanılan farklı hareketlerdir. Önemli olan geçişin farkında olmaktır.",
+        "Ders çalışırken başlıkları taramak, konuyu öğrenmenin yerine geçmez. İş notunda sorumlunu bulmak ise her cümleyi ezberlemeyi gerektirmez. Yaptığın işin ölçüsünü doğru adlandır. Stüdyo taramada doğru hedef bulmayı, göz gezdirmede genel düşünceyi izler; bütün sayfanın kelimelerini okumuşsun gibi hız üretmez.",
+      ],
+    },
+    {
+      title: "Görevi bir cümleye indir",
+      paragraphs: [
+        "Metin açılmadan önce “Burada neyi arıyorum?” diye yaz. Bulduktan sonra “Bu bilgi benim sorumun cevabı mı?” sorusuyla kapat. Eğer hedefin değişirse yeni amacı belirt. Böylece kısa yoldan bilgi bulma ile anlamı aceleye getirmeyi birbirinden ayırabilirsin.",
+      ],
+    },
+  ],
+  {
+    before:
+      "“Duyuruda bir tarih gördüm: 18 Mayıs. Demek ki görevli kaydı o gün.”",
+    after: "“18 Mayıs etkinlik günü; görevli kaydı için 15 Mayıs sınırı var.”",
+    explanation:
+      "İki tarih iki ayrı eyleme bağlı. Bağlam doğrulanınca karışıklık çözülür.",
+  },
+  {
+    prompt:
+      "Bir makalenin senin soruna ilgili olup olmadığını anlamak için ilk adım?",
+    options: [
+      "Bütün örnekleri ezberlemek",
+      "Yapısına ve genel savına göz gezdirmek",
+      "Rastgele bir sayı bulmak",
+    ],
+    answer: 1,
+    why: "İlgi kararı için genel yön gerekir. İlgili bulursan ayrıntılı okumaya geçebilirsin.",
+  },
+  "r09",
+  "scan",
+  "Önce hedef soruyu oku. Bilgiyi bulunca ait olduğu koşulu da belirt.",
+  [
+    "Göz gezdirme genel yön içindir.",
+    "Tarama hedef bilgi içindir.",
+    "Hedef bulunduğunda bağlamı doğrula.",
+  ],
+  "Taranan bütün kelimeleri derin okuma hızına katmak yapılan işi yanlış adlandırır.",
+  "Anlamın koptuğu yeri nasıl onaracağını öğren.",
+);
+lesson(
+  10,
+  "Anlam koptuğunda",
+  "Yavaşlamak ve yeniden okumak için bir karar yöntemi.",
+  "Anlama takibi",
+  [
+    {
+      title: "Kopuşu fark etmek",
+      paragraphs: [
+        "Bazen bütün sözcükler tanıdıktır ama paragrafın ne dediğini söyleyemezsin. Bunun nedeni yoğun bir ilişki, belirsiz bir gönderim veya dikkatinin dağılması olabilir. Tek çözüm her şeyi baştan okumak değildir. Önce güçlüğü adlandırmayı dene: Sözcük mü yabancı, kimin ne yaptığı mı belirsiz, iki düşüncenin bağlantısı mı kayıp?",
+        "Kısa bir durakta paragrafın işini kendi sözlerinle söyle. “Bir seçenek önerdi, sonra bakım koşulunu ekledi” gibi bir cümle, anlamın ana çizgisini gösterir. Bunu yapamadığında son açık noktayı bul ve oradan ilerle. Her paragrafı ezberlemek değil, bağlantıları korumak istiyoruz.",
+      ],
+    },
+    {
+      title: "Onarımın büyüklüğünü seç",
+      paragraphs: [
+        "Bir sözcük sorun yaratıyorsa cümleyi yeniden oku; bağlamdaki karşılığını dene. İki paragraf kopuk görünüyorsa önce bağlaca ve gönderime bak. Metnin bütün amacı kaybolduysa başlıklara veya başlangıç soruna dön. Sorunun büyüklüğüne uygun bir dönüş, bütün bölümü otomatik tekrar etmekten daha amaçlıdır.",
+        "Yeniden okuma bazen gerçekten gerekli değildir. Aynı cümleye sırf emin olma isteğiyle dönüyor, her dönüşte aynı anlamı buluyorsan küçük bir bölüm daha ilerleyip anlamı orada kontrol etmeyi deneyebilirsin. Ancak bu, bütün geri dönüşleri engelleyen bir kural değildir. Geri dönüşün işe yarayıp yaramadığını anlamak için neyi onardığını söyle.",
+      ],
+    },
+    {
+      title: "Tempo kararını sonuçla bağla",
+      paragraphs: [
+        "Hız yükselip anlama birkaç farklı metinde düşüyorsa tempo baskısını azalt. Sadece çıkarım sorularında güçlük varsa aynı metni daha yavaş döndürmek yerine çıkarım öğretimine dön. Bir kötü oturum ise tek başına kalıcı seviye değişimi için yeterli değildir. Zorlanmanın günü, metni ve koşulu vardır.",
+      ],
+    },
+  ],
+  {
+    before: "“Anlamadım, ilk sayfaya dönmeliyim.”",
+    after:
+      "“Koşul ile sonuç arasındaki bağ koptu; bu iki cümleyi birlikte okuyacağım.”",
+    explanation:
+      "Dönüşün hedefi ve sınırı belli. Çözülen ilişki sonrasında kendi cümlenle kontrol edilir.",
+  },
+  {
+    prompt: "Bir cümlede “bu”nun neye döndüğü belirsiz. İlk onarım adımı?",
+    options: [
+      "Bütün kitabı başlatmak",
+      "Önceki cümledeki olası karşılıkları kontrol etmek",
+      "Hız sayısını yükseltmek",
+    ],
+    answer: 1,
+    why: "Gönderim sorunu için en yakın bağlam uygun başlangıçtır. Yetmezse daha geniş bölüme dönersin.",
+  },
+  "r14",
+  "natural",
+  "Belirsiz gönderimi fark et. Hangi noktada yeniden okumaya ihtiyaç duyduğunu sonuç notuna yaz.",
+  [
+    "Güçlüğü adlandır.",
+    "Sorunun büyüklüğüne uygun dön.",
+    "Tek kötü oturumla kendini etiketleme.",
+  ],
+  "Amaçsız tekrar tanıdıklığı artırabilir; hangi bağın onarıldığı belirsiz kalır.",
+  "Metin kapandıktan sonra anlamı yeniden kurmayı dene.",
+);
+lesson(
+  11,
+  "Kitabı kapat, fikri açık tut",
+  "Özet ve aktif hatırlama, okumanın ikinci yarısıdır.",
+  "Hatırlama",
+  [
+    {
+      title: "Tanıdık gelmek ile anlatabilmek",
+      paragraphs: [
+        "Altı çizili bir sayfaya bakınca bilgi kolayca tanıdık gelir. Sayfa kapanınca onu kendi cümlelerinle kurmak başka bir iştir. Bu farkı görmek için okumadan sonra önce metni kapat. Ana düşünceyi, iki önemli bağlantıyı ve gerekiyorsa bir sınırı yaz. Güzel cümle kurmaya çalışmaktan önce neyi hatırladığını görünür yap.",
+        "Hatırlayamadığın yer başarısızlığın damgası değildir; tekrarın adresidir. Metni açınca ilk yazdığını silmek yerine eklediğin bilgiyi ayrı belirt. Böylece yardımsız hatırlama ile kaynağa bakarak tamamlama birbirine karışmaz. Bu ayrım bir sonraki çalışmayı daha doğru seçmeni sağlar.",
+      ],
+    },
+    {
+      title: "Özet, küçültülmüş kopya değildir",
+      paragraphs: [
+        "İyi bir özet, önemli düşünceleri ve aralarındaki ilişkiyi korur. Bütün örnekleri sıralamak yerine ortak işlevlerini söyleyebilirsin. Ancak yazarın koşulunu silersen daha kısa ama yanlış bir özet oluşabilir. “Bakım paylaşılırsa maliyet azalabilir” düşüncesini “Paylaşım maliyeti azaltır” diye yazmak hem koşulu hem olasılığı kaybettirir.",
+        "İzlek serbest özetini anahtar sözcük sayısıyla güvenilir bir anlama puanına çevirmiyor. Önce kendi metnini yazarsın, sonra örnek özet ve temel fikir listesiyle karşılaştırırsın. İşaretlediklerin öz değerlendirmedir. Örnekteki sözcükleri aynen kullanman gerekmez; ilişkilerin senin anlatında bulunmasına bak.",
+      ],
+    },
+    {
+      title: "Biraz zaman geçsin",
+      paragraphs: [
+        "Ertesi gün metni açmadan aynı ana soruya tekrar cevap ver. Hemen hatırlama ile gecikmeli hatırlama farklı gözlemlerdir. Uygulama aradan en az bir gün geçtiğinde bu dönüşü önerir. Süre uzadıysa ceza yok; neyin kaldığını gör, eksik bağı kontrol et ve yeni bir örnekte kullan. Hatırlama yalnızca tekrar söylemekten çok, bilgiyi yeniden kurma işidir.",
+      ],
+    },
+  ],
+  {
+    before: "“Fırın, ağaç, merdiven.”",
+    after:
+      "“Kentte yön bulurken ayırt edici çevre öğeleri kullanılır; köşedeki fırın buna örnektir.”",
+    explanation: "Liste yerine ortak düşünce ve temsil eden örnek var.",
+  },
+  {
+    prompt: "Özetini değerlendirmek için en uygun ölçüt hangisi?",
+    options: [
+      "Örnekteki aynı sözcük sayısı",
+      "Ana düşünce, önemli ilişkiler ve koşulların korunması",
+      "Yazının olabildiğince uzun olması",
+    ],
+    answer: 1,
+    why: "Özetin değeri aynı kelimelerden değil, doğru anlam örgüsünden gelir.",
+  },
+  "r27",
+  "recall",
+  "Metin kapanınca üç cümle yaz. Sonra listeyle karşılaştır ve eksik ilişkiyi işaretle.",
+  [
+    "Önce kapalı metinle dene.",
+    "Koşulları özetten çıkarma.",
+    "Gecikmeli hatırlamayı ayrıca gözle.",
+  ],
+  "Kendi yazını anahtar sözcük eşleşmesine göre kesin anlama puanı sayma.",
+  "Farklı metin türlerinde aynı becerileri uyarlamaya geç.",
+);
+lesson(
+  12,
+  "Tür değişince bakışın değişsin",
+  "Anlatı, açıklama, sav ve yönerge farklı ilişkiler ister.",
+  "Türler arasında aktarım",
+  [
+    {
+      title: "Tür bir başlangıç ipucudur",
+      paragraphs: [
+        "Bilgilendirici bir yazıda kavramların tanımını ve örneklerin neyi gösterdiğini izle. Anlatıda olay sırasının yanında karakterlerin beklentileri, söylemedikleri ve değişen bakışları önemlidir. Tartışmada sav, gerekçe, karşı görüş ve sınırları ayır. Öğretici bir süreçte adım sırası ile koşullu adımların farkına bak. Bunlar katı kutular değildir; aynı metin birkaç işi birlikte yapabilir.",
+        "Tür, okuma amacının yerine geçmez. Bir öyküyü derinlemesine okuyabilir, aynı öyküde bir karakterin adını bulmak için tarama yapabilirsin. Yine de türü fark etmek nerede daha dikkatli olacağını tahmin etmeye yardım eder. Yönergede atlanan “yalnızca” sözcüğü uygulamayı değiştirirken, anlatıda küçük bir nesne karakterin duygusunu sezdirir.",
+      ],
+    },
+    {
+      title: "Anlatıda boşluklarla çalış",
+      paragraphs: [
+        "Karakterin her duygusu adıyla yazılmaz. Davranış, nesne ve konuşma arasında bağ kurarsın. “Çay daha yeni oldu” cümlesi soğumuş bir fincanın yanında başka anlam taşır. Bu çıkarımı bir olasılık olarak koru; metnin vermediği kimlik, süre veya niyeti kesinleştirme.",
+        "Tartışmacı metinde ise yazarı anlamakla ona katılmayı ayır. Önce savını adil biçimde bir cümleye indir. Sonra hangi örneğin ne kadar destek sağladığını sor. Katılmadığın bir savı doğru aktarmak iyi okumanın parçasıdır. Kendi itirazını yazarın görüşüymüş gibi not etme.",
+      ],
+    },
+    {
+      title: "İki yeni metin arasında köprü",
+      paragraphs: [
+        "Bugünkü bağımsız uygulamada kısa bir anlatı oku. Sonra kütüphaneden tartışma türünde yeni bir metin seç. İkisinde de “Hangi bilgi açık, hangisi benim çıkarımım?” sorusunu kullan. Aynı sorunun farklı türlerde nasıl çalıştığını görmek, tek egzersizin dışına çıkmanı sağlar.",
+      ],
+    },
+  ],
+  {
+    before: "Anlatı: “Meral bekledi.” Tartışma: “Herkes böyle düşünüyor.”",
+    after:
+      "Anlatıda beklemeyi davranışla destekle; tartışmada “herkes” iddiasının dayanağını sorgula.",
+    explanation:
+      "İkisinde de kanıt aranır, fakat kanıtın yaptığı iş ve kapsamı farklıdır.",
+  },
+  {
+    prompt:
+      "Bir tarifte “Ağır yük için tabanı destekle” deniyor. Bu adımın kapsamı nedir?",
+    options: [
+      "Bütün kutular için zorunlu",
+      "Yalnızca ağır yük koşulunda gerekli",
+      "Süsleme bittiyse gereksiz",
+    ],
+    answer: 1,
+    why: "Koşullu adımı genel zorunluluğa çevirmek yönergenin anlamını değiştirir.",
+  },
+  "r23",
+  "natural",
+  "Anlatıda açık olayları ve desteklenen duygusal çıkarımı ayır. Ardından “Bir iddianın ayakları”na geç.",
+  [
+    "Tür başlangıç ipucudur, amaç yerine geçmez.",
+    "Açık bilgi ile yorumu ayır.",
+  ],
+  "Her metne aynı ayrıntı listesiyle yaklaşmak türün önemli ilişkilerini kaçırabilir.",
+  "Bu becerileri sınav ve iş metinlerine taşı.",
+);
+lesson(
+  13,
+  "Gerçek işin metinleri",
+  "Soru kökü, yönerge ve toplantı notunda belirleyici ayrıntıyı koru.",
+  "Ders, sınav ve iş",
+  [
+    {
+      title: "Okumanın sonunda bir eylem var",
+      paragraphs: [
+        "Gündelik ve mesleki okumada sonuç çoğu zaman bir karar veya eylemdir. Bir toplantı notunda konuşulan her şey yapılacak iş değildir. Öneri, kesin karar ve deneme farklı statüler taşır. “İpek cuma gününe kadar listeyi hazırlayacak” cümlesinde sorumlu, iş ve zaman birlikte korunmalıdır. Sadece İpek adını bulmak yeterli değildir.",
+        "Ders çalışırken kavramın tanımını okuyup geçmek yerine bir örneğe uygulayabilir misin diye dene. Tanım ile örneğin bağlantısını kuramıyorsan daha çok sayfa bitirmek boşluğu kendiliğinden kapatmaz. Bir kavramı kendi örneğinle açıklamak, metinden uzaklaştığında da kullanabildiğini gösteren yararlı bir denemedir.",
+      ],
+    },
+    {
+      title: "Soru kökünü kendi sözünle söyle",
+      paragraphs: [
+        "“Değildir”, “çıkarılamaz”, “yalnızca”, “öncelikle” gibi ifadeler görevi değiştirir. Bunlara körlemesine işaret koymak yerine sorunun ne istediğini bir cümleyle söyle: “Desteklenmeyen seçeneği arıyorum.” Sonra seçeneklere geç. Tanıdık içerik doğru cevap olmak zorunda değildir; görevle ilişkisi belirleyicidir.",
+        "Sınavda zaman yönetimi önemlidir, fakat aceleyle bütün soruları aynı hızda geçmek yerine güçlüğü tanı. Bir soruda gereğinden fazla takıldığını fark ettiğinde mevcut sınav kuralları içinde daha sonra dönmeyi seçebilirsin. Burada herhangi bir sınav için özel süre garantisi veya puan artışı vaadi yok; çalışılan beceri metnin istediği işi doğru belirlemektir.",
+      ],
+    },
+    {
+      title: "Notu kullanılır bilgiye dönüştür",
+      paragraphs: [
+        "İş metninde sorumlu, eylem, tarih ve açık kalan konu için kısa alanlar aç. Bu, her metin için büyük bir şablon kurmak demek değildir. Karar vermek için gereken ayrımları görünür kılmaktır. Kendi metin aracına bir toplantı notu yapıştırıp bu dört soruya cevap verebilirsin; hazır sorular olmadığında uygulama otomatik anlama puanı üretmeyecektir.",
+      ],
+    },
+  ],
+  {
+    before:
+      "“Dosya adlarında tarih kullanılması önerildi.” → Yapılacak kesin iş.",
+    after:
+      "Öneri var; karar sonraki toplantıya bırakılmış. Henüz kesin görev değil.",
+    explanation: "Konuşulmuş olması karar verilmiş olmasıyla aynı değildir.",
+  },
+  {
+    prompt:
+      "“Metinden çıkarılamaz” sorusunda ilk tanıdık öneriyi gördün. Ne yapmalısın?",
+    options: [
+      "Hemen seçmek",
+      "Görevin desteklenmeyeni aradığını koruyup bütün seçenekleri değerlendirmek",
+      "Yalnızca en kısa seçeneği almak",
+    ],
+    answer: 1,
+    why: "Tanıdıklık ile sorunun istediği ilişki farklıdır.",
+  },
+  "r26",
+  "scan",
+  "Görev, sorumlu ve zaman bilgilerini bağlamlarıyla bul. Sonuçta öneri ile kesin kararı ayır.",
+  ["Görev sözcüğünü kaçırma.", "Sorumlu, iş ve zamanı birlikte koru."],
+  "Notta geçen her başlığı tamamlanmış karar gibi aktarmak eylem hatası yaratır.",
+  "Kısa metinden uzun okumaya geç.",
+);
+lesson(
+  14,
+  "Uzun metinde yönünü koru",
+  "Dayanıklılık, yalnızca daha uzun oturmak değildir.",
+  "Uzun okuma",
+  [
+    {
+      title: "Bütünü taşımak",
+      paragraphs: [
+        "Uzun metinler daha fazla sözcükten ibaret değildir. İlk bölümde kurulan bir fikir ileride sınırlanabilir; bir örnek başka bir örnekle karşılaştırılabilir. Son paragrafı anlamak için birkaç bölümün ilişkisini zihninde tutman gerekir. Bu nedenle uzun okumayı kısa metinleri arka arkaya açmaya indirgemiyoruz. Aynı bütünün içinde yönünü korumayı çalışıyoruz.",
+        "Başlamadan önce amacını ve metnin genel yapısını belirle. Her paragrafı notla bölme. Anlamlı bölüm geçişlerinde bir cümlelik zihinsel özet yeterli olabilir: “İlk varsayım değişti, şimdi yeni düzen deneniyor.” Bu iz, ayrıntıları tekrar taramadan ana akışa dönmeni sağlar.",
+      ],
+    },
+    {
+      title: "Mola bütünlüğü bozmak zorunda değildir",
+      paragraphs: [
+        "Gerektiğinde duraklat ve son anladığın ilişkinin kısa notunu bırak. Mola sonrası doğrudan rastgele satırdan başlamak yerine bu notu oku. Metin uzun diye bütün oturumu tek parça geçirmek zorunda değilsin. Duraklamalar kayıtta görünür; kesintili okuma ile kesintisiz değerlendirme aynı koşul sayılmaz.",
+        "Rahatsızlık veya yorgunluk varsa çalışmayı bitirmeden bırakabilirsin. Yarım metnin bütün kelimelerini hız hesabına katmıyoruz. Son okuduğun paragrafı seçerek yaklaşık bir pratik kaydı tutabilirsin; bu kendi beyanına dayanan kısmi çalışma olur. Yeni bir değerlendirmede aynı metin artık görülmüş sayılır.",
+      ],
+    },
+    {
+      title: "Sonunda parçaları birleştir",
+      paragraphs: [
+        "Bitirince sadece son paragrafı hatırlamakla yetinme. Başlangıçtaki sorunun nasıl değiştiğini, iki önemli dönüm noktasını ve varılan sonucu anlat. Uzun metin soruları farklı bölümleri ilişkilendirmeni isteyecek. Hızın kısa metinlere göre düşerse bunu otomatik gerileme sayma; metin yükü ve koşulları farklıdır. Aynı düzeyde yeni uzun metinlerden birkaç gözlem daha anlamlıdır.",
+      ],
+    },
+  ],
+  {
+    before: "“Sonuna ulaştım, her bölümünü anlamış olmalıyım.”",
+    after:
+      "“Başlangıç varsayımını, değişimin nedenini ve sonuç ölçütünü birbirine bağlayabiliyorum.”",
+    explanation:
+      "Bütünlük, kaydırma konumundan değil kurduğun ilişkilerden anlaşılır.",
+  },
+  {
+    prompt: "Uzun okumada mola vermeden önce hangi not en yararlı?",
+    options: [
+      "Sayfa çok uzundu.",
+      "Burada kaldım.",
+      "Ekip eşya yerine kullanım amacına bakmaya başladı; sırada deneme var.",
+    ],
+    answer: 2,
+    why: "Anlam ilişkisini taşıyan iz, dönüşte yön bulmayı kolaylaştırır.",
+  },
+  "r35",
+  "long",
+  "Uzun metni kendi ritminde oku. Gerekirse duraklatıp bir dönüş notu bırak; sonunda başlangıç ile sonuç arasındaki değişimi anlat.",
+  [
+    "Bölüm ilişkilerini taşı.",
+    "Mola için anlam izi bırak.",
+    "Kısa ve uzun okumayı aynı koşul sayma.",
+  ],
+  "Süreyi uzatmayı tek başına öğrenme saymak anlama takibini dışarıda bırakır.",
+  "Sonuçlarını dikkatli karşılaştırmayı öğren.",
+);
+lesson(
+  15,
+  "Gelişimini doğru oku",
+  "Bir sayıdan hikâye çıkarmadan önce koşullarına bak.",
+  "Ölçüm okuryazarlığı",
+  [
+    {
+      title: "Bir sonucun yanında ne olmalı?",
+      paragraphs: [
+        "Doğal okuma hızının yanında metnin kelime sayısı, aktif süre, düzey, amaç ve daha önce görülüp görülmediği bulunmalı. Soruları cevaplarken geçen süre okumaya eklenmez. Rehber veya seri sunum temposu doğal hız değildir. Tarama, metnin tamamını okuma sayılmaz. Bu ayrımlar bazen grafiği sadeleştirmez; ama yorumunu dürüst kılar.",
+        "İzlek sözcükleri Unicode harf ve sayılardan oluşan birimler olarak sayar; sözcük içindeki kesme işareti ve tire birimi birleştirir. Örneğin “Ankara’da” ve “e-posta” birer birimdir. Fazla boşluk yeni sözcük yaratmaz. Kural her metinde aynıdır; bu sayı okuma davranışının eksiksiz bir resmi değildir, süre hesabının tutarlı temelidir.",
+      ],
+    },
+    {
+      title: "Karşılaştırmayı eşleştir",
+      paragraphs: [
+        "Aynı metni tekrar okuyunca tanıdıklık hızını artırabilir. Bunu yeni metindeki gelişimle birleştirme. Benzer düzey, aynı amaç ve doğal görünümdeki yeni okumaları karşılaştır. Sekme değişimi, duraklama veya yardım varsa koşul farklılaşır. Uygulama kaydı atmaz, fakat karşılaştırılabilir değerlendirmeye katmaz.",
+        "Bir tek oturumda düşüş gördüğünde “geriledim” sonucuna atlama. Birkaç farklı metindeki anlama dağılımına bak. Ana düşüncede iyi, çıkarımda zorlanıyor olabilirsin; tek toplam bu farkı gizler. Az gözlemde sistem kesin seviye vermez. Bu temkin, gelişimin olmadığı değil henüz yeterince gözlenmediği anlamına gelir.",
+      ],
+    },
+    {
+      title: "Sonucu bir karara çevir",
+      paragraphs: [
+        "Hız ve anlama birlikte düştüyse önce çalışma koşullarını düşün. Hız yükselirken anlama düşüyorsa baskıyı azalt ve zayıf soru türüne dön. Birkaç yeni metinde anlama tutarlıysa biraz daha yoğun metin seç. Hatırlama öz değerlendirmesinde ilişki eksikse ertesi gün geri çağırma ekle. Sonucun değeri seni sıralamasından çok, sonraki adımı değiştirmesindedir.",
+      ],
+    },
+  ],
+  {
+    before:
+      "“Aynı metinde 100 kelime/dakika hızlandım; genel becerim kesin yükseldi.”",
+    after:
+      "“Tekrar metinde hızlandım. Yeni, benzer düzeydeki metinlerde anlama ve hızımı ayrıca gözlemleyeceğim.”",
+    explanation:
+      "Maruziyetin etkisi yeni içerikte gösterilen beceriden ayrılır.",
+  },
+  {
+    prompt: "Hangi iki sonuç karşılaştırmaya daha uygundur?",
+    options: [
+      "Seri sunum ile doğal okuma",
+      "Aynı amaçta, benzer düzeyde, yeni ve kesintisiz iki doğal değerlendirme",
+      "Tarama ile uzun öykü okuma",
+    ],
+    answer: 1,
+    why: "Mod, amaç, güçlük ve kesinti koşulları benzer olmalıdır. Yine de metinler bilimsel olarak eşdeğer testler değildir.",
+  },
+  "r22",
+  "meaning",
+  "İddianın kapsamını kanıtıyla karşılaştır. Ardından gelişim alanındaki kendi kayıtlarının koşullarına bak.",
+  [
+    "Hızı anlamadan ayırma, tek sayıya da sıkıştırma.",
+    "Yeni ve tekrar metinleri ayır.",
+    "Az veride kesin eğilim söyleme.",
+  ],
+  "Hız ile anlama yüzdesini çarpıp bilimsel bir gerçek hız üretmek bu ölçümleri aşan bir iddia olur.",
+  "Bütün becerileri yeni bir metinde bir araya getir.",
+);
+lesson(
+  16,
+  "Artık kendi izini sür",
+  "Kursun sonunda başka bir metne kendi kararlarınla başla.",
+  "Bağımsız okuma",
+  [
+    {
+      title: "Araçsız kalan beceri",
+      paragraphs: [
+        "Bir kursun sonunda her aracı kullanmayı öğrenmiş olmak yararlıdır; fakat asıl soru uygulama kapalıyken ne yapabildiğindir. Tanımadığın bir metni açıp amacını seçebiliyor, yapısına bakabiliyor, gerektiğinde yavaşlayıp ilişkiyi onarabiliyor musun? Bitirdiğinde ana düşünceyi ve sınırını kendi sözlerinle söyleyebiliyor musun? Bağımsız okuma bu küçük kararların bir araya gelmesidir.",
+        "Bitirme çalışmasında yeni bir metni doğal görünümde okuyacaksın. Bu sonuç kursun başındaki gözlemle benzer koşullarda yan yana gösterilecek. Metinler farklı olduğu için tek farkı kesin eğitim etkisi diye yorumlamayacağız. Yine de hızın, soru türlerin ve çalışma koşulların hangi yönde değiştiğine dair kişisel bir gözlem elde edeceksin.",
+      ],
+    },
+    {
+      title: "Kendine taşınabilir bir düzen kur",
+      paragraphs: [
+        "Haftana üç tür temas yerleştir: yeni bir metinde amaçlı okuma, ertesi gün kısa geri çağırma ve keyif ya da gerçek iş için serbest okuma. Gün sayısı ve süre yaşamına uysun. Her gün aynı yük zorunlu değildir. Bir hafta ara verdiğinde eski en yüksek temponla başlamak yerine kısa doğal okuma ile yeniden gözlem yap.",
+        "Kütüphanenin yanında kendi ders, iş veya kişisel metinlerini kullanabilirsin. Hazır sorusu olmayan yazılarda anlama otomatik ölçülmez. Kendine bir ana soru belirle, metni kapatıp yanıtla, sonra kaynakla karşılaştır. Eksik ilişkiyi not et. Bu çalışma bir puan tablosu üretmese de anlamlı bir öğrenme davranışıdır.",
+      ],
+    },
+    {
+      title: "Neyi sürdürmeli?",
+      paragraphs: [
+        "Bir tekniği sadece kursta yer aldığı için sürdürme. Rehber sana yardımcı oluyorsa kısa süre kullanıp doğal okumaya dön; yararı yoksa bırak. Oyunları ara pratik olarak seç, puanlarını genel okuma yeteneği sayma. Zaman zaman yeni bir metinde yardımsız gözlem oluştur. Başarı ölçütünü koru: Amacına uygun hızda, anlamı izleyerek, gerektiğinde yol değiştirerek okuyabilmek.",
+        "Kursun sonu tekrar zorunluluğu değildir. Gelişim sayfasında hangi becerinin daha fazla gözlem istediğini görebilirsin. İyi gidenleri koruyup yalnızca ihtiyaç duyduğun bölüme dön. Kitap bir kez tüketilip kapatılacak görev listesinden çok, karar verirken yeniden açabileceğin bir başvuru alanıdır.",
+      ],
+    },
+  ],
+  {
+    before: "“Kurs bitti; artık bütün metinleri daha hızlı okumalıyım.”",
+    after:
+      "“Her metinde amacımı seçeceğim; hızımı ve stratejimi anlamı koruyarak değiştireceğim.”",
+    explanation:
+      "Aktarım, tek bir hızın her yere uygulanması değil, koşula uygun karar verebilmektir.",
+  },
+  {
+    prompt: "Bir ay ara verdikten sonra en uygun başlangıç hangisi?",
+    options: [
+      "Eski en yüksek tempoyu zorunlu tutmak",
+      "Kaçan bütün günleri telafi etmek",
+      "Kısa bir yeni doğal okumayla güncel durumunu görmek",
+    ],
+    answer: 2,
+    why: "Geri dönüş borç ödeme değildir. Güncel koşulunu görmek için küçük, yeni bir gözlem yeterli başlangıçtır.",
+  },
+  "r40",
+  "long",
+  "Bütünleştirici uzun okumayı bitir. Ardından yeni bitirme değerlendirmesini ve ertesi gün hatırlama dönüşünü tamamla.",
+  [
+    "Yeni metne kendi amacınla başla.",
+    "Düzeni yaşamına göre sürdür.",
+    "Gerekli tekniği seç, gerekmeyeni bırak.",
+  ],
+  "Bir bitirme sonucundan ömür boyu sabit beceri veya sınırsız hız garantisi çıkarma.",
+  "Kişisel planın: yeni okuma, bir gün sonra hatırlama ve haftalık uzun metin.",
+);

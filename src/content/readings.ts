@@ -1,127 +1,1942 @@
-import {wordCount} from '../text';
-import {q, type Reading} from './types';
-import {longReadings} from './long';
-type Draft=Omit<Reading,'version'|'words'|'skills'|'modes'>;
-const drafts:Draft[] = [
-{id:'r01',title:'Bir masanın etrafında',genre:'Bilgilendirici',level:2,complexity:'Birden çok görüş, örtük sonuç ve karar gerekçesi.',role:'baseline',paragraphs:[
-'Mahalle evindeki çalışma odası, açıldığı ilk ay beklenenden az kullanıldı. Oysa odada yeni masalar, rahat sandalyeler ve geniş bir kitaplık vardı. Sorumlular önce tanıtımın yetersiz olduğunu düşündü. Hazırladıkları afişleri çevredeki dükkânlara astılar. İkinci ay ziyaretçi sayısı biraz arttı, fakat insanlar yine kısa süre kalıyordu. Bunun üzerine daha çok afiş hazırlamak yerine, gelenlere odada ne yapabildiklerini ve ne yapmakta zorlandıklarını sordular.',
-'Yanıtlar tek bir soruna işaret etmiyordu. Sınava hazırlananlar kapı önündeki konuşmalardan, grup ödevi yapanlar ise birbirlerine fısıldamak zorunda kalmaktan yakınıyordu. Çocuğunu bekleyen bir ziyaretçi yalnızca yarım saat oturmak istediğini, kayıt formunun bu kısa ziyaret için gereksiz göründüğünü söyledi. Demek ki aynı oda, farklı amaçları olan insanları ağırlıyordu. Herkese aynı sessizlik kuralını uygulamak, bazılarını rahatlatırken başkalarının işini güçleştiriyordu.',
-'Ekip odayı duvarlarla bölmedi. Pencere tarafını sessiz çalışma için ayırdı; girişteki büyük masayı belirli saatlerde birlikte çalışmak isteyenlere açtı. Kısa ziyaretler için yalnızca boş yer sayısını izlemeye başladı. Yeni düzen iki hafta denendi. Bir görevli, günün farklı saatlerinde hangi alanların dolduğunu not etti. Kullanıcılara aynı sorular yeniden soruldu; böylece sadece ilk günün heyecanına bakılarak karar verilmemiş oldu.',
-'Sonuç kusursuz değildi. Kalabalık günlerde ses yine yükseliyordu. Ancak ziyaretçiler artık hangi saatte ve hangi bölümde çalışacaklarını daha kolay seçebiliyordu. Ekip, odanın başarısını yalnızca kapıdan giren kişi sayısıyla değerlendirmemeyi öğrendi. İçeride geçirilen zamanın amaca uygunluğu da önemliydi. Yeni düzenin kalıcı olup olmayacağına karar vermek için denemeyi bir ay daha sürdürdüler. Odaya yeni eşya almak hâlâ mümkündü; fakat artık hangi ihtiyacı karşılayacağını bilmeden bir şey satın almak istemiyorlardı.'
-],questions:[q('Ana düşünce','Metnin temel düşüncesi nedir?',['Yeni eşyalar ortak alanların kullanımını artırır.','Bir alanı iyileştirmek için kullanım amaçlarını anlamak gerekir.','Sessizlik ortak alanların tek başarı ölçütüdür.','Tanıtım yapıldığında kullanıcı sorunları azalır.'],1,'Düzenleme, ziyaretçilerin farklı amaçları öğrenildikten sonra yapılıyor.',3),q('Açık bilgi','Pencere tarafı hangi amaçla ayrıldı?',['Kısa ziyaret','Grup ödevi','Sessiz çalışma','Kayıt işlemi'],2,'Üçüncü paragraf pencere tarafını sessiz çalışmaya ayırıyor.',2),q('İlişki','İlk afiş çalışması neden yeterli olmadı?',['Oda kapalı kaldığı için','Yeni kitap alınmadığı için','Afişler geç asıldığı için','Kullanım sırasındaki güçlükleri çözmediği için'],3,'Tanıtım ziyaretleri biraz artırsa da kalma süresi ve çalışma sorunları değişmiyor.',0),q('Çıkarım','Ekip hakkında hangi çıkarım desteklenir?',['Kararını gözlemle güncellemeye açıktır.','Her ziyaretçinin uzun süre kalmasını ister.','Bütün ses sorunlarını çözmüştür.','Yeni eşya almayı tamamen bırakmıştır.'],0,'Deneme uzatılıyor ve iki kez geri bildirim toplanıyor; karar kesinleşmiş değil.',3),q('Bağlam','“İlk günün heyecanına bakılarak” ifadesi hangi riski anlatır?',['Ziyaretçileri bekletmek','Geçici ilgiyi kalıcı yarar sanmak','Sessiz alanı küçültmek','Ölçüm yapmayı unutmak'],1,'Tek gün yerine farklı saatler ve tekrar sorulan sorular kullanılıyor.',2)],summary:'Mahalle evi, düşük kullanımı yalnızca tanıtımla çözemedi. Kullanıcı amaçlarını öğrenerek alanı ve kuralları değiştirdi; başarıyı amaca uygun kullanım üzerinden izlemeye başladı.',points:['İlk varsayım tanıtım eksikliğiydi.','Farklı amaçlar aynı kuralla karşılanmıyordu.','Yeni düzen gözlemle ve tekrar sorularla denendi.'],scan:{prompt:'Yeni düzen ilk olarak kaç hafta denendi?',answer:'İki hafta',paragraph:2}},
-{id:'r02',title:'Tamir gününün ardından',genre:'Bilgilendirici',level:2,complexity:'Başlangıç varsayımı ile sonuç arasında karşılaştırma.',role:'mid',paragraphs:[
-'Bir apartmanın sakinleri, bodrumda biriken kullanılmayan eşyaları görünce ortak bir tamir günü düzenledi. Duyuruda herkesin küçük bir ev eşyası getirebileceği yazıyordu. Düzenleyiciler gün sonunda kaç eşyanın onarıldığını saymayı planladı. Bunun için girişe bir kayıt masası kurdular. Masanın yanına da onarılmış ürünleri koyacakları uzun bir raf yerleştirdiler. İlk ziyaretçiler gelmeden önce rafın tamamen dolacağını hayal ediyorlardı.',
-'Ancak getirilen eşyaların hepsi aynı tür yardıma ihtiyaç duymuyordu. Bir sandalyenin gevşek vidası birkaç dakikada sıkıldı. Kırık bir lambanın ise uygun parçası yoktu. Lambayı getiren kişi, parçanın adını ve nasıl bulunacağını öğrenince memnun ayrıldı. Eski bir çantanın fermuarı tamir edilemedi, fakat sahibi onu kesip küçük bir alet kesesine dönüştürmeyi düşündü. Bu iki ziyaretin sonunda rafa hiçbir şey eklenmemişti.',
-'Öğle arasında ekip kayıtlarını gözden geçirdi. Sadece tamir sayısına bakarlarsa birçok yararlı görüşmeyi başarısız sayacaklarını fark ettiler. Forma iki sütun daha eklediler: sorunu anlaşılan eşyalar ve başka kullanım bulunan eşyalar. Bu değişiklik, kırık bir ürünün kendiliğinden çalışır hâle geldiği anlamına gelmiyordu. Yalnızca günün farklı sonuçlarını birbirine karıştırmadan görünür kılıyordu. Katılımcılar da hangi konuda yardım aldıklarını daha açık anlatabiliyordu.',
-'Akşam raf yarıya kadar doluydu. Buna rağmen düzenleyiciler günü boşa geçmiş saymadı. Ertesi buluşma için katılımcılardan ürünün fotoğrafını ve bilinen sorununu önceden paylaşmalarını istediler. Böylece hangi araçların ve parçaların gerekli olabileceğini daha iyi kestireceklerdi. Bazı eşyaların güvenli biçimde onarılamayacağını da duyuruya eklediler. Amaç, her şeyi mutlaka kurtarmak değil, insanlar için uygun bir sonraki adımı bulmaktı. Yeni kayıt sütunları da bu amacı destekledi; yapılan işi olduğundan büyük göstermeden, yalnızca rafta görünen sonuçla sınırlı kalmayan bir değerlendirme sağladı.'
-],questions:[q('Ana düşünce','Metin hangi görüşü geliştiriyor?',['Tamir günleri yalnızca eşya sayısıyla değerlendirilmelidir.','Önceden fotoğraf göndermek bütün onarımları mümkün kılar.','Farklı yararlı sonuçları ayrı izlemek daha anlamlı bir değerlendirme sağlar.','Bir eşyanın kullanımını değiştirmek her zaman tamirden iyidir.'],2,'Ekip tamir, sorunu anlama ve yeni kullanım bulmayı ayrı kaydediyor.',2),q('Açık bilgi','Lambayı getiren kişi ne öğreniyor?',['Parçanın adını ve nasıl bulunacağını','Yeni lambaların satış fiyatını','Elektrik tesisatının geçmişini','Çantanın nasıl kesileceğini'],0,'Eksik parçanın tanınması yararlı görüşme örneği olarak veriliyor.',1),q('İlişki','Forma yeni sütunlar neden ekleniyor?',['Raf kısa geldiği için','Farklı katkılar tamir sayısında görünmediği için','Ziyaretçiler kayıt yaptırmadığı için','Daha fazla eşya toplamak için'],1,'Rafa eklenmeyen iki eşya için de yararlı bir adım bulunuyor.',2),q('Çıkarım','Fotoğrafın önceden istenmesi neyi gösterir?',['Onarımın garanti edildiğini','Yalnızca yeni eşya kabul edileceğini','Kayıtların artık tutulmayacağını','Hazırlığın ihtiyaçlara göre yapılacağını'],3,'Araç ve parçaları önceden kestirmek amaçlanıyor.',3),q('Bağlam','“Birbirine karıştırmadan görünür kılmak” ne demektir?',['Her yardımı başarılı tamir diye saymak','Farklı sonuçları kendi adlarıyla kaydetmek','Tamir olmayan eşyaları saklamak','Katılımcı sayısını azaltmak'],1,'Yeni sütunlar onarım yapılmış gibi davranmıyor; ayrı katkıları kaydediyor.',2)],summary:'Tamir gününde yalnızca onarılan eşya sayısı bütün katkıları göstermedi. Ekip sonuç türlerini ayırdı ve sonraki buluşmanın hazırlığını gerçek ihtiyaçlara göre düzenledi.',points:['Onarım dışındaki yararlar da vardı.','Kayıt sütunları sonuç türlerini ayırdı.','Ön bilgi sonraki hazırlığı yönlendirecek.'],scan:{prompt:'Ertesi buluşmadan önce hangi iki bilgi isteniyor?',answer:'Ürünün fotoğrafı ve bilinen sorunu',paragraph:3}},
-{id:'r03',title:'Yol gösteren levhalar',genre:'Bilgilendirici',level:2,complexity:'Ölçüt değişimi, gerekçe ve örtük ilişki.',role:'final',paragraphs:[
-'Küçük bir kültür merkezinde danışmaya en sık sorulan soru, etkinlik salonunun nerede olduğuydu. Oysa girişte büyük bir yön levhası vardı. Yönetim, yazıları büyütmenin sorunu çözeceğini düşündü. Yeni levha basılmadan önce tasarım atölyesinden bir ekip, binaya ilk kez gelenlerle kısa bir yürüyüş yaptı. Katılımcılardan nereye gideceklerini ve hangi noktada kararsız kaldıklarını sesli anlatmaları istendi. Ekip cevap vermek yerine onların izlediği yolu not etti.',
-'Ziyaretçilerin çoğu giriş levhasını görüyor, fakat ilk koridor ayrımında yönünü kaybediyordu. “Büyük salon” yazısını okuyanlar, biletlerinde “Sahne Bir” ifadesi olduğu için doğru yolda olduklarından emin olamıyordu. Binayı iyi bilen çalışanlar iki adın aynı yeri anlattığını biliyordu. İlk kez gelenlerin böyle bir bilgisi yoktu. Bir başka sorun da üst kata çıkan merdivenin, salona giden koridordan daha aydınlık görünmesiydi. Bazı ziyaretçiler herhangi bir yazı okumadan o tarafa yöneliyordu.',
-'Ekip, bütün duvarları levhalarla kaplamak yerine iki değişiklik önerdi. Biletteki ad ile kapıdaki adı eşitledi ve karar verilen koridor ayrımına küçük bir yön işareti yerleştirdi. Girişteki büyük levha yerinde kaldı. Sonraki etkinlikte yine ilk kez gelenlerle yüründü. Bu kez yalnızca danışmaya sorulan sorular sayılmadı; yanlış yöne dönüp geri gelenler de gözlendi. Çünkü bir ziyaretçi hiç soru sormadan da uzun süre yol arayabilirdi.',
-'İkinci yürüyüşte kararsızlık azaldı, ancak kalabalık sırasında küçük işaretin önü kapanabiliyordu. Ekip işareti biraz yukarı taşıdı ve bir sonraki etkinlikte yeniden gözlem yapmayı kararlaştırdı. Çalışmanın sonunda öğrenilen, yön bulmanın daha büyük harflerden ibaret olmadığıydı. Bilginin doğru adla, ihtiyaç duyulan yerde görünmesi gerekiyordu. Danışmanın sakinleşmesi sevindiriciydi; yine de tek başına herkesin yolunu kolay bulduğunu kanıtlamıyordu. Yeni düzen bu ayrımı koruyarak geliştirildi.'
-],questions:[q('Ana düşünce','Metnin ana düşüncesi hangisidir?',['Daha çok işaret her binayı anlaşılır kılar.','Yönlendirme, kullanıcının karar noktaları ve diliyle uyumlu olmalıdır.','Kültür merkezlerinde danışma gereksizdir.','Aydınlık koridorlar her zaman doğru yönü gösterir.'],1,'Adların eşitlenmesi ve karar noktasına işaret konması çözümün merkezindedir.',3),q('Açık bilgi','İki farklı adla anılan yer hangisidir?',['Danışma masası','Tasarım atölyesi','Etkinlik salonu','Giriş kapısı'],2,'Büyük salon ile Sahne Bir aynı mekânın iki adıdır.',1),q('İlişki','Yanlış dönüp geri gelenler neden gözlendi?',['Her ziyaretçi soru sormadığı için','Yeni bilet basılmadığı için','Merdiven kapatıldığı için','İşaretler kaldırıldığı için'],0,'Soru sayısı tek başına yol bulma kolaylığını göstermiyor.',2),q('Çıkarım','Çalışanların bildiği ad eşleşmesi hangi sorunu açığa çıkarır?',['Tüm ziyaretçiler çalışanlardan daha dikkatlidir.','Biletler etkinlikten sonra okunmaktadır.','Levhalar yalnızca çalışanlara yöneliktir.','İçeriden bilinen şeyler yeni gelenler için açık olmayabilir.'],3,'Metin, çalışan bilgisi ile ilk ziyaretçi bilgisini karşılaştırıyor.',1),q('Bağlam','“Karar verilen koridor ayrımı” hangi yerdir?',['Biletlerin satıldığı yer','Ziyaretçinin yön seçmesi gereken yer','Çalışanların toplandığı oda','Etkinliğin bittiği çıkış'],1,'İşaret tam yol seçimi sırasında gerekli oluyor.',2)],summary:'Kültür merkezindeki yön sorunu, yazı büyüklüğünden çok tutarsız adlar ve eksik karar noktası bilgisiyle ilgiliydi. Küçük düzenlemeler gözlemle yeniden ele alındı.',points:['İlk varsayım yazı boyutuydu.','Aynı salonun iki adı kararsızlık yarattı.','Soru sormayan ziyaretçiler de yolunu kaybedebiliyordu.'],scan:{prompt:'Bilette salonun adı nasıl yazıyordu?',answer:'Sahne Bir',paragraph:1}},
-{id:'r04',title:'Paylaşılan bahçenin defteri',genre:'Düşünce',level:2,complexity:'İki ölçütü birlikte değerlendirme.',role:'baseline',paragraphs:[
-'Apartmanın arkasındaki küçük bahçe için ilk toplantıda herkes aynı sözcüğü kullandı: düzen. Fakat konuşma uzadıkça düzenin herkes için başka bir şey olduğu anlaşıldı. Kimi çiçeklerin aynı yükseklikte olmasını istiyor, kimi çocukların top oynayacağı boş bir yer arıyor, kimi de akşam oturabileceği gölgeli bir köşe düşünüyordu. Toplantıyı yöneten Derya, çizim yapmadan önce bu istekleri ayrı ayrı bir deftere yazdı.',
-'Bir hafta sonra üç öneri hazırlandı. İlkinde alanın tamamı çiçek tarhlarıyla kaplıydı. İkincisi geniş bir boşluk bırakıyor ama oturacak yer sunmuyordu. Üçüncüsü küçük bir tarh, iki taşınabilir bank ve ortada boş bir bölüm içeriyordu. En gösterişli çizim ilk öneriydi. Yine de sakinler üçüncü öneriyi bir ay denemeye karar verdi. Taşınabilir banklar, kullanım sırasında ortaya çıkacak sorunlara göre yer değiştirilebilecekti.',
-'Denemenin ikinci haftasında bir bankın öğleden sonra sürekli güneşte kaldığı fark edildi. Bank kuzey duvarının yanına taşındı. Top oynayan çocuklar tarha birkaç kez bastı; bunun üzerine tarhın sınırı yere konan taşlarla belirginleştirildi. Bu düzenlemeler ilk çizimin yanlış olduğunu kanıtlamıyordu. Çizim, gerçek kullanımdan öğrenilecek ayrıntıları içeremezdi. Deftere yalnızca şikâyetler değil, iyi işleyen durumlar da yazıldı. Böylece her yeni sorunda bütün planı baştan değiştirmek gerekmedi.',
-'Ay sonunda bahçe herkesin ilk hayalindeki gibi değildi. Buna rağmen farklı saatlerde farklı kişilerce kullanılıyordu. Sakinler değerlendirmede iki soruyu birlikte sordu: Bahçe bakılabilir durumda mıydı ve insanlar yapmak istedikleri şeylere yer bulabiliyor muydu? Sadece fotoğraftaki görüntüye bakmak ikinci soruyu yanıtsız bırakacaktı. Bahçe defteri ortak kararın hafızası oldu; bir sonraki baharda aynı tartışmalar açıldığında hangi seçimin neden yapıldığı oradan okunabilecekti.'
-],questions:[q('Ana düşünce','Bahçe deneyimi hangi görüşü destekler?',['Ortak alanlar tek bir beğeniye göre tasarlanmalıdır.','Güzel görünen plan her ihtiyacı karşılar.','Ortak kullanım, farklı ihtiyaçlar ve gözlemle geliştirilir.','Bahçe planı kullanımdan sonra değiştirilmemelidir.'],2,'Deneme ve defter, farklı kullanımları birlikte düşünmeyi sağlıyor.',3),q('Açık bilgi','Hangi öneri denendi?',['Tümü çiçekli olan','Küçük tarh, iki bank ve boş alan içeren','Yalnızca boş alan bırakan','Bankları sabitleyen'],1,'İkinci paragraf üçüncü önerinin seçildiğini söylüyor.',1),q('İlişki','İyi işleyen durumlar neden yazıldı?',['Defter dolsun diye','Çizimler silindiği için','Yeni bank almak için','Her sorun yüzünden tüm planı değiştirmemek için'],3,'Olumlu gözlemler korunacak kısımları gösteriyor.',2),q('Çıkarım','Bankların taşınabilir olması ne sağladı?',['Kullanıma göre küçük değişiklik yapılmasını','Bahçenin bakımsız kalmasını','Güneşin ortadan kalkmasını','Top oynanmasının engellenmesini'],0,'Güneşte kalan bankın yeri değiştirilebildi.',2),q('Bağlam','“Ortak kararın hafızası” neyi anlatır?',['Sadece güzel anıların kaydını','Kararların nedenlerini koruyan kaydı','Çiçeklerin adlarını','Toplantıya gelenlerin listesini'],1,'Son cümle gelecek baharda seçim gerekçelerinin okunacağını belirtir.',3)],summary:'Farklı bahçe ihtiyaçları, değiştirilebilir bir düzenle denendi. Defter olumlu ve olumsuz gözlemleri, kararların gerekçeleriyle birlikte korudu.',points:['Düzen sözcüğü farklı ihtiyaçları örtüyordu.','Taşınabilir parçalar küçük düzeltmelere izin verdi.','Görünüş ile amaca uygun kullanım birlikte değerlendirildi.']},
-{id:'r05',title:'Bir tarifin kenar notları',genre:'Öğretici',level:2,complexity:'Süreç, koşul ve sonuç ayrımı.',role:'mid',paragraphs:[
-'Bir mahalle mutfağında gönüllüler her cumartesi birlikte yemek hazırlıyordu. Yeni katılanlar, duvara asılan tarifi harfi harfine izledikleri hâlde aynı sonucu alamıyordu. Deneyimli gönüllü Ekin, sorunun dikkatsizlik olduğunu düşündü. Bir sabah işin başında durup kimsenin adım atlamadığını görünce bu açıklamadan vazgeçti. Tarif ölçüleri söylüyor, ama malzemelerin başlangıç durumunu ve kullanılan araçların farkını anlatmıyordu.',
-'Örneğin “sebzeleri on dakika pişirin” cümlesi, sebzelerin ne büyüklükte doğrandığını belirtmiyordu. Geniş tenceredeki karışım ile dar tenceredeki karışım aynı sürede hazır olmuyordu. Bazı gönüllüler on dakika dolunca ocağı kapatıyor; bazıları deneyimine güvenip bekliyordu. Ekin bu farklılığı ortadan kaldırmak için tek bir kişiyi yetkili kılmadı. Bunun yerine tarifin yanına, herkesin gözleyebileceği bitiş işaretleri ekledi: kaşığın rahat ilerlemesi ve parçaların biçimini korurken yumuşaması gibi.',
-'Sonraki hafta tarif birlikte okundu. Her aşamada önce ne yapılacağı, sonra neye bakılarak ilerlenebileceği konuşuldu. Süreler silinmedi; yaklaşık planlama için yerinde kaldı. Böylece zaman bilgisi ile hazır olma belirtisi farklı görevler üstlendi. Yeni katılanlar bir şey değiştiğinde hangi bilgiyi esas alacaklarını daha iyi anladı. Deneyimli kişilerin de her adımı uzaktan kontrol etmesi gerekmedi.',
-'Bu düzen bütün belirsizlikleri çözmedi. Alışılmadık bir malzeme geldiğinde yine konuşmak gerekiyordu. Ancak tarif artık yalnızca emirler sırası değildi; karar vermeye yardım eden bir araçtı. Ekin, iyi bir yönergenin okuyucunun yapacağı işi onun yerine yapmadığını, doğru anda doğru ayrımı görünür kıldığını söyledi. Gönüllüler bir sonraki tarifte önce kendi kendilerine şu soruyu sormaya karar verdi: Buradaki sayı kesin bir sınır mı, yoksa bir gözlemle birlikte kullanılacak yaklaşık bilgi mi? Bu soru, metni daha yavaş okumaktan farklı olarak neyin önemli olduğunu belirlemelerine yardım ediyordu.'
-],questions:[q('Ana düşünce','Metnin ana düşüncesi nedir?',['Yönergelerde bütün sayılar kaldırılmalıdır.','Deneyim varsa tarif okumak gerekmez.','Yalnızca en deneyimli kişi karar vermelidir.','İyi yönerge, adımlarla birlikte karar işaretlerini de açıklar.'],3,'Sürelerin yanında gözlenebilir bitiş belirtileri ekleniyor.',3),q('Açık bilgi','Tarifte süreler için ne yapıldı?',['Yaklaşık planlama için korundu.','Tamamen silindi.','İki katına çıkarıldı.','Sadece deneyimlilere gösterildi.'],0,'Üçüncü paragraf sürelerin silinmediğini açıklar.',2),q('İlişki','Aynı süre neden farklı sonuç verebiliyordu?',['Gönüllüler hiç okumadığı için','Başlangıç koşulları ve araçlar farklı olduğu için','Yemekler farklı günlerde yenildiği için','Tarif duvarda olduğu için'],1,'Doğrama boyutu ve tencere genişliği örnekleniyor.',1),q('Çıkarım','Ekin’in yaklaşımı nasıl değişmiştir?',['Bütün sorumluluğu yenilere bırakmıştır.','Tarif kullanımını durdurmuştur.','Kişiyi suçlamak yerine bilgi eksikliğini araştırmıştır.','Gözlem yerine sayılara bağlanmıştır.'],2,'İlk dikkatsizlik açıklaması gözlemle terk ediliyor.',0),q('Bağlam','“Karar işareti” olarak hangisi veriliyor?',['Cumartesi buluşmak','Tarifi duvara asmak','Malzeme satın almak','Kaşığın rahat ilerlemesi'],3,'Bu belirti sonraki adıma geçme kararına yardımcıdır.',1)],summary:'Gönüllüler aynı tarifi farklı koşullarda uyguluyordu. Sürelerin yanına gözlenebilir bitiş belirtileri eklenince yönerge karar vermeyi destekledi.',points:['Adım atlamamak tek başına aynı sonucu sağlamadı.','Koşullar süreyi etkiledi.','Sayılar ile gözlem belirtileri birlikte kullanıldı.']},
-{id:'r06',title:'Sessiz duyurunun sesi',genre:'Bilgilendirici',level:2,complexity:'Bir davranışın alternatif açıklamalarını değerlendirme.',role:'final',paragraphs:[
-'Bir atölye topluluğu haftalık programını her pazartesi uzun bir mesajla paylaşıyordu. Mesajın başında topluluğun geçen haftaki çalışmaları anlatılıyor, ortasında etkinlik saatleri sıralanıyor, en altında kayıt bağlantısı yer alıyordu. Programı hazırlayanlar metnin çok açık olduğunu düşünüyordu. Buna rağmen her hafta “Saat kaçta?” ve “Nasıl katılırım?” soruları geliyordu. Ekip bu soruları önce insanların okumaya zaman ayırmamasıyla açıkladı.',
-'Topluluğa yeni katılan Selin, mesajı telefonda açtığında önce uzun bir teşekkür yazısı gördüğünü söyledi. Etkinlik saatlerine ulaşmak için aşağı iniyor, sonra hangi etkinliğin hangi güne ait olduğunu yeniden kontrol ediyordu. Başka bir katılımcı programı baştan sona okuduğunu, ancak kayıt gerektiren etkinlikleri diğerlerinden ayıramadığını anlattı. İki kişi de metne bakmıştı; güçlükleri aynı değildi. Birinin bilgiye erişmesi, diğerinin bilgileri ilişkilendirmesi zorlaşıyordu.',
-'Ekip duyuruyu kısaltırken her şeyi silmedi. En üste tarih, saat ve kayıt durumunu taşıyan küçük bir liste koydu. Ayrıntılı etkinlik açıklamaları onun altında kaldı. Geçen haftanın değerlendirmesi ayrı bir başlıkla sona alındı. Yeni düzende hızlıca plan yapmak isteyenler temel bilgiyi buluyor, karar vermeden önce içeriği öğrenmek isteyenler açıklamaları okuyabiliyordu. Katılım koşulları her etkinliğin yanında tekrarlandı; okuyucunun metnin iki ucunu zihninde birleştirmesine gerek kalmadı.',
-'Bir ay sonra tekrar sorulan sorular azaldı. Ekip bunu herkesin duyuruyu bütünüyle okuduğu biçiminde yorumlamadı. Daha olası açıklama, insanların kendi sorularının yanıtına daha rahat ulaşmasıydı. Bazı katılımcılar hâlâ ayrıntıları okumadan kayıt yapıyordu; bunu çözmek için kayıt aşamasında kısa bir içerik özeti gösterildi. Düzenleme, okuyucuyu tembel ilan etmekten daha işe yarar bir başlangıç sağlamıştı. Ekip bundan sonra duyuru yazarken yalnızca “Ne söylemeliyiz?” sorusunu değil, “Okuyucu burada hangi kararı verecek?” sorusunu da sormaya başladı.'
-],questions:[q('Ana düşünce','Metin hangi görüşü savunuyor?',['Uzun duyurular hiçbir zaman okunmaz.','Bilgi, okuyucunun kararına göre düzenlenmelidir.','Okuyucular her ayrıntıyı ezberlemelidir.','Tekrarlanan sorular her zaman dikkatsizliktir.'],1,'Yeni düzen farklı bilgi ihtiyaçlarına ayrı yollar sunuyor.',3),q('Açık bilgi','Geçen haftanın değerlendirmesi nereye alındı?',['Listenin içine','Kayıt sayfasına','Ayrı başlıkla sona','Etkinliklerin yanına'],2,'Üçüncü paragrafta yeni sıralama verilir.',2),q('İlişki','Koşullar neden etkinliklerin yanında tekrarlandı?',['Uzak bilgileri ilişkilendirme yükünü azaltmak için','Mesajı daha uzun yapmak için','Kayıtları kapatmak için','Saatleri gizlemek için'],0,'Okuyucunun iki ucu birleştirmesi gerekmiyor.',2),q('Çıkarım','Soru sayısının azalması neden tam okuma kanıtı değildir?',['Katılım tamamen durmuştur.','Mesajlar artık gönderilmiyordur.','Etkinlik sayısı sıfırlanmıştır.','İnsanlar yalnızca gereken yanıtı bulmuş olabilir.'],3,'Son paragraf bu alternatif açıklamayı açıkça sunuyor.',3),q('Bağlam','“Metnin iki ucunu birleştirmek” neyi anlatır?',['Mesajı kopyalamayı','Ayrı yerlerdeki ilişkili bilgileri zihinde eşleştirmeyi','Yazıyı büyütmeyi','Başlığı değiştirmeyi'],1,'Koşul ile etkinliğin uzak konumu anlatılıyor.',2)],summary:'Atölye duyurusu farklı okuma amaçlarına göre düzenlendi. Soruların azalması, tam okuma değil bilgiye daha kolay erişim işareti olarak yorumlandı.',points:['Erişim ve ilişkilendirme farklı sorunlardı.','Karar bilgisi öne alındı.','Az soru sormak her şeyi okumak demek değildir.']},
+import { wordCount } from "../text";
+import { q, type Reading } from "./types";
+import { longReadings } from "./long";
+type Draft = Omit<Reading, "version" | "words" | "skills" | "modes">;
+const drafts: Draft[] = [
+  {
+    id: "r01",
+    title: "Bir masanın etrafında",
+    genre: "Bilgilendirici",
+    level: 2,
+    complexity: "Birden çok görüş, örtük sonuç ve karar gerekçesi.",
+    role: "baseline",
+    paragraphs: [
+      "Mahalle evindeki çalışma odası, açıldığı ilk ay beklenenden az kullanıldı. Oysa odada yeni masalar, rahat sandalyeler ve geniş bir kitaplık vardı. Sorumlular önce tanıtımın yetersiz olduğunu düşündü. Hazırladıkları afişleri çevredeki dükkânlara astılar. İkinci ay ziyaretçi sayısı biraz arttı, fakat insanlar yine kısa süre kalıyordu. Bunun üzerine daha çok afiş hazırlamak yerine, gelenlere odada ne yapabildiklerini ve ne yapmakta zorlandıklarını sordular.",
+      "Yanıtlar tek bir soruna işaret etmiyordu. Sınava hazırlananlar kapı önündeki konuşmalardan, grup ödevi yapanlar ise birbirlerine fısıldamak zorunda kalmaktan yakınıyordu. Çocuğunu bekleyen bir ziyaretçi yalnızca yarım saat oturmak istediğini, kayıt formunun bu kısa ziyaret için gereksiz göründüğünü söyledi. Demek ki aynı oda, farklı amaçları olan insanları ağırlıyordu. Herkese aynı sessizlik kuralını uygulamak, bazılarını rahatlatırken başkalarının işini güçleştiriyordu.",
+      "Ekip odayı duvarlarla bölmedi. Pencere tarafını sessiz çalışma için ayırdı; girişteki büyük masayı belirli saatlerde birlikte çalışmak isteyenlere açtı. Kısa ziyaretler için yalnızca boş yer sayısını izlemeye başladı. Yeni düzen iki hafta denendi. Bir görevli, günün farklı saatlerinde hangi alanların dolduğunu not etti. Kullanıcılara aynı sorular yeniden soruldu; böylece sadece ilk günün heyecanına bakılarak karar verilmemiş oldu.",
+      "Sonuç kusursuz değildi. Kalabalık günlerde ses yine yükseliyordu. Ancak ziyaretçiler artık hangi saatte ve hangi bölümde çalışacaklarını daha kolay seçebiliyordu. Ekip, odanın başarısını yalnızca kapıdan giren kişi sayısıyla değerlendirmemeyi öğrendi. İçeride geçirilen zamanın amaca uygunluğu da önemliydi. Yeni düzenin kalıcı olup olmayacağına karar vermek için denemeyi bir ay daha sürdürdüler. Odaya yeni eşya almak hâlâ mümkündü; fakat artık hangi ihtiyacı karşılayacağını bilmeden bir şey satın almak istemiyorlardı.",
+    ],
+    questions: [
+      q(
+        "Ana düşünce",
+        "Metnin temel düşüncesi nedir?",
+        [
+          "Yeni eşyalar ortak alanların kullanımını artırır.",
+          "Bir alanı iyileştirmek için kullanım amaçlarını anlamak gerekir.",
+          "Sessizlik ortak alanların tek başarı ölçütüdür.",
+          "Tanıtım yapıldığında kullanıcı sorunları azalır.",
+        ],
+        1,
+        "Düzenleme, ziyaretçilerin farklı amaçları öğrenildikten sonra yapılıyor.",
+        3,
+      ),
+      q(
+        "Açık bilgi",
+        "Pencere tarafı hangi amaçla ayrıldı?",
+        ["Kısa ziyaret", "Grup ödevi", "Sessiz çalışma", "Kayıt işlemi"],
+        2,
+        "Üçüncü paragraf pencere tarafını sessiz çalışmaya ayırıyor.",
+        2,
+      ),
+      q(
+        "İlişki",
+        "İlk afiş çalışması neden yeterli olmadı?",
+        [
+          "Oda kapalı kaldığı için",
+          "Yeni kitap alınmadığı için",
+          "Afişler geç asıldığı için",
+          "Kullanım sırasındaki güçlükleri çözmediği için",
+        ],
+        3,
+        "Tanıtım ziyaretleri biraz artırsa da kalma süresi ve çalışma sorunları değişmiyor.",
+        0,
+      ),
+      q(
+        "Çıkarım",
+        "Ekip hakkında hangi çıkarım desteklenir?",
+        [
+          "Kararını gözlemle güncellemeye açıktır.",
+          "Her ziyaretçinin uzun süre kalmasını ister.",
+          "Bütün ses sorunlarını çözmüştür.",
+          "Yeni eşya almayı tamamen bırakmıştır.",
+        ],
+        0,
+        "Deneme uzatılıyor ve iki kez geri bildirim toplanıyor; karar kesinleşmiş değil.",
+        3,
+      ),
+      q(
+        "Bağlam",
+        "“İlk günün heyecanına bakılarak” ifadesi hangi riski anlatır?",
+        [
+          "Ziyaretçileri bekletmek",
+          "Geçici ilgiyi kalıcı yarar sanmak",
+          "Sessiz alanı küçültmek",
+          "Ölçüm yapmayı unutmak",
+        ],
+        1,
+        "Tek gün yerine farklı saatler ve tekrar sorulan sorular kullanılıyor.",
+        2,
+      ),
+    ],
+    summary:
+      "Mahalle evi, düşük kullanımı yalnızca tanıtımla çözemedi. Kullanıcı amaçlarını öğrenerek alanı ve kuralları değiştirdi; başarıyı amaca uygun kullanım üzerinden izlemeye başladı.",
+    points: [
+      "İlk varsayım tanıtım eksikliğiydi.",
+      "Farklı amaçlar aynı kuralla karşılanmıyordu.",
+      "Yeni düzen gözlemle ve tekrar sorularla denendi.",
+    ],
+    scan: {
+      prompt: "Yeni düzen ilk olarak kaç hafta denendi?",
+      answer: "İki hafta",
+      paragraph: 2,
+    },
+  },
+  {
+    id: "r02",
+    title: "Tamir gününün ardından",
+    genre: "Bilgilendirici",
+    level: 2,
+    complexity: "Başlangıç varsayımı ile sonuç arasında karşılaştırma.",
+    role: "mid",
+    paragraphs: [
+      "Bir apartmanın sakinleri, bodrumda biriken kullanılmayan eşyaları görünce ortak bir tamir günü düzenledi. Duyuruda herkesin küçük bir ev eşyası getirebileceği yazıyordu. Düzenleyiciler gün sonunda kaç eşyanın onarıldığını saymayı planladı. Bunun için girişe bir kayıt masası kurdular. Masanın yanına da onarılmış ürünleri koyacakları uzun bir raf yerleştirdiler. İlk ziyaretçiler gelmeden önce rafın tamamen dolacağını hayal ediyorlardı.",
+      "Ancak getirilen eşyaların hepsi aynı tür yardıma ihtiyaç duymuyordu. Bir sandalyenin gevşek vidası birkaç dakikada sıkıldı. Kırık bir lambanın ise uygun parçası yoktu. Lambayı getiren kişi, parçanın adını ve nasıl bulunacağını öğrenince memnun ayrıldı. Eski bir çantanın fermuarı tamir edilemedi, fakat sahibi onu kesip küçük bir alet kesesine dönüştürmeyi düşündü. Bu iki ziyaretin sonunda rafa hiçbir şey eklenmemişti.",
+      "Öğle arasında ekip kayıtlarını gözden geçirdi. Sadece tamir sayısına bakarlarsa birçok yararlı görüşmeyi başarısız sayacaklarını fark ettiler. Forma iki sütun daha eklediler: sorunu anlaşılan eşyalar ve başka kullanım bulunan eşyalar. Bu değişiklik, kırık bir ürünün kendiliğinden çalışır hâle geldiği anlamına gelmiyordu. Yalnızca günün farklı sonuçlarını birbirine karıştırmadan görünür kılıyordu. Katılımcılar da hangi konuda yardım aldıklarını daha açık anlatabiliyordu.",
+      "Akşam raf yarıya kadar doluydu. Buna rağmen düzenleyiciler günü boşa geçmiş saymadı. Ertesi buluşma için katılımcılardan ürünün fotoğrafını ve bilinen sorununu önceden paylaşmalarını istediler. Böylece hangi araçların ve parçaların gerekli olabileceğini daha iyi kestireceklerdi. Bazı eşyaların güvenli biçimde onarılamayacağını da duyuruya eklediler. Amaç, her şeyi mutlaka kurtarmak değil, insanlar için uygun bir sonraki adımı bulmaktı. Yeni kayıt sütunları da bu amacı destekledi; yapılan işi olduğundan büyük göstermeden, yalnızca rafta görünen sonuçla sınırlı kalmayan bir değerlendirme sağladı.",
+    ],
+    questions: [
+      q(
+        "Ana düşünce",
+        "Metin hangi görüşü geliştiriyor?",
+        [
+          "Tamir günleri yalnızca eşya sayısıyla değerlendirilmelidir.",
+          "Önceden fotoğraf göndermek bütün onarımları mümkün kılar.",
+          "Farklı yararlı sonuçları ayrı izlemek daha anlamlı bir değerlendirme sağlar.",
+          "Bir eşyanın kullanımını değiştirmek her zaman tamirden iyidir.",
+        ],
+        2,
+        "Ekip tamir, sorunu anlama ve yeni kullanım bulmayı ayrı kaydediyor.",
+        2,
+      ),
+      q(
+        "Açık bilgi",
+        "Lambayı getiren kişi ne öğreniyor?",
+        [
+          "Parçanın adını ve nasıl bulunacağını",
+          "Yeni lambaların satış fiyatını",
+          "Elektrik tesisatının geçmişini",
+          "Çantanın nasıl kesileceğini",
+        ],
+        0,
+        "Eksik parçanın tanınması yararlı görüşme örneği olarak veriliyor.",
+        1,
+      ),
+      q(
+        "İlişki",
+        "Forma yeni sütunlar neden ekleniyor?",
+        [
+          "Raf kısa geldiği için",
+          "Farklı katkılar tamir sayısında görünmediği için",
+          "Ziyaretçiler kayıt yaptırmadığı için",
+          "Daha fazla eşya toplamak için",
+        ],
+        1,
+        "Rafa eklenmeyen iki eşya için de yararlı bir adım bulunuyor.",
+        2,
+      ),
+      q(
+        "Çıkarım",
+        "Fotoğrafın önceden istenmesi neyi gösterir?",
+        [
+          "Onarımın garanti edildiğini",
+          "Yalnızca yeni eşya kabul edileceğini",
+          "Kayıtların artık tutulmayacağını",
+          "Hazırlığın ihtiyaçlara göre yapılacağını",
+        ],
+        3,
+        "Araç ve parçaları önceden kestirmek amaçlanıyor.",
+        3,
+      ),
+      q(
+        "Bağlam",
+        "“Birbirine karıştırmadan görünür kılmak” ne demektir?",
+        [
+          "Her yardımı başarılı tamir diye saymak",
+          "Farklı sonuçları kendi adlarıyla kaydetmek",
+          "Tamir olmayan eşyaları saklamak",
+          "Katılımcı sayısını azaltmak",
+        ],
+        1,
+        "Yeni sütunlar onarım yapılmış gibi davranmıyor; ayrı katkıları kaydediyor.",
+        2,
+      ),
+    ],
+    summary:
+      "Tamir gününde yalnızca onarılan eşya sayısı bütün katkıları göstermedi. Ekip sonuç türlerini ayırdı ve sonraki buluşmanın hazırlığını gerçek ihtiyaçlara göre düzenledi.",
+    points: [
+      "Onarım dışındaki yararlar da vardı.",
+      "Kayıt sütunları sonuç türlerini ayırdı.",
+      "Ön bilgi sonraki hazırlığı yönlendirecek.",
+    ],
+    scan: {
+      prompt: "Ertesi buluşmadan önce hangi iki bilgi isteniyor?",
+      answer: "Ürünün fotoğrafı ve bilinen sorunu",
+      paragraph: 3,
+    },
+  },
+  {
+    id: "r03",
+    title: "Yol gösteren levhalar",
+    genre: "Bilgilendirici",
+    level: 2,
+    complexity: "Ölçüt değişimi, gerekçe ve örtük ilişki.",
+    role: "final",
+    paragraphs: [
+      "Küçük bir kültür merkezinde danışmaya en sık sorulan soru, etkinlik salonunun nerede olduğuydu. Oysa girişte büyük bir yön levhası vardı. Yönetim, yazıları büyütmenin sorunu çözeceğini düşündü. Yeni levha basılmadan önce tasarım atölyesinden bir ekip, binaya ilk kez gelenlerle kısa bir yürüyüş yaptı. Katılımcılardan nereye gideceklerini ve hangi noktada kararsız kaldıklarını sesli anlatmaları istendi. Ekip cevap vermek yerine onların izlediği yolu not etti.",
+      "Ziyaretçilerin çoğu giriş levhasını görüyor, fakat ilk koridor ayrımında yönünü kaybediyordu. “Büyük salon” yazısını okuyanlar, biletlerinde “Sahne Bir” ifadesi olduğu için doğru yolda olduklarından emin olamıyordu. Binayı iyi bilen çalışanlar iki adın aynı yeri anlattığını biliyordu. İlk kez gelenlerin böyle bir bilgisi yoktu. Bir başka sorun da üst kata çıkan merdivenin, salona giden koridordan daha aydınlık görünmesiydi. Bazı ziyaretçiler herhangi bir yazı okumadan o tarafa yöneliyordu.",
+      "Ekip, bütün duvarları levhalarla kaplamak yerine iki değişiklik önerdi. Biletteki ad ile kapıdaki adı eşitledi ve karar verilen koridor ayrımına küçük bir yön işareti yerleştirdi. Girişteki büyük levha yerinde kaldı. Sonraki etkinlikte yine ilk kez gelenlerle yüründü. Bu kez yalnızca danışmaya sorulan sorular sayılmadı; yanlış yöne dönüp geri gelenler de gözlendi. Çünkü bir ziyaretçi hiç soru sormadan da uzun süre yol arayabilirdi.",
+      "İkinci yürüyüşte kararsızlık azaldı, ancak kalabalık sırasında küçük işaretin önü kapanabiliyordu. Ekip işareti biraz yukarı taşıdı ve bir sonraki etkinlikte yeniden gözlem yapmayı kararlaştırdı. Çalışmanın sonunda öğrenilen, yön bulmanın daha büyük harflerden ibaret olmadığıydı. Bilginin doğru adla, ihtiyaç duyulan yerde görünmesi gerekiyordu. Danışmanın sakinleşmesi sevindiriciydi; yine de tek başına herkesin yolunu kolay bulduğunu kanıtlamıyordu. Yeni düzen bu ayrımı koruyarak geliştirildi.",
+    ],
+    questions: [
+      q(
+        "Ana düşünce",
+        "Metnin ana düşüncesi hangisidir?",
+        [
+          "Daha çok işaret her binayı anlaşılır kılar.",
+          "Yönlendirme, kullanıcının karar noktaları ve diliyle uyumlu olmalıdır.",
+          "Kültür merkezlerinde danışma gereksizdir.",
+          "Aydınlık koridorlar her zaman doğru yönü gösterir.",
+        ],
+        1,
+        "Adların eşitlenmesi ve karar noktasına işaret konması çözümün merkezindedir.",
+        3,
+      ),
+      q(
+        "Açık bilgi",
+        "İki farklı adla anılan yer hangisidir?",
+        [
+          "Danışma masası",
+          "Tasarım atölyesi",
+          "Etkinlik salonu",
+          "Giriş kapısı",
+        ],
+        2,
+        "Büyük salon ile Sahne Bir aynı mekânın iki adıdır.",
+        1,
+      ),
+      q(
+        "İlişki",
+        "Yanlış dönüp geri gelenler neden gözlendi?",
+        [
+          "Her ziyaretçi soru sormadığı için",
+          "Yeni bilet basılmadığı için",
+          "Merdiven kapatıldığı için",
+          "İşaretler kaldırıldığı için",
+        ],
+        0,
+        "Soru sayısı tek başına yol bulma kolaylığını göstermiyor.",
+        2,
+      ),
+      q(
+        "Çıkarım",
+        "Çalışanların bildiği ad eşleşmesi hangi sorunu açığa çıkarır?",
+        [
+          "Tüm ziyaretçiler çalışanlardan daha dikkatlidir.",
+          "Biletler etkinlikten sonra okunmaktadır.",
+          "Levhalar yalnızca çalışanlara yöneliktir.",
+          "İçeriden bilinen şeyler yeni gelenler için açık olmayabilir.",
+        ],
+        3,
+        "Metin, çalışan bilgisi ile ilk ziyaretçi bilgisini karşılaştırıyor.",
+        1,
+      ),
+      q(
+        "Bağlam",
+        "“Karar verilen koridor ayrımı” hangi yerdir?",
+        [
+          "Biletlerin satıldığı yer",
+          "Ziyaretçinin yön seçmesi gereken yer",
+          "Çalışanların toplandığı oda",
+          "Etkinliğin bittiği çıkış",
+        ],
+        1,
+        "İşaret tam yol seçimi sırasında gerekli oluyor.",
+        2,
+      ),
+    ],
+    summary:
+      "Kültür merkezindeki yön sorunu, yazı büyüklüğünden çok tutarsız adlar ve eksik karar noktası bilgisiyle ilgiliydi. Küçük düzenlemeler gözlemle yeniden ele alındı.",
+    points: [
+      "İlk varsayım yazı boyutuydu.",
+      "Aynı salonun iki adı kararsızlık yarattı.",
+      "Soru sormayan ziyaretçiler de yolunu kaybedebiliyordu.",
+    ],
+    scan: {
+      prompt: "Bilette salonun adı nasıl yazıyordu?",
+      answer: "Sahne Bir",
+      paragraph: 1,
+    },
+  },
+  {
+    id: "r04",
+    title: "Paylaşılan bahçenin defteri",
+    genre: "Düşünce",
+    level: 2,
+    complexity: "İki ölçütü birlikte değerlendirme.",
+    role: "baseline",
+    paragraphs: [
+      "Apartmanın arkasındaki küçük bahçe için ilk toplantıda herkes aynı sözcüğü kullandı: düzen. Fakat konuşma uzadıkça düzenin herkes için başka bir şey olduğu anlaşıldı. Kimi çiçeklerin aynı yükseklikte olmasını istiyor, kimi çocukların top oynayacağı boş bir yer arıyor, kimi de akşam oturabileceği gölgeli bir köşe düşünüyordu. Toplantıyı yöneten Derya, çizim yapmadan önce bu istekleri ayrı ayrı bir deftere yazdı.",
+      "Bir hafta sonra üç öneri hazırlandı. İlkinde alanın tamamı çiçek tarhlarıyla kaplıydı. İkincisi geniş bir boşluk bırakıyor ama oturacak yer sunmuyordu. Üçüncüsü küçük bir tarh, iki taşınabilir bank ve ortada boş bir bölüm içeriyordu. En gösterişli çizim ilk öneriydi. Yine de sakinler üçüncü öneriyi bir ay denemeye karar verdi. Taşınabilir banklar, kullanım sırasında ortaya çıkacak sorunlara göre yer değiştirilebilecekti.",
+      "Denemenin ikinci haftasında bir bankın öğleden sonra sürekli güneşte kaldığı fark edildi. Bank kuzey duvarının yanına taşındı. Top oynayan çocuklar tarha birkaç kez bastı; bunun üzerine tarhın sınırı yere konan taşlarla belirginleştirildi. Bu düzenlemeler ilk çizimin yanlış olduğunu kanıtlamıyordu. Çizim, gerçek kullanımdan öğrenilecek ayrıntıları içeremezdi. Deftere yalnızca şikâyetler değil, iyi işleyen durumlar da yazıldı. Böylece her yeni sorunda bütün planı baştan değiştirmek gerekmedi.",
+      "Ay sonunda bahçe herkesin ilk hayalindeki gibi değildi. Buna rağmen farklı saatlerde farklı kişilerce kullanılıyordu. Sakinler değerlendirmede iki soruyu birlikte sordu: Bahçe bakılabilir durumda mıydı ve insanlar yapmak istedikleri şeylere yer bulabiliyor muydu? Sadece fotoğraftaki görüntüye bakmak ikinci soruyu yanıtsız bırakacaktı. Bahçe defteri ortak kararın hafızası oldu; bir sonraki baharda aynı tartışmalar açıldığında hangi seçimin neden yapıldığı oradan okunabilecekti.",
+    ],
+    questions: [
+      q(
+        "Ana düşünce",
+        "Bahçe deneyimi hangi görüşü destekler?",
+        [
+          "Ortak alanlar tek bir beğeniye göre tasarlanmalıdır.",
+          "Güzel görünen plan her ihtiyacı karşılar.",
+          "Ortak kullanım, farklı ihtiyaçlar ve gözlemle geliştirilir.",
+          "Bahçe planı kullanımdan sonra değiştirilmemelidir.",
+        ],
+        2,
+        "Deneme ve defter, farklı kullanımları birlikte düşünmeyi sağlıyor.",
+        3,
+      ),
+      q(
+        "Açık bilgi",
+        "Hangi öneri denendi?",
+        [
+          "Tümü çiçekli olan",
+          "Küçük tarh, iki bank ve boş alan içeren",
+          "Yalnızca boş alan bırakan",
+          "Bankları sabitleyen",
+        ],
+        1,
+        "İkinci paragraf üçüncü önerinin seçildiğini söylüyor.",
+        1,
+      ),
+      q(
+        "İlişki",
+        "İyi işleyen durumlar neden yazıldı?",
+        [
+          "Defter dolsun diye",
+          "Çizimler silindiği için",
+          "Yeni bank almak için",
+          "Her sorun yüzünden tüm planı değiştirmemek için",
+        ],
+        3,
+        "Olumlu gözlemler korunacak kısımları gösteriyor.",
+        2,
+      ),
+      q(
+        "Çıkarım",
+        "Bankların taşınabilir olması ne sağladı?",
+        [
+          "Kullanıma göre küçük değişiklik yapılmasını",
+          "Bahçenin bakımsız kalmasını",
+          "Güneşin ortadan kalkmasını",
+          "Top oynanmasının engellenmesini",
+        ],
+        0,
+        "Güneşte kalan bankın yeri değiştirilebildi.",
+        2,
+      ),
+      q(
+        "Bağlam",
+        "“Ortak kararın hafızası” neyi anlatır?",
+        [
+          "Sadece güzel anıların kaydını",
+          "Kararların nedenlerini koruyan kaydı",
+          "Çiçeklerin adlarını",
+          "Toplantıya gelenlerin listesini",
+        ],
+        1,
+        "Son cümle gelecek baharda seçim gerekçelerinin okunacağını belirtir.",
+        3,
+      ),
+    ],
+    summary:
+      "Farklı bahçe ihtiyaçları, değiştirilebilir bir düzenle denendi. Defter olumlu ve olumsuz gözlemleri, kararların gerekçeleriyle birlikte korudu.",
+    points: [
+      "Düzen sözcüğü farklı ihtiyaçları örtüyordu.",
+      "Taşınabilir parçalar küçük düzeltmelere izin verdi.",
+      "Görünüş ile amaca uygun kullanım birlikte değerlendirildi.",
+    ],
+  },
+  {
+    id: "r05",
+    title: "Bir tarifin kenar notları",
+    genre: "Öğretici",
+    level: 2,
+    complexity: "Süreç, koşul ve sonuç ayrımı.",
+    role: "mid",
+    paragraphs: [
+      "Bir mahalle mutfağında gönüllüler her cumartesi birlikte yemek hazırlıyordu. Yeni katılanlar, duvara asılan tarifi harfi harfine izledikleri hâlde aynı sonucu alamıyordu. Deneyimli gönüllü Ekin, sorunun dikkatsizlik olduğunu düşündü. Bir sabah işin başında durup kimsenin adım atlamadığını görünce bu açıklamadan vazgeçti. Tarif ölçüleri söylüyor, ama malzemelerin başlangıç durumunu ve kullanılan araçların farkını anlatmıyordu.",
+      "Örneğin “sebzeleri on dakika pişirin” cümlesi, sebzelerin ne büyüklükte doğrandığını belirtmiyordu. Geniş tenceredeki karışım ile dar tenceredeki karışım aynı sürede hazır olmuyordu. Bazı gönüllüler on dakika dolunca ocağı kapatıyor; bazıları deneyimine güvenip bekliyordu. Ekin bu farklılığı ortadan kaldırmak için tek bir kişiyi yetkili kılmadı. Bunun yerine tarifin yanına, herkesin gözleyebileceği bitiş işaretleri ekledi: kaşığın rahat ilerlemesi ve parçaların biçimini korurken yumuşaması gibi.",
+      "Sonraki hafta tarif birlikte okundu. Her aşamada önce ne yapılacağı, sonra neye bakılarak ilerlenebileceği konuşuldu. Süreler silinmedi; yaklaşık planlama için yerinde kaldı. Böylece zaman bilgisi ile hazır olma belirtisi farklı görevler üstlendi. Yeni katılanlar bir şey değiştiğinde hangi bilgiyi esas alacaklarını daha iyi anladı. Deneyimli kişilerin de her adımı uzaktan kontrol etmesi gerekmedi.",
+      "Bu düzen bütün belirsizlikleri çözmedi. Alışılmadık bir malzeme geldiğinde yine konuşmak gerekiyordu. Ancak tarif artık yalnızca emirler sırası değildi; karar vermeye yardım eden bir araçtı. Ekin, iyi bir yönergenin okuyucunun yapacağı işi onun yerine yapmadığını, doğru anda doğru ayrımı görünür kıldığını söyledi. Gönüllüler bir sonraki tarifte önce kendi kendilerine şu soruyu sormaya karar verdi: Buradaki sayı kesin bir sınır mı, yoksa bir gözlemle birlikte kullanılacak yaklaşık bilgi mi? Bu soru, metni daha yavaş okumaktan farklı olarak neyin önemli olduğunu belirlemelerine yardım ediyordu.",
+    ],
+    questions: [
+      q(
+        "Ana düşünce",
+        "Metnin ana düşüncesi nedir?",
+        [
+          "Yönergelerde bütün sayılar kaldırılmalıdır.",
+          "Deneyim varsa tarif okumak gerekmez.",
+          "Yalnızca en deneyimli kişi karar vermelidir.",
+          "İyi yönerge, adımlarla birlikte karar işaretlerini de açıklar.",
+        ],
+        3,
+        "Sürelerin yanında gözlenebilir bitiş belirtileri ekleniyor.",
+        3,
+      ),
+      q(
+        "Açık bilgi",
+        "Tarifte süreler için ne yapıldı?",
+        [
+          "Yaklaşık planlama için korundu.",
+          "Tamamen silindi.",
+          "İki katına çıkarıldı.",
+          "Sadece deneyimlilere gösterildi.",
+        ],
+        0,
+        "Üçüncü paragraf sürelerin silinmediğini açıklar.",
+        2,
+      ),
+      q(
+        "İlişki",
+        "Aynı süre neden farklı sonuç verebiliyordu?",
+        [
+          "Gönüllüler hiç okumadığı için",
+          "Başlangıç koşulları ve araçlar farklı olduğu için",
+          "Yemekler farklı günlerde yenildiği için",
+          "Tarif duvarda olduğu için",
+        ],
+        1,
+        "Doğrama boyutu ve tencere genişliği örnekleniyor.",
+        1,
+      ),
+      q(
+        "Çıkarım",
+        "Ekin’in yaklaşımı nasıl değişmiştir?",
+        [
+          "Bütün sorumluluğu yenilere bırakmıştır.",
+          "Tarif kullanımını durdurmuştur.",
+          "Kişiyi suçlamak yerine bilgi eksikliğini araştırmıştır.",
+          "Gözlem yerine sayılara bağlanmıştır.",
+        ],
+        2,
+        "İlk dikkatsizlik açıklaması gözlemle terk ediliyor.",
+        0,
+      ),
+      q(
+        "Bağlam",
+        "“Karar işareti” olarak hangisi veriliyor?",
+        [
+          "Cumartesi buluşmak",
+          "Tarifi duvara asmak",
+          "Malzeme satın almak",
+          "Kaşığın rahat ilerlemesi",
+        ],
+        3,
+        "Bu belirti sonraki adıma geçme kararına yardımcıdır.",
+        1,
+      ),
+    ],
+    summary:
+      "Gönüllüler aynı tarifi farklı koşullarda uyguluyordu. Sürelerin yanına gözlenebilir bitiş belirtileri eklenince yönerge karar vermeyi destekledi.",
+    points: [
+      "Adım atlamamak tek başına aynı sonucu sağlamadı.",
+      "Koşullar süreyi etkiledi.",
+      "Sayılar ile gözlem belirtileri birlikte kullanıldı.",
+    ],
+  },
+  {
+    id: "r06",
+    title: "Sessiz duyurunun sesi",
+    genre: "Bilgilendirici",
+    level: 2,
+    complexity: "Bir davranışın alternatif açıklamalarını değerlendirme.",
+    role: "final",
+    paragraphs: [
+      "Bir atölye topluluğu haftalık programını her pazartesi uzun bir mesajla paylaşıyordu. Mesajın başında topluluğun geçen haftaki çalışmaları anlatılıyor, ortasında etkinlik saatleri sıralanıyor, en altında kayıt bağlantısı yer alıyordu. Programı hazırlayanlar metnin çok açık olduğunu düşünüyordu. Buna rağmen her hafta “Saat kaçta?” ve “Nasıl katılırım?” soruları geliyordu. Ekip bu soruları önce insanların okumaya zaman ayırmamasıyla açıkladı.",
+      "Topluluğa yeni katılan Selin, mesajı telefonda açtığında önce uzun bir teşekkür yazısı gördüğünü söyledi. Etkinlik saatlerine ulaşmak için aşağı iniyor, sonra hangi etkinliğin hangi güne ait olduğunu yeniden kontrol ediyordu. Başka bir katılımcı programı baştan sona okuduğunu, ancak kayıt gerektiren etkinlikleri diğerlerinden ayıramadığını anlattı. İki kişi de metne bakmıştı; güçlükleri aynı değildi. Birinin bilgiye erişmesi, diğerinin bilgileri ilişkilendirmesi zorlaşıyordu.",
+      "Ekip duyuruyu kısaltırken her şeyi silmedi. En üste tarih, saat ve kayıt durumunu taşıyan küçük bir liste koydu. Ayrıntılı etkinlik açıklamaları onun altında kaldı. Geçen haftanın değerlendirmesi ayrı bir başlıkla sona alındı. Yeni düzende hızlıca plan yapmak isteyenler temel bilgiyi buluyor, karar vermeden önce içeriği öğrenmek isteyenler açıklamaları okuyabiliyordu. Katılım koşulları her etkinliğin yanında tekrarlandı; okuyucunun metnin iki ucunu zihninde birleştirmesine gerek kalmadı.",
+      "Bir ay sonra tekrar sorulan sorular azaldı. Ekip bunu herkesin duyuruyu bütünüyle okuduğu biçiminde yorumlamadı. Daha olası açıklama, insanların kendi sorularının yanıtına daha rahat ulaşmasıydı. Bazı katılımcılar hâlâ ayrıntıları okumadan kayıt yapıyordu; bunu çözmek için kayıt aşamasında kısa bir içerik özeti gösterildi. Düzenleme, okuyucuyu tembel ilan etmekten daha işe yarar bir başlangıç sağlamıştı. Ekip bundan sonra duyuru yazarken yalnızca “Ne söylemeliyiz?” sorusunu değil, “Okuyucu burada hangi kararı verecek?” sorusunu da sormaya başladı.",
+    ],
+    questions: [
+      q(
+        "Ana düşünce",
+        "Metin hangi görüşü savunuyor?",
+        [
+          "Uzun duyurular hiçbir zaman okunmaz.",
+          "Bilgi, okuyucunun kararına göre düzenlenmelidir.",
+          "Okuyucular her ayrıntıyı ezberlemelidir.",
+          "Tekrarlanan sorular her zaman dikkatsizliktir.",
+        ],
+        1,
+        "Yeni düzen farklı bilgi ihtiyaçlarına ayrı yollar sunuyor.",
+        3,
+      ),
+      q(
+        "Açık bilgi",
+        "Geçen haftanın değerlendirmesi nereye alındı?",
+        [
+          "Listenin içine",
+          "Kayıt sayfasına",
+          "Ayrı başlıkla sona",
+          "Etkinliklerin yanına",
+        ],
+        2,
+        "Üçüncü paragrafta yeni sıralama verilir.",
+        2,
+      ),
+      q(
+        "İlişki",
+        "Koşullar neden etkinliklerin yanında tekrarlandı?",
+        [
+          "Uzak bilgileri ilişkilendirme yükünü azaltmak için",
+          "Mesajı daha uzun yapmak için",
+          "Kayıtları kapatmak için",
+          "Saatleri gizlemek için",
+        ],
+        0,
+        "Okuyucunun iki ucu birleştirmesi gerekmiyor.",
+        2,
+      ),
+      q(
+        "Çıkarım",
+        "Soru sayısının azalması neden tam okuma kanıtı değildir?",
+        [
+          "Katılım tamamen durmuştur.",
+          "Mesajlar artık gönderilmiyordur.",
+          "Etkinlik sayısı sıfırlanmıştır.",
+          "İnsanlar yalnızca gereken yanıtı bulmuş olabilir.",
+        ],
+        3,
+        "Son paragraf bu alternatif açıklamayı açıkça sunuyor.",
+        3,
+      ),
+      q(
+        "Bağlam",
+        "“Metnin iki ucunu birleştirmek” neyi anlatır?",
+        [
+          "Mesajı kopyalamayı",
+          "Ayrı yerlerdeki ilişkili bilgileri zihinde eşleştirmeyi",
+          "Yazıyı büyütmeyi",
+          "Başlığı değiştirmeyi",
+        ],
+        1,
+        "Koşul ile etkinliğin uzak konumu anlatılıyor.",
+        2,
+      ),
+    ],
+    summary:
+      "Atölye duyurusu farklı okuma amaçlarına göre düzenlendi. Soruların azalması, tam okuma değil bilgiye daha kolay erişim işareti olarak yorumlandı.",
+    points: [
+      "Erişim ve ilişkilendirme farklı sorunlardı.",
+      "Karar bilgisi öne alındı.",
+      "Az soru sormak her şeyi okumak demek değildir.",
+    ],
+  },
 ];
-function add(id:string,title:string,genre:string,level:1|2|3,complexity:string,body:string,questions:Reading['questions'],summary:string,points:string[],extra:Partial<Draft>={}) {drafts.push({id,title,genre,level,complexity,role:'practice',paragraphs:body.split('\n\n'),questions,summary,points,...extra});}
-add('r07','Pencerenin önündeki not','Anlatı',1,'Kısa olay ve tek örtük neden.',`Nehir, evden çıkarken pencerenin önüne bir not bıraktı: “Fesleğeni bugün sulama, toprağı hâlâ nemli.” Akşam döndüğünde saksının altındaki tabakta su vardı. Kardeşi notu görmüş, fakat yalnızca “fesleğen” ve “sula” sözcüklerini hatırlamıştı. Nehir yeni bir not yazdı. Bu kez ilk satırda “Bugün su verme” diyordu. Altına da nedenini ekledi.`,[q('Ana düşünce','Bu olay okuma hakkında ne gösterir?',['Tanıdık sözcükler cümlenin bütün anlamını vermez.','Kısa notlar her zaman anlaşılmazdır.','Bitkiler her gün sulanmalıdır.'],0,'Olumsuzluk ve gerekçe atlanınca yönerge tersine dönüyor.'),q('Çıkarım','Yeni notun ilk satırı neden değiştirildi?',['Daha güzel görünmesi için','Yapılmaması gerekeni öne çıkarmak için','Bitkinin adını gizlemek için'],1,'Yeni notta “su verme” doğrudan ilk satırda.'),q('Açık bilgi','Toprak nasıldı?',['Kuru','Donmuş','Nemli'],2,'İlk not toprağın hâlâ nemli olduğunu söylüyor.')],'Bir notun birkaç sözcüğünü tanımak, olumsuzluk içeren yönergesini anlamaya yetmedi.',['Olumsuzluğu fark et.','Gerekçeyi eylemle ilişkilendir.'],{groups:[['Nehir,','evden çıkarken','pencerenin önüne','bir not bıraktı.'],['Fesleğeni','bugün sulama;','toprağı','hâlâ nemli.']],scan:{prompt:'Notta hangi bitkinin adı geçiyor?',answer:'Fesleğen',paragraph:0}});
-add('r08','İki durak arası','Anlatı',1,'Zaman sırası ve beklentiden çıkarım.',`Otobüste ayakta duran Deniz, çantasındaki kitabı çıkaramadı. Yolun kalanında ertesi gün sunacağı fikrin tek cümlelik karşılığını düşünmeye başladı. İneceği durağa yaklaşınca zihninde üç cümle vardı; hiçbirini yeterince açık bulmuyordu.
+function add(
+  id: string,
+  title: string,
+  genre: string,
+  level: 1 | 2 | 3,
+  complexity: string,
+  body: string,
+  questions: Reading["questions"],
+  summary: string,
+  points: string[],
+  extra: Partial<Draft> = {},
+) {
+  drafts.push({
+    id,
+    title,
+    genre,
+    level,
+    complexity,
+    role: "practice",
+    paragraphs: body.split("\n\n"),
+    questions,
+    summary,
+    points,
+    ...extra,
+  });
+}
+add(
+  "r07",
+  "Pencerenin önündeki not",
+  "Anlatı",
+  1,
+  "Kısa olay ve tek örtük neden.",
+  `Nehir, evden çıkarken pencerenin önüne bir not bıraktı: “Fesleğeni bugün sulama, toprağı hâlâ nemli.” Akşam döndüğünde saksının altındaki tabakta su vardı. Kardeşi notu görmüş, fakat yalnızca “fesleğen” ve “sula” sözcüklerini hatırlamıştı. Nehir yeni bir not yazdı. Bu kez ilk satırda “Bugün su verme” diyordu. Altına da nedenini ekledi.`,
+  [
+    q(
+      "Ana düşünce",
+      "Bu olay okuma hakkında ne gösterir?",
+      [
+        "Tanıdık sözcükler cümlenin bütün anlamını vermez.",
+        "Kısa notlar her zaman anlaşılmazdır.",
+        "Bitkiler her gün sulanmalıdır.",
+      ],
+      0,
+      "Olumsuzluk ve gerekçe atlanınca yönerge tersine dönüyor.",
+    ),
+    q(
+      "Çıkarım",
+      "Yeni notun ilk satırı neden değiştirildi?",
+      [
+        "Daha güzel görünmesi için",
+        "Yapılmaması gerekeni öne çıkarmak için",
+        "Bitkinin adını gizlemek için",
+      ],
+      1,
+      "Yeni notta “su verme” doğrudan ilk satırda.",
+    ),
+    q(
+      "Açık bilgi",
+      "Toprak nasıldı?",
+      ["Kuru", "Donmuş", "Nemli"],
+      2,
+      "İlk not toprağın hâlâ nemli olduğunu söylüyor.",
+    ),
+  ],
+  "Bir notun birkaç sözcüğünü tanımak, olumsuzluk içeren yönergesini anlamaya yetmedi.",
+  ["Olumsuzluğu fark et.", "Gerekçeyi eylemle ilişkilendir."],
+  {
+    groups: [
+      ["Nehir,", "evden çıkarken", "pencerenin önüne", "bir not bıraktı."],
+      ["Fesleğeni", "bugün sulama;", "toprağı", "hâlâ nemli."],
+    ],
+    scan: {
+      prompt: "Notta hangi bitkinin adı geçiyor?",
+      answer: "Fesleğen",
+      paragraph: 0,
+    },
+  },
+);
+add(
+  "r08",
+  "İki durak arası",
+  "Anlatı",
+  1,
+  "Zaman sırası ve beklentiden çıkarım.",
+  `Otobüste ayakta duran Deniz, çantasındaki kitabı çıkaramadı. Yolun kalanında ertesi gün sunacağı fikrin tek cümlelik karşılığını düşünmeye başladı. İneceği durağa yaklaşınca zihninde üç cümle vardı; hiçbirini yeterince açık bulmuyordu.
 
-Eve varınca defterini açtı. Otobüste kurduğu cümleleri yazdı, ortak olan düşüncenin altını çizdi. Sunumun başlığı o çizginin içinden çıktı. Deniz yolculuk boyunca bir sayfa bile okumamıştı, ama daha önce okuduklarıyla ne anlatmak istediğini sonunda seçebilmişti.`,[q('Ana düşünce','Deniz ne başardı?',['Kitabı bitirdi.','Okuduklarından anlatacağı temel fikri seçti.','Sunumu ezberledi.'],1,'Son cümle okuma miktarı ile düşünceyi seçme işini ayırıyor.',1),q('İlişki','Ortak düşüncenin altını çizmek neyi sağladı?',['Başlığı bulmayı','Otobüse yetişmeyi','Kitabı almayı'],0,'Başlık çizilen ortak düşünceden çıktı.',1),q('Çıkarım','Düşünme süreci hakkında ne söylenebilir?',['Yalnızca masa başında olur.','Okumakla ilgisi yoktur.','Okuma sonrasında da sürebilir.'],2,'Yolculuk önceki okumaları düzenleme fırsatı oldu.',1)],'Deniz önceki okumalarındaki fikri yolculukta düşündü, yazarken berraklaştırdı.',['Okuma sonrası düşünme','Tek cümlede amaç']);
-add('r09','Kütüphane duyurusu','Yönerge',1,'Koşul ve tarih ayrımı.',`Mahalle Kütüphanesi, kitap değişim gününü 18 Mayıs Cumartesi, 11.00–15.00 arasında düzenleyecek. Her katılımcı en fazla üç kitap getirebilir. Kitapların okunabilir durumda olması gerekir; üzerinde okur notları bulunması katılıma engel değildir.
+Eve varınca defterini açtı. Otobüste kurduğu cümleleri yazdı, ortak olan düşüncenin altını çizdi. Sunumun başlığı o çizginin içinden çıktı. Deniz yolculuk boyunca bir sayfa bile okumamıştı, ama daha önce okuduklarıyla ne anlatmak istediğini sonunda seçebilmişti.`,
+  [
+    q(
+      "Ana düşünce",
+      "Deniz ne başardı?",
+      [
+        "Kitabı bitirdi.",
+        "Okuduklarından anlatacağı temel fikri seçti.",
+        "Sunumu ezberledi.",
+      ],
+      1,
+      "Son cümle okuma miktarı ile düşünceyi seçme işini ayırıyor.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Ortak düşüncenin altını çizmek neyi sağladı?",
+      ["Başlığı bulmayı", "Otobüse yetişmeyi", "Kitabı almayı"],
+      0,
+      "Başlık çizilen ortak düşünceden çıktı.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "Düşünme süreci hakkında ne söylenebilir?",
+      [
+        "Yalnızca masa başında olur.",
+        "Okumakla ilgisi yoktur.",
+        "Okuma sonrasında da sürebilir.",
+      ],
+      2,
+      "Yolculuk önceki okumaları düzenleme fırsatı oldu.",
+      1,
+    ),
+  ],
+  "Deniz önceki okumalarındaki fikri yolculukta düşündü, yazarken berraklaştırdı.",
+  ["Okuma sonrası düşünme", "Tek cümlede amaç"],
+);
+add(
+  "r09",
+  "Kütüphane duyurusu",
+  "Yönerge",
+  1,
+  "Koşul ve tarih ayrımı.",
+  `Mahalle Kütüphanesi, kitap değişim gününü 18 Mayıs Cumartesi, 11.00–15.00 arasında düzenleyecek. Her katılımcı en fazla üç kitap getirebilir. Kitapların okunabilir durumda olması gerekir; üzerinde okur notları bulunması katılıma engel değildir.
 
-Ders kitapları bu etkinliğe kabul edilmeyecek, onlar için haziranda ayrı bir masa kurulacaktır. Kitap getirmeyen ziyaretçiler de söyleşiye katılabilir. Değişim masasında görev almak isteyenlerin 15 Mayıs'a kadar danışmaya adını yazdırması gerekir. Ziyaret etmek için ön kayıt aranmaz.`,[q('Açık bilgi','Görev almak için son tarih nedir?',['18 Mayıs','15 Mayıs','1 Haziran'],1,'Son tarih görevli kaydı içindir.',1),q('İlişki','Ön kayıt hangi durumda gerekir?',['Söyleşiyi dinlerken','Ziyaret ederken','Masada görev alırken'],2,'Ziyaret ile görev farklı koşullara bağlı.',1),q('Çıkarım','Üzerinde notlar olan roman için ne söylenebilir?',['Okunabiliyorsa kabul edilebilir.','Mutlaka reddedilir.','Yalnızca haziranda alınır.'],0,'Not bulunması engel değil; ders kitabı ayrımı farklı.')],'Etkinliğin ziyaret, kitap değişimi ve gönüllülük koşulları farklıdır.',['Ziyaret için kayıt yok.','Görev için 15 Mayıs sınırı var.','Ders kitapları ayrı etkinlikte.'],{scan:{prompt:'Bir kişi en fazla kaç kitap getirebilir?',answer:'Üç kitap',paragraph:0}});
-add('r10','Rafın boş yeri','Düşünce',1,'Örnekten genel düşünceye geçiş.',`Yeni bir raf aldığımızda onu doldurmayı düşünürüz. Oysa boş bir bölüm de işe yarayabilir. Masadan kaldırdığımız, henüz nereye koyacağımıza karar vermediğimiz birkaç eşya için geçici bir alan sağlar. Her nesneyi hemen kalıcı bir yere yerleştirme baskısını azaltır.
+Ders kitapları bu etkinliğe kabul edilmeyecek, onlar için haziranda ayrı bir masa kurulacaktır. Kitap getirmeyen ziyaretçiler de söyleşiye katılabilir. Değişim masasında görev almak isteyenlerin 15 Mayıs'a kadar danışmaya adını yazdırması gerekir. Ziyaret etmek için ön kayıt aranmaz.`,
+  [
+    q(
+      "Açık bilgi",
+      "Görev almak için son tarih nedir?",
+      ["18 Mayıs", "15 Mayıs", "1 Haziran"],
+      1,
+      "Son tarih görevli kaydı içindir.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Ön kayıt hangi durumda gerekir?",
+      ["Söyleşiyi dinlerken", "Ziyaret ederken", "Masada görev alırken"],
+      2,
+      "Ziyaret ile görev farklı koşullara bağlı.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "Üzerinde notlar olan roman için ne söylenebilir?",
+      [
+        "Okunabiliyorsa kabul edilebilir.",
+        "Mutlaka reddedilir.",
+        "Yalnızca haziranda alınır.",
+      ],
+      0,
+      "Not bulunması engel değil; ders kitabı ayrımı farklı.",
+    ),
+  ],
+  "Etkinliğin ziyaret, kitap değişimi ve gönüllülük koşulları farklıdır.",
+  [
+    "Ziyaret için kayıt yok.",
+    "Görev için 15 Mayıs sınırı var.",
+    "Ders kitapları ayrı etkinlikte.",
+  ],
+  {
+    scan: {
+      prompt: "Bir kişi en fazla kaç kitap getirebilir?",
+      answer: "Üç kitap",
+      paragraph: 0,
+    },
+  },
+);
+add(
+  "r10",
+  "Rafın boş yeri",
+  "Düşünce",
+  1,
+  "Örnekten genel düşünceye geçiş.",
+  `Yeni bir raf aldığımızda onu doldurmayı düşünürüz. Oysa boş bir bölüm de işe yarayabilir. Masadan kaldırdığımız, henüz nereye koyacağımıza karar vermediğimiz birkaç eşya için geçici bir alan sağlar. Her nesneyi hemen kalıcı bir yere yerleştirme baskısını azaltır.
 
-Ancak geçici bölüm zamanla unutulmuş eşyaların deposuna dönüşebilir. Bu nedenle boşluk kadar geri dönüp karar vermek de önemlidir. Düzen, bütün yüzeyleri doldurmak ya da her şeyi saklamak değildir; bir nesneyi gerektiğinde bulabilmek ve onun neden orada olduğunu bilmektir.`,[q('Ana düşünce','Yazar düzeni nasıl açıklıyor?',['Her yüzeyi boş tutmak','Eşyaları amaçlı yerleştirip gerektiğinde bulabilmek','Yeni depolar almak'],1,'Son cümlede düzenin işlevsel tanımı yapılıyor.',1),q('İlişki','Geçici alana neden dönülmeli?',['Raf büyüsün diye','Eşyalar çoğalsın diye','Kararsızlık kalıcı yığına dönüşmesin diye'],2,'Geçici bölümün unutulmuş depoya dönüşme riski var.',1),q('Bağlam','“Geçici” ne anlama geliyor?',['Daha sonra yeniden karar verilecek','Hiç kullanılmayacak','Görünmeyecek'],0,'Bu bölüm kararın ertelendiği ama unutulmaması gereken alandır.')],'Boş alan karar vermeyi kolaylaştırır; düzenin sürmesi için ertelenen kararlara dönmek gerekir.',['Boşluk işlev görebilir.','Geçici karara dönmek gerekir.']);
-add('r11','Rüzgârın çizdiği yol','Doğa',1,'Gözlem ve açıklama arasındaki ayrım.',`Parktaki kuru yapraklar sabahları aynı köşede birikiyordu. Arda bunu görünce görevlinin yaprakları her gün oraya süpürdüğünü düşündü. Bir pazar erkenden parka gittiğinde kimse çalışmıyordu. Yapraklar kaldırım üzerinde dönüyor, duvarın bittiği yerde yavaşlayıp köşeye yerleşiyordu.
+Ancak geçici bölüm zamanla unutulmuş eşyaların deposuna dönüşebilir. Bu nedenle boşluk kadar geri dönüp karar vermek de önemlidir. Düzen, bütün yüzeyleri doldurmak ya da her şeyi saklamak değildir; bir nesneyi gerektiğinde bulabilmek ve onun neden orada olduğunu bilmektir.`,
+  [
+    q(
+      "Ana düşünce",
+      "Yazar düzeni nasıl açıklıyor?",
+      [
+        "Her yüzeyi boş tutmak",
+        "Eşyaları amaçlı yerleştirip gerektiğinde bulabilmek",
+        "Yeni depolar almak",
+      ],
+      1,
+      "Son cümlede düzenin işlevsel tanımı yapılıyor.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Geçici alana neden dönülmeli?",
+      [
+        "Raf büyüsün diye",
+        "Eşyalar çoğalsın diye",
+        "Kararsızlık kalıcı yığına dönüşmesin diye",
+      ],
+      2,
+      "Geçici bölümün unutulmuş depoya dönüşme riski var.",
+      1,
+    ),
+    q(
+      "Bağlam",
+      "“Geçici” ne anlama geliyor?",
+      [
+        "Daha sonra yeniden karar verilecek",
+        "Hiç kullanılmayacak",
+        "Görünmeyecek",
+      ],
+      0,
+      "Bu bölüm kararın ertelendiği ama unutulmaması gereken alandır.",
+    ),
+  ],
+  "Boş alan karar vermeyi kolaylaştırır; düzenin sürmesi için ertelenen kararlara dönmek gerekir.",
+  ["Boşluk işlev görebilir.", "Geçici karara dönmek gerekir."],
+);
+add(
+  "r11",
+  "Rüzgârın çizdiği yol",
+  "Doğa",
+  1,
+  "Gözlem ve açıklama arasındaki ayrım.",
+  `Parktaki kuru yapraklar sabahları aynı köşede birikiyordu. Arda bunu görünce görevlinin yaprakları her gün oraya süpürdüğünü düşündü. Bir pazar erkenden parka gittiğinde kimse çalışmıyordu. Yapraklar kaldırım üzerinde dönüyor, duvarın bittiği yerde yavaşlayıp köşeye yerleşiyordu.
 
-Arda ilk açıklamasını değiştirdi. Yine de tek sabahın gözlemiyle her günün nasıl geçtiğini bildiğini söylemedi. Ertesi hafta rüzgârsız bir günde köşe neredeyse boştu. Küçük bir ayrıntıya ikinci kez bakmak, gördüğü şey ile ona yüklediği nedeni ayırmasını sağlamıştı.`,[q('Açık bilgi','Arda ilk başta ne düşündü?',['Yaprakların orada büyüdüğünü','Görevlinin oraya süpürdüğünü','Köşenin kapalı olduğunu'],1,'İlk paragraf ilk varsayımı verir.'),q('Çıkarım','Arda nasıl bir tutum sergiliyor?',['Tek gözlemi yeterli buluyor.','Eski fikrini koruyor.','Açıklamasını yeni gözlemle değiştiriyor.'],2,'Rüzgârsız günü de gözleyerek neden yorumunu gözlemden ayırıyor.',1),q('Ana düşünce','Metnin ana fikri nedir?',['Gözlem ile ilk neden yorumumuz aynı şey değildir.','Parklar sabah gezilmelidir.','Yapraklar yalnızca köşelerde birikir.'],0,'Arda gördüğü birikime önce insan eylemi, sonra rüzgâr açıklaması getiriyor.',1)],'Arda yaprakların birikmesini farklı günlerde gözleyerek ilk neden varsayımını değiştirdi.',['Gözlem ayrı, açıklama ayrı.','Yeni bilgi yorumu değiştirebilir.']);
-add('r12','Bir sözcüğün yükü','Dil',2,'Ekler ve özneye gönderim.',`“Getiremediklerimizden” sözcüğü tek başına uzun görünür. Cümledeyse birçok işi birden yapar: getirme eylemini, yapamama durumunu, birden çok şeyi ve bunların içinden seçmeyi birbirine bağlar. “Getiremediklerimizden biri büyük masaydı” dendiğinde söz konusu masa getirilmiş değildir.
+Arda ilk açıklamasını değiştirdi. Yine de tek sabahın gözlemiyle her günün nasıl geçtiğini bildiğini söylemedi. Ertesi hafta rüzgârsız bir günde köşe neredeyse boştu. Küçük bir ayrıntıya ikinci kez bakmak, gördüğü şey ile ona yüklediği nedeni ayırmasını sağlamıştı.`,
+  [
+    q(
+      "Açık bilgi",
+      "Arda ilk başta ne düşündü?",
+      [
+        "Yaprakların orada büyüdüğünü",
+        "Görevlinin oraya süpürdüğünü",
+        "Köşenin kapalı olduğunu",
+      ],
+      1,
+      "İlk paragraf ilk varsayımı verir.",
+    ),
+    q(
+      "Çıkarım",
+      "Arda nasıl bir tutum sergiliyor?",
+      [
+        "Tek gözlemi yeterli buluyor.",
+        "Eski fikrini koruyor.",
+        "Açıklamasını yeni gözlemle değiştiriyor.",
+      ],
+      2,
+      "Rüzgârsız günü de gözleyerek neden yorumunu gözlemden ayırıyor.",
+      1,
+    ),
+    q(
+      "Ana düşünce",
+      "Metnin ana fikri nedir?",
+      [
+        "Gözlem ile ilk neden yorumumuz aynı şey değildir.",
+        "Parklar sabah gezilmelidir.",
+        "Yapraklar yalnızca köşelerde birikir.",
+      ],
+      0,
+      "Arda gördüğü birikime önce insan eylemi, sonra rüzgâr açıklaması getiriyor.",
+      1,
+    ),
+  ],
+  "Arda yaprakların birikmesini farklı günlerde gözleyerek ilk neden varsayımını değiştirdi.",
+  ["Gözlem ayrı, açıklama ayrı.", "Yeni bilgi yorumu değiştirebilir."],
+);
+add(
+  "r12",
+  "Bir sözcüğün yükü",
+  "Dil",
+  2,
+  "Ekler ve özneye gönderim.",
+  `“Getiremediklerimizden” sözcüğü tek başına uzun görünür. Cümledeyse birçok işi birden yapar: getirme eylemini, yapamama durumunu, birden çok şeyi ve bunların içinden seçmeyi birbirine bağlar. “Getiremediklerimizden biri büyük masaydı” dendiğinde söz konusu masa getirilmiş değildir.
 
-Uzun sözcüğü hızla geçerken yalnızca “getir” bölümünü tanımak bu ayrımı kaçırabilir. Her eki ayrı ayrı seslendirmek zorunlu değildir; fakat cümlenin taşıdığı sonucu sınamak işe yarar. Masa burada mı, değil mi? Basit bir anlam sorusu, sözcüğün uzunluğundan daha yararlı bir dikkat noktası sunar.`,[q('Açık bilgi','Örnekte masa getirilmiş mi?',['Evet','Hayır','Metin söylemiyor'],1,'Yapamama eki masanın getirilmediğini gösteriyor.'),q('Ana düşünce','Metin ne öneriyor?',['Bütün ekleri ezberlemeyi','Uzun sözcükleri atlamayı','Uzun sözcüğü cümledeki anlamıyla kontrol etmeyi'],2,'“Masa burada mı?” sorusu anlamı sınar.',1),q('Bağlam','“İçinden seçmek” hangi parçaya işaret eder?',['Birden çok getirilmemiş şeyden birine','Yalnızca bir masanın rengine','Getirilen eşyaların sayısına'],0,'“...den biri” yapı içinden bir örneği seçer.')],'Türkçede ekler, uzun sözcüklerin içinde sonucu değiştiren ilişkiler taşır.',['Kök tek başına yetmeyebilir.','Anlamı kısa soruyla kontrol et.'],{groups:[['Getiremediklerimizden biri','büyük masaydı.'],['Uzun sözcüğü hızla geçerken','yalnızca kökü tanımak','bu ayrımı kaçırabilir.']]});
-add('r13','Ama’dan sonrası','Düşünce',1,'Karşıtlık bağlacı.',`Yeni yürüyüş yolu eskisinden daha kısa, ama akşamları yeterince aydınlık değil. Bu yüzden Elif sabah işe giderken yeni yolu, akşam dönerken eski yolu kullanıyor. Arkadaşı onun kararsız olduğunu söylüyor. Elif ise iki yol arasında değil, iki farklı koşul için karar verdiğini düşünüyor.
+Uzun sözcüğü hızla geçerken yalnızca “getir” bölümünü tanımak bu ayrımı kaçırabilir. Her eki ayrı ayrı seslendirmek zorunlu değildir; fakat cümlenin taşıdığı sonucu sınamak işe yarar. Masa burada mı, değil mi? Basit bir anlam sorusu, sözcüğün uzunluğundan daha yararlı bir dikkat noktası sunar.`,
+  [
+    q(
+      "Açık bilgi",
+      "Örnekte masa getirilmiş mi?",
+      ["Evet", "Hayır", "Metin söylemiyor"],
+      1,
+      "Yapamama eki masanın getirilmediğini gösteriyor.",
+    ),
+    q(
+      "Ana düşünce",
+      "Metin ne öneriyor?",
+      [
+        "Bütün ekleri ezberlemeyi",
+        "Uzun sözcükleri atlamayı",
+        "Uzun sözcüğü cümledeki anlamıyla kontrol etmeyi",
+      ],
+      2,
+      "“Masa burada mı?” sorusu anlamı sınar.",
+      1,
+    ),
+    q(
+      "Bağlam",
+      "“İçinden seçmek” hangi parçaya işaret eder?",
+      [
+        "Birden çok getirilmemiş şeyden birine",
+        "Yalnızca bir masanın rengine",
+        "Getirilen eşyaların sayısına",
+      ],
+      0,
+      "“...den biri” yapı içinden bir örneği seçer.",
+    ),
+  ],
+  "Türkçede ekler, uzun sözcüklerin içinde sonucu değiştiren ilişkiler taşır.",
+  ["Kök tek başına yetmeyebilir.", "Anlamı kısa soruyla kontrol et."],
+  {
+    groups: [
+      ["Getiremediklerimizden biri", "büyük masaydı."],
+      [
+        "Uzun sözcüğü hızla geçerken",
+        "yalnızca kökü tanımak",
+        "bu ayrımı kaçırabilir.",
+      ],
+    ],
+  },
+);
+add(
+  "r13",
+  "Ama’dan sonrası",
+  "Düşünce",
+  1,
+  "Karşıtlık bağlacı.",
+  `Yeni yürüyüş yolu eskisinden daha kısa, ama akşamları yeterince aydınlık değil. Bu yüzden Elif sabah işe giderken yeni yolu, akşam dönerken eski yolu kullanıyor. Arkadaşı onun kararsız olduğunu söylüyor. Elif ise iki yol arasında değil, iki farklı koşul için karar verdiğini düşünüyor.
 
-Bir seçeneğin tek bir üstünlüğü olması, her durumda uygun olduğu anlamına gelmiyor. Burada “ama” sözcüğü kısa yolun değerini silmiyor; o değerin hangi koşulda sınırlı kaldığını gösteriyor.`,[q('İlişki','Elif neden iki farklı yolu kullanıyor?',['Yolların adını karıştırdığı için','Sabah ve akşam koşulları farklı olduğu için','Daha fazla yürümek istediği için'],1,'Aydınlık koşulu akşam seçimini değiştiriyor.'),q('Bağlam','“Ama” burada ne yapıyor?',['Önceki üstünlüğe bir sınır ekliyor.','Aynı fikri tekrarlıyor.','Kesin bir neden veriyor.'],0,'Kısalık korunuyor, aydınlatma açısından sınırlanıyor.',1),q('Çıkarım','Hangisi metne uygundur?',['Kısa yol her zaman kötü seçenektir.','Elif hiçbir karar verememektedir.','İyi seçim koşula bağlı olabilir.'],2,'Aynı kişi farklı koşullarda farklı yollar seçiyor.',1)],'Bir seçeneğin avantajı, başka bir koşul altında yeterli olmayabilir.',['Bağlaç düşüncenin yönünü gösterir.','Koşullar seçimi değiştirir.'],{groups:[['Yeni yürüyüş yolu','eskisinden daha kısa,','ama akşamları','yeterince aydınlık değil.']]});
-add('r14','Kaybolan “o”','Anlatı',2,'Gönderim ve belirsiz özne.',`Suna, Aylin’e ödünç verdiği defteri hatırlattı. Aylin defteri masanın üstüne koyduğunu söyledi. O, pencerenin yanındaydı. Bu cümlede “o” sözcüğünün masayı mı, defteri mi, yoksa Aylin’i mi anlattığını anlamak kolay değildir.
+Bir seçeneğin tek bir üstünlüğü olması, her durumda uygun olduğu anlamına gelmiyor. Burada “ama” sözcüğü kısa yolun değerini silmiyor; o değerin hangi koşulda sınırlı kaldığını gösteriyor.`,
+  [
+    q(
+      "İlişki",
+      "Elif neden iki farklı yolu kullanıyor?",
+      [
+        "Yolların adını karıştırdığı için",
+        "Sabah ve akşam koşulları farklı olduğu için",
+        "Daha fazla yürümek istediği için",
+      ],
+      1,
+      "Aydınlık koşulu akşam seçimini değiştiriyor.",
+    ),
+    q(
+      "Bağlam",
+      "“Ama” burada ne yapıyor?",
+      [
+        "Önceki üstünlüğe bir sınır ekliyor.",
+        "Aynı fikri tekrarlıyor.",
+        "Kesin bir neden veriyor.",
+      ],
+      0,
+      "Kısalık korunuyor, aydınlatma açısından sınırlanıyor.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "Hangisi metne uygundur?",
+      [
+        "Kısa yol her zaman kötü seçenektir.",
+        "Elif hiçbir karar verememektedir.",
+        "İyi seçim koşula bağlı olabilir.",
+      ],
+      2,
+      "Aynı kişi farklı koşullarda farklı yollar seçiyor.",
+      1,
+    ),
+  ],
+  "Bir seçeneğin avantajı, başka bir koşul altında yeterli olmayabilir.",
+  ["Bağlaç düşüncenin yönünü gösterir.", "Koşullar seçimi değiştirir."],
+  {
+    groups: [
+      [
+        "Yeni yürüyüş yolu",
+        "eskisinden daha kısa,",
+        "ama akşamları",
+        "yeterince aydınlık değil.",
+      ],
+    ],
+  },
+);
+add(
+  "r14",
+  "Kaybolan “o”",
+  "Anlatı",
+  2,
+  "Gönderim ve belirsiz özne.",
+  `Suna, Aylin’e ödünç verdiği defteri hatırlattı. Aylin defteri masanın üstüne koyduğunu söyledi. O, pencerenin yanındaydı. Bu cümlede “o” sözcüğünün masayı mı, defteri mi, yoksa Aylin’i mi anlattığını anlamak kolay değildir.
 
-Suna anlatısını yeniden yazdı: “Aylin, defteri pencerenin yanındaki masaya koyduğunu söyledi.” Yeni cümle biraz uzamıştı, fakat belirsizlik azalmıştı. İyi okuma bazen okuyucunun yavaşlamasını, bazen de metnin yeterince açık olmadığını fark etmesini gerektirir. Her güçlük okuyucunun eksiği değildir.`,[q('Ana düşünce','Metin neyi gösterir?',['Kısa cümle her zaman açıktır.','Belirsizlik bazen metnin kuruluşundan doğar.','Zamirler hiç kullanılmamalıdır.'],1,'“O” için birden çok gönderim mümkün.',1),q('Açık bilgi','Yeniden yazılan cümlede pencerenin yanında ne var?',['Masa','Suna','Başka bir defter'],0,'“Pencerenin yanındaki masa” açık tamlamadır.',1),q('Çıkarım','İlk cümlede kesin karar veremeyen okur için hangisi uygundur?',['Dikkatsiz olduğu kesindir.','Kelime hızını artırmalıdır.','Belirsizliği fark etmiş olabilir.'],2,'Metin her güçlüğün okur eksiği olmadığını söyler.',1)],'Gönderimi belirsiz sözcükler anlama güçlüğü yaratabilir; yeniden yazım ilişkiyi açıklaştırır.',['Zamirin neye döndüğünü bul.','Metnin belirsizliğini de hesaba kat.']);
-add('r15','Atölyenin yeni saati','Gündelik',1,'Açık bilgi ve istisna.',`Seramik atölyesi gelecek hafta salı ve perşembe günleri 18.30'da başlayacak. Cumartesi buluşmasının saati değişmedi: 10.00. İlk kez katılanların malzemeleri tanımak için on beş dakika erken gelmesi isteniyor. Düzenli katılımcılar kendi önlüklerini getirebilir; önlüğü olmayanlara atölye bir önlük verecek.
+Suna anlatısını yeniden yazdı: “Aylin, defteri pencerenin yanındaki masaya koyduğunu söyledi.” Yeni cümle biraz uzamıştı, fakat belirsizlik azalmıştı. İyi okuma bazen okuyucunun yavaşlamasını, bazen de metnin yeterince açık olmadığını fark etmesini gerektirir. Her güçlük okuyucunun eksiği değildir.`,
+  [
+    q(
+      "Ana düşünce",
+      "Metin neyi gösterir?",
+      [
+        "Kısa cümle her zaman açıktır.",
+        "Belirsizlik bazen metnin kuruluşundan doğar.",
+        "Zamirler hiç kullanılmamalıdır.",
+      ],
+      1,
+      "“O” için birden çok gönderim mümkün.",
+      1,
+    ),
+    q(
+      "Açık bilgi",
+      "Yeniden yazılan cümlede pencerenin yanında ne var?",
+      ["Masa", "Suna", "Başka bir defter"],
+      0,
+      "“Pencerenin yanındaki masa” açık tamlamadır.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "İlk cümlede kesin karar veremeyen okur için hangisi uygundur?",
+      [
+        "Dikkatsiz olduğu kesindir.",
+        "Kelime hızını artırmalıdır.",
+        "Belirsizliği fark etmiş olabilir.",
+      ],
+      2,
+      "Metin her güçlüğün okur eksiği olmadığını söyler.",
+      1,
+    ),
+  ],
+  "Gönderimi belirsiz sözcükler anlama güçlüğü yaratabilir; yeniden yazım ilişkiyi açıklaştırır.",
+  ["Zamirin neye döndüğünü bul.", "Metnin belirsizliğini de hesaba kat."],
+);
+add(
+  "r15",
+  "Atölyenin yeni saati",
+  "Gündelik",
+  1,
+  "Açık bilgi ve istisna.",
+  `Seramik atölyesi gelecek hafta salı ve perşembe günleri 18.30'da başlayacak. Cumartesi buluşmasının saati değişmedi: 10.00. İlk kez katılanların malzemeleri tanımak için on beş dakika erken gelmesi isteniyor. Düzenli katılımcılar kendi önlüklerini getirebilir; önlüğü olmayanlara atölye bir önlük verecek.
 
-Duyurunun sonundaki not yalnızca perşembe grubu için: O gün arka kapı bakım nedeniyle kapalı olacak, giriş bahçe tarafından yapılacak.`,[q('Açık bilgi','Cumartesi buluşması saat kaçta?',['18.30','10.00','09.15'],1,'Değişmeyen saat 10.00.'),q('İlişki','Bahçe girişini hangi grup kullanacak?',['Salı grubu','Bütün gruplar','Perşembe grubu'],2,'Notun kapsamı yalnızca perşembe.',1),q('Çıkarım','Önlüğü olmayan biri ne yapabilir?',['Atölyenin verdiğini kullanabilir.','Katılamaz.','Erken gelmek zorundadır.'],0,'Önlük desteği açıkça belirtilir; erken geliş yeni katılımla ilgilidir.')],'Duyuruda genel koşullar ile yalnızca bir güne ait istisna ayrılır.',['Saat değişikliği cumartesiyi kapsamıyor.','Kapı değişikliği perşembeye özgü.'],{scan:{prompt:'İlk kez katılanlar kaç dakika erken gelmeli?',answer:'On beş dakika',paragraph:0}});
-add('r16','Sokakta bir bank','Tartışma',2,'Sav, örnek ve kapsam.',`Bir sokakta oturacak yer bulunması, orada geçirilen zamanı değiştirebilir. Alışveriş poşetlerini taşıyan biri kısa süre dinlenebilir; iki komşu ayakta yolu kapatmadan konuşabilir. Bu nedenle bir bankı yalnızca süs eşyası saymak, onun gündelik kullanımlarını gözden kaçırır.
+Duyurunun sonundaki not yalnızca perşembe grubu için: O gün arka kapı bakım nedeniyle kapalı olacak, giriş bahçe tarafından yapılacak.`,
+  [
+    q(
+      "Açık bilgi",
+      "Cumartesi buluşması saat kaçta?",
+      ["18.30", "10.00", "09.15"],
+      1,
+      "Değişmeyen saat 10.00.",
+    ),
+    q(
+      "İlişki",
+      "Bahçe girişini hangi grup kullanacak?",
+      ["Salı grubu", "Bütün gruplar", "Perşembe grubu"],
+      2,
+      "Notun kapsamı yalnızca perşembe.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "Önlüğü olmayan biri ne yapabilir?",
+      [
+        "Atölyenin verdiğini kullanabilir.",
+        "Katılamaz.",
+        "Erken gelmek zorundadır.",
+      ],
+      0,
+      "Önlük desteği açıkça belirtilir; erken geliş yeni katılımla ilgilidir.",
+    ),
+  ],
+  "Duyuruda genel koşullar ile yalnızca bir güne ait istisna ayrılır.",
+  [
+    "Saat değişikliği cumartesiyi kapsamıyor.",
+    "Kapı değişikliği perşembeye özgü.",
+  ],
+  {
+    scan: {
+      prompt: "İlk kez katılanlar kaç dakika erken gelmeli?",
+      answer: "On beş dakika",
+      paragraph: 0,
+    },
+  },
+);
+add(
+  "r16",
+  "Sokakta bir bank",
+  "Tartışma",
+  2,
+  "Sav, örnek ve kapsam.",
+  `Bir sokakta oturacak yer bulunması, orada geçirilen zamanı değiştirebilir. Alışveriş poşetlerini taşıyan biri kısa süre dinlenebilir; iki komşu ayakta yolu kapatmadan konuşabilir. Bu nedenle bir bankı yalnızca süs eşyası saymak, onun gündelik kullanımlarını gözden kaçırır.
 
-Yine de her boşluğa bank koymak çözüm değildir. Dar bir kaldırımda bank, yürüyenlerin yolunu kesebilir. Oturma alanı düşünülürken geçişin korunması ve gölge gibi koşulların hesaba katılması gerekir. Savunulan şey daha çok mobilya değil, gerçekten kullanılabilir bir duraklama imkânıdır.`,[q('Ana düşünce','Yazar neyi savunuyor?',['Her sokağa aynı bankı koymayı','Bankları kaldırmayı','Geçişi koruyan kullanılabilir dinlenme alanlarını'],2,'Son cümle savın kapsamını sınırlar.',1),q('İlişki','Poşet taşıyan kişi örneğinin görevi nedir?',['Bankın kullanım yararını somutlaştırmak','Bankın maliyetini göstermek','Sokak sayısını artırmak'],0,'Örnek dinlenme ihtiyacını görünür yapar.'),q('Çıkarım','Dar kaldırım için ne söylenebilir?',['Kesinlikle bank olmalıdır.','Yerleştirme geçiş açısından değerlendirilmelidir.','Hiç insan yürümemelidir.'],1,'Metin evrensel yasak değil koşula göre değerlendirme ister.',1)],'Bankın yararı, yerleştirildiği koşullarla birlikte değerlendirilmelidir.',['Sav: kullanılabilir dinlenme imkânı.','Sınır: geçişi engellememek.']);
-add('r17','Kâğıttan kutuya','Süreç',1,'Sıra ve ön koşul.',`Küçük bir hediye kutusu yapmak için önce kâğıdı kare biçiminde kes. Karşılıklı köşeleri birleştirerek iki çapraz kat izi oluştur, sonra kâğıdı yeniden aç. Dört köşeyi merkeze doğru katla. Kenarları yükseltmeden önce izlerin belirgin olduğundan emin ol; zayıf izler kutunun biçimini korumasını güçleştirir.
+Yine de her boşluğa bank koymak çözüm değildir. Dar bir kaldırımda bank, yürüyenlerin yolunu kesebilir. Oturma alanı düşünülürken geçişin korunması ve gölge gibi koşulların hesaba katılması gerekir. Savunulan şey daha çok mobilya değil, gerçekten kullanılabilir bir duraklama imkânıdır.`,
+  [
+    q(
+      "Ana düşünce",
+      "Yazar neyi savunuyor?",
+      [
+        "Her sokağa aynı bankı koymayı",
+        "Bankları kaldırmayı",
+        "Geçişi koruyan kullanılabilir dinlenme alanlarını",
+      ],
+      2,
+      "Son cümle savın kapsamını sınırlar.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Poşet taşıyan kişi örneğinin görevi nedir?",
+      [
+        "Bankın kullanım yararını somutlaştırmak",
+        "Bankın maliyetini göstermek",
+        "Sokak sayısını artırmak",
+      ],
+      0,
+      "Örnek dinlenme ihtiyacını görünür yapar.",
+    ),
+    q(
+      "Çıkarım",
+      "Dar kaldırım için ne söylenebilir?",
+      [
+        "Kesinlikle bank olmalıdır.",
+        "Yerleştirme geçiş açısından değerlendirilmelidir.",
+        "Hiç insan yürümemelidir.",
+      ],
+      1,
+      "Metin evrensel yasak değil koşula göre değerlendirme ister.",
+      1,
+    ),
+  ],
+  "Bankın yararı, yerleştirildiği koşullarla birlikte değerlendirilmelidir.",
+  ["Sav: kullanılabilir dinlenme imkânı.", "Sınır: geçişi engellememek."],
+);
+add(
+  "r17",
+  "Kâğıttan kutuya",
+  "Süreç",
+  1,
+  "Sıra ve ön koşul.",
+  `Küçük bir hediye kutusu yapmak için önce kâğıdı kare biçiminde kes. Karşılıklı köşeleri birleştirerek iki çapraz kat izi oluştur, sonra kâğıdı yeniden aç. Dört köşeyi merkeze doğru katla. Kenarları yükseltmeden önce izlerin belirgin olduğundan emin ol; zayıf izler kutunun biçimini korumasını güçleştirir.
 
-Kutu kurulduktan sonra süsleme ekleyebilirsin. Ağır bir nesne koyacaksan tabanı ikinci bir kâğıtla destekle. Bu destek her kutu için zorunlu değildir; taşıyacağı yükle ilgilidir.`,[q('Açık bilgi','İlk adım nedir?',['Süslemek','Kare kesmek','Tabanı desteklemek'],1,'Süreç kare kâğıt hazırlamakla başlar.'),q('İlişki','Kat izleri neden belirgin olmalı?',['Renk değişsin diye','Kâğıt ağırlaşsın diye','Biçim korunsun diye'],2,'Zayıf izlerin biçimi güçleştirdiği belirtilir.'),q('Çıkarım','Ek taban ne zaman gerekli olabilir?',['Ağır yükte','Her durumda','Yalnızca süslenince'],0,'Koşul ağır bir nesne taşımaktır.',1)],'Kutunun adımları sırayla, taban desteği ise yük koşuluna göre uygulanır.',['Hazırlık önce gelir.','Koşullu adım herkese uygulanmaz.']);
-add('r18','Bekleyen çay','Anlatı',2,'Davranıştan duygu çıkarımı.',`Meral iki fincan çıkardı, sonra birini yeniden dolaba koydu. Telefon masanın üzerinde sessizdi. Su kaynayınca çayı demledi, pencereyi açtı ve apartmanın girişine baktı. Biraz sonra kapı çaldığında acele etmedi; önce dolaptaki ikinci fincanı çıkardı.
+Kutu kurulduktan sonra süsleme ekleyebilirsin. Ağır bir nesne koyacaksan tabanı ikinci bir kâğıtla destekle. Bu destek her kutu için zorunlu değildir; taşıyacağı yükle ilgilidir.`,
+  [
+    q(
+      "Açık bilgi",
+      "İlk adım nedir?",
+      ["Süslemek", "Kare kesmek", "Tabanı desteklemek"],
+      1,
+      "Süreç kare kâğıt hazırlamakla başlar.",
+    ),
+    q(
+      "İlişki",
+      "Kat izleri neden belirgin olmalı?",
+      ["Renk değişsin diye", "Kâğıt ağırlaşsın diye", "Biçim korunsun diye"],
+      2,
+      "Zayıf izlerin biçimi güçleştirdiği belirtilir.",
+    ),
+    q(
+      "Çıkarım",
+      "Ek taban ne zaman gerekli olabilir?",
+      ["Ağır yükte", "Her durumda", "Yalnızca süslenince"],
+      0,
+      "Koşul ağır bir nesne taşımaktır.",
+      1,
+    ),
+  ],
+  "Kutunun adımları sırayla, taban desteği ise yük koşuluna göre uygulanır.",
+  ["Hazırlık önce gelir.", "Koşullu adım herkese uygulanmaz."],
+);
+add(
+  "r18",
+  "Bekleyen çay",
+  "Anlatı",
+  2,
+  "Davranıştan duygu çıkarımı.",
+  `Meral iki fincan çıkardı, sonra birini yeniden dolaba koydu. Telefon masanın üzerinde sessizdi. Su kaynayınca çayı demledi, pencereyi açtı ve apartmanın girişine baktı. Biraz sonra kapı çaldığında acele etmedi; önce dolaptaki ikinci fincanı çıkardı.
 
-Gelen kişi “Geç kaldım,” dedi. Meral, “Çay daha yeni oldu,” diye karşılık verdi. Oysa kendi fincanındaki çay çoktan soğumuştu.`,[q('Çıkarım','Meral’in son sözü en çok ne düşündürür?',['Saati bilmiyor.','Misafirinin mahcup olmasını istemiyor olabilir.','Çayı hiç demlememiş.'],1,'Soğumuş çay, sözü ile gerçek zaman arasında fark gösterir.',1),q('Açık bilgi','Meral kapı çalınca önce ne yapıyor?',['Pencereyi açıyor','Telefon ediyor','İkinci fincanı çıkarıyor'],2,'Kapıdan önce ikinci fincanı çıkarıyor.'),q('İlişki','Soğuk çay ayrıntısı ne işe yarıyor?',['Bir süredir beklediğini hissettiriyor.','Çayın türünü gösteriyor.','Misafirin kimliğini açıklıyor.'],0,'Ayrıntı bekleme süresine dayanak sağlar.',1)],'Meral birini bekler; gecikmenin yarattığı mahcubiyeti yumuşatacak bir söz söyler.',['Çıkarım ayrıntıyla desteklenir.','Misafirin kimliği metinde yoktur.']);
-add('r19','Üç başlık, bir konu','Bilgilendirici',2,'Metin yapısını ön inceleme.',`Bir atölye defterinin içindekiler sayfasında üç başlık vardı: “Soruyu küçültmek”, “İlk denemeyi kurmak” ve “Sonucu yeniden düşünmek”. Kitabı alan Bora, bunun kusursuz ürün yapma kılavuzu olduğunu sandı. İlk bölümde ise bir işi tamamlamaktan önce neyi öğrenmek istediğini seçmesi isteniyordu.
+Gelen kişi “Geç kaldım,” dedi. Meral, “Çay daha yeni oldu,” diye karşılık verdi. Oysa kendi fincanındaki çay çoktan soğumuştu.`,
+  [
+    q(
+      "Çıkarım",
+      "Meral’in son sözü en çok ne düşündürür?",
+      [
+        "Saati bilmiyor.",
+        "Misafirinin mahcup olmasını istemiyor olabilir.",
+        "Çayı hiç demlememiş.",
+      ],
+      1,
+      "Soğumuş çay, sözü ile gerçek zaman arasında fark gösterir.",
+      1,
+    ),
+    q(
+      "Açık bilgi",
+      "Meral kapı çalınca önce ne yapıyor?",
+      ["Pencereyi açıyor", "Telefon ediyor", "İkinci fincanı çıkarıyor"],
+      2,
+      "Kapıdan önce ikinci fincanı çıkarıyor.",
+    ),
+    q(
+      "İlişki",
+      "Soğuk çay ayrıntısı ne işe yarıyor?",
+      [
+        "Bir süredir beklediğini hissettiriyor.",
+        "Çayın türünü gösteriyor.",
+        "Misafirin kimliğini açıklıyor.",
+      ],
+      0,
+      "Ayrıntı bekleme süresine dayanak sağlar.",
+      1,
+    ),
+  ],
+  "Meral birini bekler; gecikmenin yarattığı mahcubiyeti yumuşatacak bir söz söyler.",
+  ["Çıkarım ayrıntıyla desteklenir.", "Misafirin kimliği metinde yoktur."],
+);
+add(
+  "r19",
+  "Üç başlık, bir konu",
+  "Bilgilendirici",
+  2,
+  "Metin yapısını ön inceleme.",
+  `Bir atölye defterinin içindekiler sayfasında üç başlık vardı: “Soruyu küçültmek”, “İlk denemeyi kurmak” ve “Sonucu yeniden düşünmek”. Kitabı alan Bora, bunun kusursuz ürün yapma kılavuzu olduğunu sandı. İlk bölümde ise bir işi tamamlamaktan önce neyi öğrenmek istediğini seçmesi isteniyordu.
 
-Son bölüm, işe yaramayan denemelerin de soruyu daha iyi kurmaya yardım edebileceğini anlatıyordu. Bora başlıklara yeniden baktı. Ortak çizgi başarıyı garanti etmek değil, belirsizliği adım adım azaltmaktı. İçindekiler ona bütün yanıtları vermemiş, fakat okurken soracağı daha iyi bir soru sağlamıştı.`,[q('Ana düşünce','Başlıkların ortak çizgisi nedir?',['Hızlı üretim','Belirsizliği denemeyle azaltma','Her işi bitirme'],1,'Üç başlık soru, deneme ve değerlendirme akışı kuruyor.',1),q('İlişki','Başlıklar Bora’ya nasıl yardım etti?',['Bütün metni gereksiz kıldı.','Ürünü tamamladı.','Okuma sorusunu geliştirdi.'],2,'Son cümle ön incelemenin sınırlı ama yararlı işlevini söyler.',1),q('Çıkarım','İlk izlenim için hangisi söylenebilir?',['Okuma ilerledikçe değişebilir.','Her zaman doğrudur.','Asla işe yaramaz.'],0,'Bora ilk varsayımını yeniden değerlendiriyor.',1)],'Ön inceleme kesin yanıt değil, sınanacak bir beklenti ve okuma sorusu oluşturur.',['Başlıkların ilişkisine bak.','İlk tahmini metinle güncelle.']);
-add('r20','Bildirimleri kapatmak','Düşünce',2,'Nedenin sınırlarını tanıma.',`Bildirimleri kapatınca dikkatimizin otomatik olarak toparlanacağını umabiliriz. Dışarıdan gelen bölünmeler azalır, fakat zihnimizde bekleyen işler kendiliğinden kaybolmaz. Okumadan önce yapılacakları bir kâğıda yazmak, bu işleri unutmayacağımızı bilerek bir süre kenara bırakmamıza yardım edebilir.
+Son bölüm, işe yaramayan denemelerin de soruyu daha iyi kurmaya yardım edebileceğini anlatıyordu. Bora başlıklara yeniden baktı. Ortak çizgi başarıyı garanti etmek değil, belirsizliği adım adım azaltmaktı. İçindekiler ona bütün yanıtları vermemiş, fakat okurken soracağı daha iyi bir soru sağlamıştı.`,
+  [
+    q(
+      "Ana düşünce",
+      "Başlıkların ortak çizgisi nedir?",
+      ["Hızlı üretim", "Belirsizliği denemeyle azaltma", "Her işi bitirme"],
+      1,
+      "Üç başlık soru, deneme ve değerlendirme akışı kuruyor.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Başlıklar Bora’ya nasıl yardım etti?",
+      [
+        "Bütün metni gereksiz kıldı.",
+        "Ürünü tamamladı.",
+        "Okuma sorusunu geliştirdi.",
+      ],
+      2,
+      "Son cümle ön incelemenin sınırlı ama yararlı işlevini söyler.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "İlk izlenim için hangisi söylenebilir?",
+      [
+        "Okuma ilerledikçe değişebilir.",
+        "Her zaman doğrudur.",
+        "Asla işe yaramaz.",
+      ],
+      0,
+      "Bora ilk varsayımını yeniden değerlendiriyor.",
+      1,
+    ),
+  ],
+  "Ön inceleme kesin yanıt değil, sınanacak bir beklenti ve okuma sorusu oluşturur.",
+  ["Başlıkların ilişkisine bak.", "İlk tahmini metinle güncelle."],
+);
+add(
+  "r20",
+  "Bildirimleri kapatmak",
+  "Düşünce",
+  2,
+  "Nedenin sınırlarını tanıma.",
+  `Bildirimleri kapatınca dikkatimizin otomatik olarak toparlanacağını umabiliriz. Dışarıdan gelen bölünmeler azalır, fakat zihnimizde bekleyen işler kendiliğinden kaybolmaz. Okumadan önce yapılacakları bir kâğıda yazmak, bu işleri unutmayacağımızı bilerek bir süre kenara bırakmamıza yardım edebilir.
 
-Bu hazırlık da her gün aynı sonucu vermez. Yorgun bir akşamda kısa bir bölüm seçmek, uzun bir metne zorla tutunmaktan daha uygun olabilir. Amaç dikkati hiç dağılmayan bir insana dönüşmek değil, dağıldığını fark edip göreve dönebilecek koşulları kurmaktır.`,[q('Ana düşünce','Metin neyi önerir?',['Dikkat dağılmasını bütünüyle yok etmeyi','Her gün uzun okumayı','Dönüşü kolaylaştıran koşullar hazırlamayı'],2,'Son cümle ulaşılabilir amacı açıklar.',1),q('İlişki','Yapılacakları yazmanın işlevi nedir?',['Bekleyen işleri geçici olarak zihnin önünden çekmek','İşleri tamamlamış saymak','Okuma süresini ölçmek'],0,'Yazmak unutma kaygısını azaltacak bir hatırlatıcı olur.'),q('Çıkarım','Yorgun bir akşam için hangi seçim desteklenir?',['Süreyi iki katına çıkarmak','Daha kısa bir bölüm okumak','Hız yarışına girmek'],1,'Metin kısa bölüm seçimini uygun bir uyarlama olarak sunar.',1)],'Dikkat hazırlığı dış kesintileri azaltmayı ve gerçek enerjiye uygun görev seçmeyi içerir.',['Dış ve iç bölünmeler farklıdır.','Dikkate dönüş bir beceridir.']);
-add('r21','İki harita','Karşılaştırma',2,'Amaçlara göre ölçüt değişimi.',`Ece aynı kıyı kasabasının iki haritasını yan yana açtı. Birinde sokak adları ve otobüs durakları vardı. Diğerinde kıyı yürüyüşü boyunca görülebilecek avlular, küçük bahçeler ve dinlenme köşeleri işaretlenmişti. İkinci harita bütün sokakları göstermiyordu.
+Bu hazırlık da her gün aynı sonucu vermez. Yorgun bir akşamda kısa bir bölüm seçmek, uzun bir metne zorla tutunmaktan daha uygun olabilir. Amaç dikkati hiç dağılmayan bir insana dönüşmek değil, dağıldığını fark edip göreve dönebilecek koşulları kurmaktır.`,
+  [
+    q(
+      "Ana düşünce",
+      "Metin neyi önerir?",
+      [
+        "Dikkat dağılmasını bütünüyle yok etmeyi",
+        "Her gün uzun okumayı",
+        "Dönüşü kolaylaştıran koşullar hazırlamayı",
+      ],
+      2,
+      "Son cümle ulaşılabilir amacı açıklar.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Yapılacakları yazmanın işlevi nedir?",
+      [
+        "Bekleyen işleri geçici olarak zihnin önünden çekmek",
+        "İşleri tamamlamış saymak",
+        "Okuma süresini ölçmek",
+      ],
+      0,
+      "Yazmak unutma kaygısını azaltacak bir hatırlatıcı olur.",
+    ),
+    q(
+      "Çıkarım",
+      "Yorgun bir akşam için hangi seçim desteklenir?",
+      [
+        "Süreyi iki katına çıkarmak",
+        "Daha kısa bir bölüm okumak",
+        "Hız yarışına girmek",
+      ],
+      1,
+      "Metin kısa bölüm seçimini uygun bir uyarlama olarak sunar.",
+      1,
+    ),
+  ],
+  "Dikkat hazırlığı dış kesintileri azaltmayı ve gerçek enerjiye uygun görev seçmeyi içerir.",
+  ["Dış ve iç bölünmeler farklıdır.", "Dikkate dönüş bir beceridir."],
+);
+add(
+  "r21",
+  "İki harita",
+  "Karşılaştırma",
+  2,
+  "Amaçlara göre ölçüt değişimi.",
+  `Ece aynı kıyı kasabasının iki haritasını yan yana açtı. Birinde sokak adları ve otobüs durakları vardı. Diğerinde kıyı yürüyüşü boyunca görülebilecek avlular, küçük bahçeler ve dinlenme köşeleri işaretlenmişti. İkinci harita bütün sokakları göstermiyordu.
 
-Otogara yetişmek isteyen biri için ilk harita daha uygundu. Boş bir öğleden sonra yürüyüşe çıkan biri ise ikincisini tercih edebilirdi. Eksik görünen bilgi, her amaç için eksiklik sayılmazdı. Haritayı değerlendirmek için önce onun hangi yolculuğa yardım etmek istediğini sormak gerekiyordu.`,[q('Ana düşünce','Haritaları değerlendirmede ilk soru nedir?',['Hangisi daha renkli?','Hangi amaca hizmet ediyor?','Hangisi daha büyük?'],1,'Son cümle amaç ölçütünü belirler.',1),q('Açık bilgi','İlk haritada ne var?',['Sokak adları ve duraklar','Yalnızca bahçeler','Sadece kıyı çizgisi'],0,'İlk paragraf iki haritanın içeriğini ayırır.'),q('Çıkarım','İkinci haritada tüm sokakların olmaması ne demektir?',['Kesinlikle hatalıdır.','Hiç kullanılamaz.','Yürüyüş amacı için sorun olmayabilir.'],2,'Eksiklik amaçla birlikte düşünülüyor.',1)],'İki haritanın yararı farklı yolculuk amaçlarına bağlıdır.',['Bilgi seçimi amaçla ilgilidir.','Tek ölçüt her ürüne uymaz.']);
-add('r22','Bir iddianın ayakları','Tartışma',2,'Kanıtın kapsamı.',`Okul gazetesine yazan bir öğrenci, “Herkes öğle arasında bahçede oturmak istiyor,” dedi. Bu sonuca kendi sınıfından konuştuğu dört arkadaşının görüşünden ulaşmıştı. Arkadaşlarının isteği gerçekti; ancak bu dört kişinin bütün okulu temsil ettiği gösterilmemişti.
+Otogara yetişmek isteyen biri için ilk harita daha uygundu. Boş bir öğleden sonra yürüyüşe çıkan biri ise ikincisini tercih edebilirdi. Eksik görünen bilgi, her amaç için eksiklik sayılmazdı. Haritayı değerlendirmek için önce onun hangi yolculuğa yardım etmek istediğini sormak gerekiyordu.`,
+  [
+    q(
+      "Ana düşünce",
+      "Haritaları değerlendirmede ilk soru nedir?",
+      [
+        "Hangisi daha renkli?",
+        "Hangi amaca hizmet ediyor?",
+        "Hangisi daha büyük?",
+      ],
+      1,
+      "Son cümle amaç ölçütünü belirler.",
+      1,
+    ),
+    q(
+      "Açık bilgi",
+      "İlk haritada ne var?",
+      ["Sokak adları ve duraklar", "Yalnızca bahçeler", "Sadece kıyı çizgisi"],
+      0,
+      "İlk paragraf iki haritanın içeriğini ayırır.",
+    ),
+    q(
+      "Çıkarım",
+      "İkinci haritada tüm sokakların olmaması ne demektir?",
+      [
+        "Kesinlikle hatalıdır.",
+        "Hiç kullanılamaz.",
+        "Yürüyüş amacı için sorun olmayabilir.",
+      ],
+      2,
+      "Eksiklik amaçla birlikte düşünülüyor.",
+      1,
+    ),
+  ],
+  "İki haritanın yararı farklı yolculuk amaçlarına bağlıdır.",
+  ["Bilgi seçimi amaçla ilgilidir.", "Tek ölçüt her ürüne uymaz."],
+);
+add(
+  "r22",
+  "Bir iddianın ayakları",
+  "Tartışma",
+  2,
+  "Kanıtın kapsamı.",
+  `Okul gazetesine yazan bir öğrenci, “Herkes öğle arasında bahçede oturmak istiyor,” dedi. Bu sonuca kendi sınıfından konuştuğu dört arkadaşının görüşünden ulaşmıştı. Arkadaşlarının isteği gerçekti; ancak bu dört kişinin bütün okulu temsil ettiği gösterilmemişti.
 
-Yazısını düzelttiğinde “Konuştuğum dört arkadaşım bahçede daha fazla oturma alanı istiyor” cümlesini kullandı. Yeni cümle daha az iddialıydı, ama elindeki bilgiyle daha uyumluydu. Öğrenci daha geniş bir öneri sunmak isterse başka sınıflardaki ihtiyaçları da sorabilecekti. Savını küçültmek, fikrini değersizleştirmek değil, dayanağının sınırını doğru çizmekti.`,[q('Ana düşünce','Yazının düzeltilmesi ne sağladı?',['Görüşü tamamen sildi.','İddiayı eldeki kanıtın kapsamına yaklaştırdı.','Bütün okulu temsil etti.'],1,'Dört arkadaş ile herkes ayrımı korunuyor.',1),q('Açık bilgi','Kaç kişinin görüşü alınmıştı?',['Dört','Kırk','Bütün sınıf'],0,'İlk paragraf dört arkadaş der.'),q('Çıkarım','Daha geniş iddia için ne gerekir?',['Cümleyi uzatmak','Aynı kişilere tekrar sormak','Daha geniş ihtiyaç bilgisi toplamak'],2,'Başka sınıfları sormak önerilir.',1)],'İddianın genişliği, onu destekleyen bilginin genişliğiyle uyumlu olmalıdır.',['Dört kişi herkes değildir.','Sınır belirtmek iddiayı dürüst kılar.']);
-add('r23','Trenin açık penceresi','Anlatı',2,'Duyusal ayrıntı ve zaman ilişkisi.',`Tren küçük istasyonda durduğunda Cem açık pencereden fırın kokusu aldı. Çocukken annesiyle bekledikleri peronu hatırladı. O günlerde istasyonun saati ona hep yavaş çalışıyor gibi gelirdi. Şimdi aynı peron kısa, saat ise sıradan görünüyordu.
+Yazısını düzelttiğinde “Konuştuğum dört arkadaşım bahçede daha fazla oturma alanı istiyor” cümlesini kullandı. Yeni cümle daha az iddialıydı, ama elindeki bilgiyle daha uyumluydu. Öğrenci daha geniş bir öneri sunmak isterse başka sınıflardaki ihtiyaçları da sorabilecekti. Savını küçültmek, fikrini değersizleştirmek değil, dayanağının sınırını doğru çizmekti.`,
+  [
+    q(
+      "Ana düşünce",
+      "Yazının düzeltilmesi ne sağladı?",
+      [
+        "Görüşü tamamen sildi.",
+        "İddiayı eldeki kanıtın kapsamına yaklaştırdı.",
+        "Bütün okulu temsil etti.",
+      ],
+      1,
+      "Dört arkadaş ile herkes ayrımı korunuyor.",
+      1,
+    ),
+    q(
+      "Açık bilgi",
+      "Kaç kişinin görüşü alınmıştı?",
+      ["Dört", "Kırk", "Bütün sınıf"],
+      0,
+      "İlk paragraf dört arkadaş der.",
+    ),
+    q(
+      "Çıkarım",
+      "Daha geniş iddia için ne gerekir?",
+      [
+        "Cümleyi uzatmak",
+        "Aynı kişilere tekrar sormak",
+        "Daha geniş ihtiyaç bilgisi toplamak",
+      ],
+      2,
+      "Başka sınıfları sormak önerilir.",
+      1,
+    ),
+  ],
+  "İddianın genişliği, onu destekleyen bilginin genişliğiyle uyumlu olmalıdır.",
+  ["Dört kişi herkes değildir.", "Sınır belirtmek iddiayı dürüst kılar."],
+);
+add(
+  "r23",
+  "Trenin açık penceresi",
+  "Anlatı",
+  2,
+  "Duyusal ayrıntı ve zaman ilişkisi.",
+  `Tren küçük istasyonda durduğunda Cem açık pencereden fırın kokusu aldı. Çocukken annesiyle bekledikleri peronu hatırladı. O günlerde istasyonun saati ona hep yavaş çalışıyor gibi gelirdi. Şimdi aynı peron kısa, saat ise sıradan görünüyordu.
 
-İnen yolcular arasında kendisini karşılayacak kimse yoktu; zaten kimseye geleceğini söylememişti. Çantasını omzuna aldı ve istasyon kapısındaki eski çatlağı aradı. Çatlak duruyordu. Cem gülümsedi. Değişmediğini sandığı yer ile hatırladığı yerin aynı şey olmadığını ilk kez bu kadar açık hissetti.`,[q('Çıkarım','Cem neden karşılayan kimseyi beklememelidir?',['Tren erken geldiği için','Geleceğini söylemediği için','İstasyon kapandığı için'],1,'İkinci paragrafta kimseye haber vermediği belirtilir.',1),q('Ana düşünce','Anlatıda hangi düşünce öne çıkar?',['Hatırlanan yer ile bugünkü deneyim farklı olabilir.','Eski istasyonlar değişmez.','Yolculuklar hep mutsuz eder.'],0,'Aynı peronun kısa görünmesi ve son cümle bunu destekler.',1),q('İlişki','Fırın kokusu neyi başlatır?',['Bilet aramayı','Trenin hareketini','Çocukluk anısını'],2,'Kokunun ardından eski bekleyiş anlatılır.')],'Cem istasyona dönünce mekânı bugünkü bakışıyla anısı arasında yeniden değerlendirir.',['Koku anıyı başlatır.','Bakış değişince yer farklı algılanır.']);
-add('r24','Suyun payı','Doğa',2,'Ortak kaynakta görünmeyen katkı.',`Küçük bahçedeki sulama kovası her akşam dolu bırakılıyordu. Kimse kimin doldurduğunu sormadı; herkes yalnızca kendi saksısına yetecek suyu aldı. Bir hafta kova boş kalınca bahçede ilk kez bu işin nasıl sürdüğü konuşuldu.
+İnen yolcular arasında kendisini karşılayacak kimse yoktu; zaten kimseye geleceğini söylememişti. Çantasını omzuna aldı ve istasyon kapısındaki eski çatlağı aradı. Çatlak duruyordu. Cem gülümsedi. Değişmediğini sandığı yer ile hatırladığı yerin aynı şey olmadığını ilk kez bu kadar açık hissetti.`,
+  [
+    q(
+      "Çıkarım",
+      "Cem neden karşılayan kimseyi beklememelidir?",
+      [
+        "Tren erken geldiği için",
+        "Geleceğini söylemediği için",
+        "İstasyon kapandığı için",
+      ],
+      1,
+      "İkinci paragrafta kimseye haber vermediği belirtilir.",
+      1,
+    ),
+    q(
+      "Ana düşünce",
+      "Anlatıda hangi düşünce öne çıkar?",
+      [
+        "Hatırlanan yer ile bugünkü deneyim farklı olabilir.",
+        "Eski istasyonlar değişmez.",
+        "Yolculuklar hep mutsuz eder.",
+      ],
+      0,
+      "Aynı peronun kısa görünmesi ve son cümle bunu destekler.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Fırın kokusu neyi başlatır?",
+      ["Bilet aramayı", "Trenin hareketini", "Çocukluk anısını"],
+      2,
+      "Kokunun ardından eski bekleyiş anlatılır.",
+    ),
+  ],
+  "Cem istasyona dönünce mekânı bugünkü bakışıyla anısı arasında yeniden değerlendirir.",
+  ["Koku anıyı başlatır.", "Bakış değişince yer farklı algılanır."],
+);
+add(
+  "r24",
+  "Suyun payı",
+  "Doğa",
+  2,
+  "Ortak kaynakta görünmeyen katkı.",
+  `Küçük bahçedeki sulama kovası her akşam dolu bırakılıyordu. Kimse kimin doldurduğunu sormadı; herkes yalnızca kendi saksısına yetecek suyu aldı. Bir hafta kova boş kalınca bahçede ilk kez bu işin nasıl sürdüğü konuşuldu.
 
-Meğer üst kattaki komşu, çamaşırlarını toplamaya inerken kovayı dolduruyordu. O hafta şehir dışına çıkmıştı. Bahçeyi kullananlar sırayla doldurma kararı aldı ve takvimi kapıya astı. Suya erişmek kadar, suyun orada bulunmasını sağlayan küçük işin de paylaşılması gerektiği böylece görünür oldu.`,[q('Ana düşünce','Metin hangi noktayı vurgular?',['Saksı sayısının azaltılmasını','Kovanın büyüklüğünü','Ortak yararı sürdüren emeğin paylaşılmasını'],2,'Son cümle görünmeyen işin paylaşılmasını özetler.',1),q('Açık bilgi','Kova neden bir hafta boş kaldı?',['Dolduran komşu şehir dışındaydı.','Kova kırıldı.','Bahçe kapandı.'],0,'İkinci paragraf nedenini açıklar.',1),q('Çıkarım','Kovanın dolması önce nasıl algılanmış olabilir?',['Çok zor bir iş olarak','Kendiliğinden süren bir durum olarak','Kimsenin istemediği bir iş olarak'],1,'Kimse nasıl dolduğunu sormamıştı.')],'Kovanın boş kalması, ortak bahçedeki görünmeyen işi ortaya çıkardı ve paylaşılmasını sağladı.',['Yararı kullananlar emeği görmedi.','Kesinti süreci görünür kıldı.']);
-add('r25','Soru kökündeki sınır','Öğretici',2,'Olumsuzluk ve kapsam.',`Bir çalışma kâğıdında “Aşağıdakilerden hangisi metinde önerilen uygulamalardan biri değildir?” sorusu yer alıyordu. Dört seçeneğin üçü metindeki önerileri yeniden ifade ediyor, biri ise metinde eleştirilen davranışı anlatıyordu. Öğrenci ilk tanıdık öneriyi görür görmez işaretledi.
+Meğer üst kattaki komşu, çamaşırlarını toplamaya inerken kovayı dolduruyordu. O hafta şehir dışına çıkmıştı. Bahçeyi kullananlar sırayla doldurma kararı aldı ve takvimi kapıya astı. Suya erişmek kadar, suyun orada bulunmasını sağlayan küçük işin de paylaşılması gerektiği böylece görünür oldu.`,
+  [
+    q(
+      "Ana düşünce",
+      "Metin hangi noktayı vurgular?",
+      [
+        "Saksı sayısının azaltılmasını",
+        "Kovanın büyüklüğünü",
+        "Ortak yararı sürdüren emeğin paylaşılmasını",
+      ],
+      2,
+      "Son cümle görünmeyen işin paylaşılmasını özetler.",
+      1,
+    ),
+    q(
+      "Açık bilgi",
+      "Kova neden bir hafta boş kaldı?",
+      ["Dolduran komşu şehir dışındaydı.", "Kova kırıldı.", "Bahçe kapandı."],
+      0,
+      "İkinci paragraf nedenini açıklar.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "Kovanın dolması önce nasıl algılanmış olabilir?",
+      [
+        "Çok zor bir iş olarak",
+        "Kendiliğinden süren bir durum olarak",
+        "Kimsenin istemediği bir iş olarak",
+      ],
+      1,
+      "Kimse nasıl dolduğunu sormamıştı.",
+    ),
+  ],
+  "Kovanın boş kalması, ortak bahçedeki görünmeyen işi ortaya çıkardı ve paylaşılmasını sağladı.",
+  ["Yararı kullananlar emeği görmedi.", "Kesinti süreci görünür kıldı."],
+);
+add(
+  "r25",
+  "Soru kökündeki sınır",
+  "Öğretici",
+  2,
+  "Olumsuzluk ve kapsam.",
+  `Bir çalışma kâğıdında “Aşağıdakilerden hangisi metinde önerilen uygulamalardan biri değildir?” sorusu yer alıyordu. Dört seçeneğin üçü metindeki önerileri yeniden ifade ediyor, biri ise metinde eleştirilen davranışı anlatıyordu. Öğrenci ilk tanıdık öneriyi görür görmez işaretledi.
 
-Yanlışın nedeni metni hiç anlamamış olması değildi. Soru, doğru öneriyi değil, öneriler dışında kalanı istiyordu. Öğrenci sonraki soruda önce kendine “Burada neyi buluyorum?” diye sordu. “Dışarıda kalanı” yanıtını verdikten sonra seçeneklere geçti. Daha yavaş olmak tek başına çözüm değildi; dikkatini belirleyici sözcüğe vermesi gerekiyordu.`,[q('Açık bilgi','Soru neyi istiyordu?',['Metindeki ilk öneriyi','Önerilerden olmayanı','En uzun seçeneği'],1,'“Değildir” kapsamı tersine çeviriyor.'),q('İlişki','Öğrenci neden yanlış işaretledi?',['Tanıdık içeriği görevi kontrol etmeden seçti.','Bütün seçenekler yanlıştı.','Metin görünmüyordu.'],0,'Görev olumsuzken tanıdık olumlu öneriyi seçti.'),q('Çıkarım','Uygun strateji hangisidir?',['Her seçeneği aynı hızda geçmek','Önce işaretleyip sonra kökü okumak','Aranan ilişkiyi seçeneklerden önce belirlemek'],2,'Kendine yönelttiği görev sorusu seçimi düzenliyor.',1)],'Soru kökündeki olumsuzluk, tanıdık içeriği değil dışarıda kalanı seçmeyi gerektirir.',['Görevi kendi sözlerinle söyle.','Olumsuzluk ve kapsamı kontrol et.']);
-add('r26','Toplantıdan kalan','Mesleki',2,'Karar, öneri ve sorumluluk.',`Toplantıda üç konu konuşuldu: arşivin taşınması, yeni dosya adları ve ortak çalışma saatleri. Arşiv taşınacak, fakat önce eksik kutuların listesi çıkarılacaktı. Bu listeyi cuma gününe kadar İpek hazırlayacaktı. Dosya adlarında tarih kullanılması önerildi; karar sonraki toplantıya bırakıldı.
+Yanlışın nedeni metni hiç anlamamış olması değildi. Soru, doğru öneriyi değil, öneriler dışında kalanı istiyordu. Öğrenci sonraki soruda önce kendine “Burada neyi buluyorum?” diye sordu. “Dışarıda kalanı” yanıtını verdikten sonra seçeneklere geçti. Daha yavaş olmak tek başına çözüm değildi; dikkatini belirleyici sözcüğe vermesi gerekiyordu.`,
+  [
+    q(
+      "Açık bilgi",
+      "Soru neyi istiyordu?",
+      ["Metindeki ilk öneriyi", "Önerilerden olmayanı", "En uzun seçeneği"],
+      1,
+      "“Değildir” kapsamı tersine çeviriyor.",
+    ),
+    q(
+      "İlişki",
+      "Öğrenci neden yanlış işaretledi?",
+      [
+        "Tanıdık içeriği görevi kontrol etmeden seçti.",
+        "Bütün seçenekler yanlıştı.",
+        "Metin görünmüyordu.",
+      ],
+      0,
+      "Görev olumsuzken tanıdık olumlu öneriyi seçti.",
+    ),
+    q(
+      "Çıkarım",
+      "Uygun strateji hangisidir?",
+      [
+        "Her seçeneği aynı hızda geçmek",
+        "Önce işaretleyip sonra kökü okumak",
+        "Aranan ilişkiyi seçeneklerden önce belirlemek",
+      ],
+      2,
+      "Kendine yönelttiği görev sorusu seçimi düzenliyor.",
+      1,
+    ),
+  ],
+  "Soru kökündeki olumsuzluk, tanıdık içeriği değil dışarıda kalanı seçmeyi gerektirir.",
+  ["Görevi kendi sözlerinle söyle.", "Olumsuzluk ve kapsamı kontrol et."],
+);
+add(
+  "r26",
+  "Toplantıdan kalan",
+  "Mesleki",
+  2,
+  "Karar, öneri ve sorumluluk.",
+  `Toplantıda üç konu konuşuldu: arşivin taşınması, yeni dosya adları ve ortak çalışma saatleri. Arşiv taşınacak, fakat önce eksik kutuların listesi çıkarılacaktı. Bu listeyi cuma gününe kadar İpek hazırlayacaktı. Dosya adlarında tarih kullanılması önerildi; karar sonraki toplantıya bırakıldı.
 
-Ortak çalışma saati için çarşamba öğleden sonra iki haftalık bir deneme yapılmasına karar verildi. Notları yazan Oğuz, konuşulan her şeyi “karar” başlığına koymadı. Kesinleşen işler, denenecek uygulamalar ve açık kalan sorular için ayrı satırlar açtı. Böylece toplantıya katılmayan biri de neyin yapılacağını, neyin henüz tartışıldığını ayırt edebilecekti.`,[q('Açık bilgi','Kutuların listesini kim hazırlayacak?',['Oğuz','İpek','Bütün ekip'],1,'İlk paragrafta sorumlu ve son gün belirtilir.'),q('İlişki','Dosya adlarında tarih kullanılması hangi durumdadır?',['Kesin karar','Tamamlanmış iş','Karar bekleyen öneri'],2,'Karar sonraki toplantıya bırakılmıştır.'),q('Ana düşünce','Not tutma yaklaşımının yararı nedir?',['Konuşma ile kararın durumunu ayırmak','Bütün ayrıntıları silmek','Herkesi aynı işe atamak'],0,'Farklı durumlar ayrı satırlara alınır.',1)],'Toplantı notu eylemleri, denemeleri ve henüz karara bağlanmayan önerileri ayırır.',['Sorumlu ve tarih görünür.','Öneri karar sayılmaz.'],{scan:{prompt:'Ortak çalışma denemesi hangi gün yapılacak?',answer:'Çarşamba',paragraph:1}});
-add('r27','Özetin eşiği','Öğretici',2,'Örnek ve ana fikir ayrımı.',`Bir yazı, şehirde yürürken yolumuzu yalnızca tabelalarla bulmadığımızı anlatıyordu. Köşedeki fırın, yüksek bir ağaç ve geniş bir merdiven yazıda verilen üç örnekti. Dila özete bu üç yeri tek tek yazdı, fakat onların neyi örneklediğini söylemedi.
+Ortak çalışma saati için çarşamba öğleden sonra iki haftalık bir deneme yapılmasına karar verildi. Notları yazan Oğuz, konuşulan her şeyi “karar” başlığına koymadı. Kesinleşen işler, denenecek uygulamalar ve açık kalan sorular için ayrı satırlar açtı. Böylece toplantıya katılmayan biri de neyin yapılacağını, neyin henüz tartışıldığını ayırt edebilecekti.`,
+  [
+    q(
+      "Açık bilgi",
+      "Kutuların listesini kim hazırlayacak?",
+      ["Oğuz", "İpek", "Bütün ekip"],
+      1,
+      "İlk paragrafta sorumlu ve son gün belirtilir.",
+    ),
+    q(
+      "İlişki",
+      "Dosya adlarında tarih kullanılması hangi durumdadır?",
+      ["Kesin karar", "Tamamlanmış iş", "Karar bekleyen öneri"],
+      2,
+      "Karar sonraki toplantıya bırakılmıştır.",
+    ),
+    q(
+      "Ana düşünce",
+      "Not tutma yaklaşımının yararı nedir?",
+      [
+        "Konuşma ile kararın durumunu ayırmak",
+        "Bütün ayrıntıları silmek",
+        "Herkesi aynı işe atamak",
+      ],
+      0,
+      "Farklı durumlar ayrı satırlara alınır.",
+      1,
+    ),
+  ],
+  "Toplantı notu eylemleri, denemeleri ve henüz karara bağlanmayan önerileri ayırır.",
+  ["Sorumlu ve tarih görünür.", "Öneri karar sayılmaz."],
+  {
+    scan: {
+      prompt: "Ortak çalışma denemesi hangi gün yapılacak?",
+      answer: "Çarşamba",
+      paragraph: 1,
+    },
+  },
+);
+add(
+  "r27",
+  "Özetin eşiği",
+  "Öğretici",
+  2,
+  "Örnek ve ana fikir ayrımı.",
+  `Bir yazı, şehirde yürürken yolumuzu yalnızca tabelalarla bulmadığımızı anlatıyordu. Köşedeki fırın, yüksek bir ağaç ve geniş bir merdiven yazıda verilen üç örnekti. Dila özete bu üç yeri tek tek yazdı, fakat onların neyi örneklediğini söylemedi.
 
-Özetini yeniden kurarken “İnsanlar kentte yön bulurken ayırt edici çevre öğelerinden de yararlanır” cümlesiyle başladı. Sonra bir örnek ekledi. Yeni özet daha kısaydı, ama daha fazla anlam taşıyordu: ayrıntıların ortak işlevini açık etmişti. Bir özette her örneği korumak değil, örneklerin taşıdığı düşünceyi kaybetmemek önemliydi.`,[q('Ana düşünce','İyi özet için ne vurgulanıyor?',['Örneklerin ortak düşüncesini korumak','Bütün isimleri sıralamak','Her cümleyi kısaltmak'],0,'Son cümle ölçütü açıklar.',1),q('İlişki','Fırın ve ağaç neyin örneği?',['Kentte yiyecek bulmanın','Ayırt edici çevre öğeleriyle yön bulmanın','Yeni yapı yapmanın'],1,'Örneklerin ortak işlevi yön bulmadır.',1),q('Çıkarım','Dila’nın ilk özeti neden zayıftı?',['Çok kısa olduğu için','Hiç örnek içermediği için','Ayrıntıların ilişkisini vermediği için'],2,'Üç yer sıralanmış fakat ortak fikir söylenmemişti.')],'Özet, ayrıntıların listesinden çok aralarındaki ortak düşünceyi korumalıdır.',['Ana düşünceyi önce kur.','Temsil eden bir örnek yeterli olabilir.']);
-add('r28','Ertesi günün sorusu','Öğrenme',2,'Tanıma ve geri çağırma farkı.',`Baran akşam okuduğu yazının altı çizili yerlerine sabah baktığında her şey tanıdık geldi. Konuyu öğrendiğini düşündü. Defteri kapatıp arkadaşına anlatmaya başlayınca yalnızca örneklerden birini hatırladı. Yazının temel savı ile o örneğin ilişkisini kuramıyordu.
+Özetini yeniden kurarken “İnsanlar kentte yön bulurken ayırt edici çevre öğelerinden de yararlanır” cümlesiyle başladı. Sonra bir örnek ekledi. Yeni özet daha kısaydı, ama daha fazla anlam taşıyordu: ayrıntıların ortak işlevini açık etmişti. Bir özette her örneği korumak değil, örneklerin taşıdığı düşünceyi kaybetmemek önemliydi.`,
+  [
+    q(
+      "Ana düşünce",
+      "İyi özet için ne vurgulanıyor?",
+      [
+        "Örneklerin ortak düşüncesini korumak",
+        "Bütün isimleri sıralamak",
+        "Her cümleyi kısaltmak",
+      ],
+      0,
+      "Son cümle ölçütü açıklar.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Fırın ve ağaç neyin örneği?",
+      [
+        "Kentte yiyecek bulmanın",
+        "Ayırt edici çevre öğeleriyle yön bulmanın",
+        "Yeni yapı yapmanın",
+      ],
+      1,
+      "Örneklerin ortak işlevi yön bulmadır.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "Dila’nın ilk özeti neden zayıftı?",
+      [
+        "Çok kısa olduğu için",
+        "Hiç örnek içermediği için",
+        "Ayrıntıların ilişkisini vermediği için",
+      ],
+      2,
+      "Üç yer sıralanmış fakat ortak fikir söylenmemişti.",
+    ),
+  ],
+  "Özet, ayrıntıların listesinden çok aralarındaki ortak düşünceyi korumalıdır.",
+  ["Ana düşünceyi önce kur.", "Temsil eden bir örnek yeterli olabilir."],
+);
+add(
+  "r28",
+  "Ertesi günün sorusu",
+  "Öğrenme",
+  2,
+  "Tanıma ve geri çağırma farkı.",
+  `Baran akşam okuduğu yazının altı çizili yerlerine sabah baktığında her şey tanıdık geldi. Konuyu öğrendiğini düşündü. Defteri kapatıp arkadaşına anlatmaya başlayınca yalnızca örneklerden birini hatırladı. Yazının temel savı ile o örneğin ilişkisini kuramıyordu.
 
-Defteri yeniden açmadan önce bildiklerini üç cümleyle yazdı. Sonra metne dönüp eksik kalan ilişkiyi buldu. Bir gün sonra aynı soruyu yeniden yanıtladı. Bu kez nereden başlayacağını biliyordu. Tanıdıklık ona rahatlık vermişti; kapalı metinle anlatma ise hangi bağlantının eksik olduğunu göstermişti.`,[q('Ana düşünce','Metin hangi ayrımı kurar?',['Uzun ve kısa defter','Tanıma hissi ile bilgiyi geri çağırma','Sabah ve akşam ışığı'],1,'Baran tanıdığı bilgiyi anlatmakta zorlanır.',1),q('Açık bilgi','Metne dönmeden önce ne yaptı?',['Bildiklerini üç cümleyle yazdı.','Bütün yazıyı kopyaladı.','Yeni yazı seçti.'],0,'İkinci paragraftaki ilk adım budur.',1),q('Çıkarım','Kapalı metinle anlatma ne sağladı?',['Bütün konuyu otomatik öğretti.','Okuma hızını doğrudan ölçtü.','Eksik bağlantıyı görünür kıldı.'],2,'Son cümle işlevi açıkça belirtir.',1)],'Tanıdıklık öğrenmenin tamamı değildir; metinsiz anlatma eksik bağlantıları gösterir.',['Önce metni kapat.','Eksik ilişkiye hedefli dön.']);
-add('r29','Daralan yol','Anlatı',3,'Açık söylenmeyen karar ve motif.',`Dağ köyüne çıkan yolun son bölümünde iki araç yan yana geçemiyordu. Murat viraja gelmeden kornaya bastı, sonra ileride bekleyen eski minibüsü gördü. Sürücü elini kaldırıp ona yol verdi. Murat teşekkür ederek geçti.
+Defteri yeniden açmadan önce bildiklerini üç cümleyle yazdı. Sonra metne dönüp eksik kalan ilişkiyi buldu. Bir gün sonra aynı soruyu yeniden yanıtladı. Bu kez nereden başlayacağını biliyordu. Tanıdıklık ona rahatlık vermişti; kapalı metinle anlatma ise hangi bağlantının eksik olduğunu göstermişti.`,
+  [
+    q(
+      "Ana düşünce",
+      "Metin hangi ayrımı kurar?",
+      [
+        "Uzun ve kısa defter",
+        "Tanıma hissi ile bilgiyi geri çağırma",
+        "Sabah ve akşam ışığı",
+      ],
+      1,
+      "Baran tanıdığı bilgiyi anlatmakta zorlanır.",
+      1,
+    ),
+    q(
+      "Açık bilgi",
+      "Metne dönmeden önce ne yaptı?",
+      [
+        "Bildiklerini üç cümleyle yazdı.",
+        "Bütün yazıyı kopyaladı.",
+        "Yeni yazı seçti.",
+      ],
+      0,
+      "İkinci paragraftaki ilk adım budur.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "Kapalı metinle anlatma ne sağladı?",
+      [
+        "Bütün konuyu otomatik öğretti.",
+        "Okuma hızını doğrudan ölçtü.",
+        "Eksik bağlantıyı görünür kıldı.",
+      ],
+      2,
+      "Son cümle işlevi açıkça belirtir.",
+      1,
+    ),
+  ],
+  "Tanıdıklık öğrenmenin tamamı değildir; metinsiz anlatma eksik bağlantıları gösterir.",
+  ["Önce metni kapat.", "Eksik ilişkiye hedefli dön."],
+);
+add(
+  "r29",
+  "Daralan yol",
+  "Anlatı",
+  3,
+  "Açık söylenmeyen karar ve motif.",
+  `Dağ köyüne çıkan yolun son bölümünde iki araç yan yana geçemiyordu. Murat viraja gelmeden kornaya bastı, sonra ileride bekleyen eski minibüsü gördü. Sürücü elini kaldırıp ona yol verdi. Murat teşekkür ederek geçti.
 
-Dönüşte aynı virajın önünde durdu. Bu kez yukarıdan bir kamyon geliyordu. Arkasındaki otomobil kısa bir korna çaldı, ama Murat yerinden kıpırdamadı. Kamyon geçtikten sonra aynaya baktı ve yavaşça hareket etti. Sabah aldığı küçük kolaylığın, yolun nasıl paylaşılması gerektiğine dair bir bilgi de taşıdığını düşünüyordu.`,[q('Çıkarım','Murat neden bekledi?',['Arabası bozulduğu için','Kamyonla dar bölümde karşılaşmamak için','Sabahki minibüsü aradığı için'],1,'Yolun iki araca uygun olmadığı ve öğrenilen paylaşım son cümlede birleşir.',1),q('İlişki','Sabahki olay akşamki kararla nasıl ilişkili?',['Örnek olan davranışı Murat da uyguladı.','İki olayın ilişkisi yok.','Murat aynı sürücüyü taklit etmek istemedi.'],0,'Alınan kolaylık paylaşım bilgisine dönüşüyor.',1),q('Bağlam','“Bilgi taşıyan kolaylık” neyi anlatır?',['Yeni bir trafik levhasını','Yolun tarihini','Davranışla öğrenilen geçiş düzenini'],2,'Yol verme eylemi yazısız bir kullanım bilgisi sunuyor.',1)],'Murat kendisine yol verilmesinden, dar yolu paylaşmaya ilişkin bir davranış öğrenir.',['Eylemler birbirini açıklar.','Çıkarımı yolun fiziksel koşuluna bağla.']);
-add('r30','Küçük ekran, uzun yazı','Tasarım',2,'Çözüm ve ödünleşim.',`Bir okuma uygulamasının tasarımcısı, ekrana daha çok yazı sığdırmak için satır aralığını daralttı. Sayfa sayısı azaldı, fakat denemeye katılan birkaç kişi kaldığı satırı bulmakta zorlandığını söyledi. Daha az sayfa, daha rahat okuma anlamına gelmemişti.
+Dönüşte aynı virajın önünde durdu. Bu kez yukarıdan bir kamyon geliyordu. Arkasındaki otomobil kısa bir korna çaldı, ama Murat yerinden kıpırdamadı. Kamyon geçtikten sonra aynaya baktı ve yavaşça hareket etti. Sabah aldığı küçük kolaylığın, yolun nasıl paylaşılması gerektiğine dair bir bilgi de taşıdığını düşünüyordu.`,
+  [
+    q(
+      "Çıkarım",
+      "Murat neden bekledi?",
+      [
+        "Arabası bozulduğu için",
+        "Kamyonla dar bölümde karşılaşmamak için",
+        "Sabahki minibüsü aradığı için",
+      ],
+      1,
+      "Yolun iki araca uygun olmadığı ve öğrenilen paylaşım son cümlede birleşir.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Sabahki olay akşamki kararla nasıl ilişkili?",
+      [
+        "Örnek olan davranışı Murat da uyguladı.",
+        "İki olayın ilişkisi yok.",
+        "Murat aynı sürücüyü taklit etmek istemedi.",
+      ],
+      0,
+      "Alınan kolaylık paylaşım bilgisine dönüşüyor.",
+      1,
+    ),
+    q(
+      "Bağlam",
+      "“Bilgi taşıyan kolaylık” neyi anlatır?",
+      [
+        "Yeni bir trafik levhasını",
+        "Yolun tarihini",
+        "Davranışla öğrenilen geçiş düzenini",
+      ],
+      2,
+      "Yol verme eylemi yazısız bir kullanım bilgisi sunuyor.",
+      1,
+    ),
+  ],
+  "Murat kendisine yol verilmesinden, dar yolu paylaşmaya ilişkin bir davranış öğrenir.",
+  ["Eylemler birbirini açıklar.", "Çıkarımı yolun fiziksel koşuluna bağla."],
+);
+add(
+  "r30",
+  "Küçük ekran, uzun yazı",
+  "Tasarım",
+  2,
+  "Çözüm ve ödünleşim.",
+  `Bir okuma uygulamasının tasarımcısı, ekrana daha çok yazı sığdırmak için satır aralığını daralttı. Sayfa sayısı azaldı, fakat denemeye katılan birkaç kişi kaldığı satırı bulmakta zorlandığını söyledi. Daha az sayfa, daha rahat okuma anlamına gelmemişti.
 
-Tasarımcı satır aralığını yeniden açtı ve yazı boyutunu okuyucunun seçmesine izin verdi. Bu kez bazı metinler daha uzun kaydırma gerektiriyordu. Yine de okuyucu kendi rahatlığına göre karar verebiliyordu. Çözüm tek bir kusursuz ölçü bulmak değil, gereksiz seçenek kalabalığı yaratmadan anlamlı kontrol sağlamaktı.`,[q('Ana düşünce','Metin neyi savunuyor?',['En çok yazıyı sığdırmayı','Okuma rahatlığına uygun anlamlı kontrolü','Bütün ayarları kaldırmayı'],1,'Son cümle çözümün ilkesini belirtir.',1),q('İlişki','Satır aralığını daraltmanın sorunu ne oldu?',['Renkler kayboldu.','Dosya büyüdü.','Kaldığı satırı bulmak zorlaştı.'],2,'İlk paragraf doğrudan bu geri bildirimi verir.'),q('Çıkarım','Daha fazla kaydırma için ne söylenebilir?',['Daha rahat düzenin kabul edilebilir sonucu olabilir.','Her durumda başarısızlıktır.','Metnin okunmadığını kanıtlar.'],0,'İkinci paragraf bu ödünleşimi okuyucu seçimine bırakır.',1)],'Ekrana sığan miktar ile okuma rahatlığı aynı ölçüt değildir; az sayıda anlamlı ayar yarar sağlar.',['Daha az sayfa her zaman daha iyi değil.','Rahatlık kişiye göre değişebilir.']);
-add('r31','Akşam defteri','Gündelik',2,'Alışkanlık ve esneklik.',`Aslı her akşam yirmi dakika okumaya karar verdi. İlk hafta iki akşam planını uygulayamadı. Defterindeki boş kutuları görünce bütün düzenin bozulduğunu düşündü. Sonra kutuların yanına o gün neden okuyamadığını yazdı: birinde geç dönmüş, diğerinde başı ağrımıştı.
+Tasarımcı satır aralığını yeniden açtı ve yazı boyutunu okuyucunun seçmesine izin verdi. Bu kez bazı metinler daha uzun kaydırma gerektiriyordu. Yine de okuyucu kendi rahatlığına göre karar verebiliyordu. Çözüm tek bir kusursuz ölçü bulmak değil, gereksiz seçenek kalabalığı yaratmadan anlamlı kontrol sağlamaktı.`,
+  [
+    q(
+      "Ana düşünce",
+      "Metin neyi savunuyor?",
+      [
+        "En çok yazıyı sığdırmayı",
+        "Okuma rahatlığına uygun anlamlı kontrolü",
+        "Bütün ayarları kaldırmayı",
+      ],
+      1,
+      "Son cümle çözümün ilkesini belirtir.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Satır aralığını daraltmanın sorunu ne oldu?",
+      ["Renkler kayboldu.", "Dosya büyüdü.", "Kaldığı satırı bulmak zorlaştı."],
+      2,
+      "İlk paragraf doğrudan bu geri bildirimi verir.",
+    ),
+    q(
+      "Çıkarım",
+      "Daha fazla kaydırma için ne söylenebilir?",
+      [
+        "Daha rahat düzenin kabul edilebilir sonucu olabilir.",
+        "Her durumda başarısızlıktır.",
+        "Metnin okunmadığını kanıtlar.",
+      ],
+      0,
+      "İkinci paragraf bu ödünleşimi okuyucu seçimine bırakır.",
+      1,
+    ),
+  ],
+  "Ekrana sığan miktar ile okuma rahatlığı aynı ölçüt değildir; az sayıda anlamlı ayar yarar sağlar.",
+  [
+    "Daha az sayfa her zaman daha iyi değil.",
+    "Rahatlık kişiye göre değişebilir.",
+  ],
+);
+add(
+  "r31",
+  "Akşam defteri",
+  "Gündelik",
+  2,
+  "Alışkanlık ve esneklik.",
+  `Aslı her akşam yirmi dakika okumaya karar verdi. İlk hafta iki akşam planını uygulayamadı. Defterindeki boş kutuları görünce bütün düzenin bozulduğunu düşündü. Sonra kutuların yanına o gün neden okuyamadığını yazdı: birinde geç dönmüş, diğerinde başı ağrımıştı.
 
-Ertesi hafta iki seçenek belirledi. Rahat günlerde bir bölüm okuyacak, yorgun günlerde ise önceki bölümün ana düşüncesini üç cümleyle hatırlayacaktı. Bu kısa çalışma uzun okumayla aynı şey değildi; ancak kitaba dönüşü kolaylaştırıyordu. Defter artık kaçırılan günlerin hesabından çok, hangi koşulda hangi çalışma biçiminin işe yaradığını gösteriyordu.`,[q('Ana düşünce','Aslı’nın yeni düzeninin özelliği nedir?',['Her gün aynı yükü zorunlu kılması','Koşula göre anlamlı çalışma seçmesi','Okumayı tamamen bırakması'],1,'İki farklı gün türüne iki çalışma konuyor.',1),q('Çıkarım','Kısa hatırlama çalışması nasıl sunuluyor?',['Uzun okumanın kesin eşdeğeri','Daha üstün bir yöntem','Kitaba dönmeyi kolaylaştıran farklı bir çalışma'],2,'Eşdeğer olmadığı özellikle söylenir.',1),q('İlişki','Nedenleri not etmek neyi değiştirdi?',['Boş kutuları bağlamıyla anlamayı sağladı.','Geçmiş günleri doldurdu.','Baş ağrısını tedavi etti.'],0,'İlk başarısızlık yorumunun yerine koşullar geliyor.')],'Esnek düzen, farklı koşullarda kitaba dönmenin yollarını sunar; kısa çalışma uzun okumayla karıştırılmaz.',['Ara verme borç değildir.','Koşullar kayda anlam verir.']);
-add('r32','Gölgede kalan cümle','Tartışma',3,'Koşullu sav ve aşırı genelleme.',`“Ortak araçlar maliyeti azaltabilir; yeter ki bakımın kim tarafından yapılacağı baştan kararlaştırılsın.” Bu cümleden yalnızca ilk kısmı alan biri, paylaşımın her durumda ucuz olduğunu söyleyebilir. Oysa yazar bir ihtimalden söz ediyor ve o ihtimali bir koşula bağlıyor.
+Ertesi hafta iki seçenek belirledi. Rahat günlerde bir bölüm okuyacak, yorgun günlerde ise önceki bölümün ana düşüncesini üç cümleyle hatırlayacaktı. Bu kısa çalışma uzun okumayla aynı şey değildi; ancak kitaba dönüşü kolaylaştırıyordu. Defter artık kaçırılan günlerin hesabından çok, hangi koşulda hangi çalışma biçiminin işe yaradığını gösteriyordu.`,
+  [
+    q(
+      "Ana düşünce",
+      "Aslı’nın yeni düzeninin özelliği nedir?",
+      [
+        "Her gün aynı yükü zorunlu kılması",
+        "Koşula göre anlamlı çalışma seçmesi",
+        "Okumayı tamamen bırakması",
+      ],
+      1,
+      "İki farklı gün türüne iki çalışma konuyor.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "Kısa hatırlama çalışması nasıl sunuluyor?",
+      [
+        "Uzun okumanın kesin eşdeğeri",
+        "Daha üstün bir yöntem",
+        "Kitaba dönmeyi kolaylaştıran farklı bir çalışma",
+      ],
+      2,
+      "Eşdeğer olmadığı özellikle söylenir.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Nedenleri not etmek neyi değiştirdi?",
+      [
+        "Boş kutuları bağlamıyla anlamayı sağladı.",
+        "Geçmiş günleri doldurdu.",
+        "Baş ağrısını tedavi etti.",
+      ],
+      0,
+      "İlk başarısızlık yorumunun yerine koşullar geliyor.",
+    ),
+  ],
+  "Esnek düzen, farklı koşullarda kitaba dönmenin yollarını sunar; kısa çalışma uzun okumayla karıştırılmaz.",
+  ["Ara verme borç değildir.", "Koşullar kayda anlam verir."],
+);
+add(
+  "r32",
+  "Gölgede kalan cümle",
+  "Tartışma",
+  3,
+  "Koşullu sav ve aşırı genelleme.",
+  `“Ortak araçlar maliyeti azaltabilir; yeter ki bakımın kim tarafından yapılacağı baştan kararlaştırılsın.” Bu cümleden yalnızca ilk kısmı alan biri, paylaşımın her durumda ucuz olduğunu söyleyebilir. Oysa yazar bir ihtimalden söz ediyor ve o ihtimali bir koşula bağlıyor.
 
-Alet dolabı örneğinde herkes matkabı kullanıyor, ama kimse eksilen uçları tamamlamıyorsa bir sonraki kullanıcı işini yapamaz. Satın alma gideri paylaşılmış, bakım yükü ise belirsiz kalmıştır. Bu örnek paylaşımı reddetmez. İlk savın işlemesi için görünür bir sorumluluk düzeni gerektiğini açıklar.`,[q('Ana düşünce','Savın doğru aktarımı hangisidir?',['Paylaşım bakım sorumluluğu düzenlenirse maliyeti azaltabilir.','Paylaşım her zaman daha ucuzdur.','Ortak araçlar hiç kullanılmamalıdır.'],0,'“Azaltabilir” ve “yeter ki” korunmalıdır.'),q('İlişki','Matkap örneği neyi açıklar?',['Araçların fiyatını','Bakım sorumluluğu eksikliğinin sonucunu','Daha çok alet almanın zorunluluğunu'],1,'Eksik uçlar ortak kullanımın sürmesini engeller.',1),q('Bağlam','“Yeter ki” hangi ilişkiyi kurar?',['Zaman sırası','Benzerlik','Koşul'],2,'Sonucun hangi durumda mümkün olduğunu belirtir.')],'Paylaşımın olası yararı, bakım sorumluluğunun belirlenmesi koşuluna bağlıdır.',['Olasılığı kesinliğe çevirme.','Koşulu özetten çıkarma.']);
-add('r33','Okurun iki kalemi','Öğretici',3,'Not türleri ve eleştirel ayrım.',`Bir deneme okurken Zeynep kenara iki tür not düşüyordu. Bazı notlar yazarın ne söylediğini kısa biçimde kaydediyordu. Diğerleri Zeynep’in sorularıydı: “Bu örnek başka bir durumda da geçerli mi?” ya da “Burada bir neden eksik olabilir mi?”
+Alet dolabı örneğinde herkes matkabı kullanıyor, ama kimse eksilen uçları tamamlamıyorsa bir sonraki kullanıcı işini yapamaz. Satın alma gideri paylaşılmış, bakım yükü ise belirsiz kalmıştır. Bu örnek paylaşımı reddetmez. İlk savın işlemesi için görünür bir sorumluluk düzeni gerektiğini açıklar.`,
+  [
+    q(
+      "Ana düşünce",
+      "Savın doğru aktarımı hangisidir?",
+      [
+        "Paylaşım bakım sorumluluğu düzenlenirse maliyeti azaltabilir.",
+        "Paylaşım her zaman daha ucuzdur.",
+        "Ortak araçlar hiç kullanılmamalıdır.",
+      ],
+      0,
+      "“Azaltabilir” ve “yeter ki” korunmalıdır.",
+    ),
+    q(
+      "İlişki",
+      "Matkap örneği neyi açıklar?",
+      [
+        "Araçların fiyatını",
+        "Bakım sorumluluğu eksikliğinin sonucunu",
+        "Daha çok alet almanın zorunluluğunu",
+      ],
+      1,
+      "Eksik uçlar ortak kullanımın sürmesini engeller.",
+      1,
+    ),
+    q(
+      "Bağlam",
+      "“Yeter ki” hangi ilişkiyi kurar?",
+      ["Zaman sırası", "Benzerlik", "Koşul"],
+      2,
+      "Sonucun hangi durumda mümkün olduğunu belirtir.",
+    ),
+  ],
+  "Paylaşımın olası yararı, bakım sorumluluğunun belirlenmesi koşuluna bağlıdır.",
+  ["Olasılığı kesinliğe çevirme.", "Koşulu özetten çıkarma."],
+);
+add(
+  "r33",
+  "Okurun iki kalemi",
+  "Öğretici",
+  3,
+  "Not türleri ve eleştirel ayrım.",
+  `Bir deneme okurken Zeynep kenara iki tür not düşüyordu. Bazı notlar yazarın ne söylediğini kısa biçimde kaydediyordu. Diğerleri Zeynep’in sorularıydı: “Bu örnek başka bir durumda da geçerli mi?” ya da “Burada bir neden eksik olabilir mi?”
 
-Bir hafta sonra notlarına döndüğünde iki türün birbirine karıştığını fark etti. Kendi itirazlarından birini yazarın görüşü sanmıştı. Bundan sonra aktarım notlarının başına küçük bir çizgi, kendi yorumlarının başına soru işareti koydu. İşaretlerin kendisi önemli değildi; kimin düşüncesinin kaydedildiğini açık tutuyordu. Anlamak ve değerlendirmek birbirini destekliyor, fakat aynı işi yapmıyordu.`,[q('Ana düşünce','Notlarda hangi ayrım korunmalı?',['Uzun ve kısa sözcük','Yazarın düşüncesi ile okurun yorumu','Kalemlerin rengi'],1,'Karışıklık kendi itirazının yazara yüklenmesinden doğuyor.',1),q('Açık bilgi','Soru işareti neyi gösteriyor?',['Yazarın başlığını','Alıntı uzunluğunu','Okurun kendi yorumunu'],2,'İkinci paragraf işaretleri açıklıyor.',1),q('Çıkarım','Farklı işaretler kullanılabilir mi?',['Evet, düşüncenin sahibini ayırıyorsa.','Hayır, yalnızca bu iki işaret doğru.','Hayır, hiçbir işaret işe yaramaz.'],0,'Metin işaretin kendisinin önemli olmadığını belirtir.',1)],'Yazarın savını aktarma ile ona ilişkin kişisel yorumu ayırmak, sonradan yanlış atfı önler.',['Önce anlamı doğru aktar.','Sonra kendi değerlendirmeni ayır.']);
-add('r34','Bir sayfa daha mı?','Düşünce',3,'Öz izleme ve amaca göre karar.',`Kitabın sonunda değil, bölümün ortasında yorulduğunu fark ettiğinde önünde iki seçenek varmış gibi görünebilir: bırakmak ya da zorlamak. Oysa üçüncü bir adım mümkündür. Son okuduğun paragrafın ne yaptığını tek cümleyle söylemeyi dene. Yeni bir sav mı kurdu, örnek mi verdi, önceki düşünceyi mi sınırladı?
+Bir hafta sonra notlarına döndüğünde iki türün birbirine karıştığını fark etti. Kendi itirazlarından birini yazarın görüşü sanmıştı. Bundan sonra aktarım notlarının başına küçük bir çizgi, kendi yorumlarının başına soru işareti koydu. İşaretlerin kendisi önemli değildi; kimin düşüncesinin kaydedildiğini açık tutuyordu. Anlamak ve değerlendirmek birbirini destekliyor, fakat aynı işi yapmıyordu.`,
+  [
+    q(
+      "Ana düşünce",
+      "Notlarda hangi ayrım korunmalı?",
+      [
+        "Uzun ve kısa sözcük",
+        "Yazarın düşüncesi ile okurun yorumu",
+        "Kalemlerin rengi",
+      ],
+      1,
+      "Karışıklık kendi itirazının yazara yüklenmesinden doğuyor.",
+      1,
+    ),
+    q(
+      "Açık bilgi",
+      "Soru işareti neyi gösteriyor?",
+      ["Yazarın başlığını", "Alıntı uzunluğunu", "Okurun kendi yorumunu"],
+      2,
+      "İkinci paragraf işaretleri açıklıyor.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "Farklı işaretler kullanılabilir mi?",
+      [
+        "Evet, düşüncenin sahibini ayırıyorsa.",
+        "Hayır, yalnızca bu iki işaret doğru.",
+        "Hayır, hiçbir işaret işe yaramaz.",
+      ],
+      0,
+      "Metin işaretin kendisinin önemli olmadığını belirtir.",
+      1,
+    ),
+  ],
+  "Yazarın savını aktarma ile ona ilişkin kişisel yorumu ayırmak, sonradan yanlış atfı önler.",
+  ["Önce anlamı doğru aktar.", "Sonra kendi değerlendirmeni ayır."],
+);
+add(
+  "r34",
+  "Bir sayfa daha mı?",
+  "Düşünce",
+  3,
+  "Öz izleme ve amaca göre karar.",
+  `Kitabın sonunda değil, bölümün ortasında yorulduğunu fark ettiğinde önünde iki seçenek varmış gibi görünebilir: bırakmak ya da zorlamak. Oysa üçüncü bir adım mümkündür. Son okuduğun paragrafın ne yaptığını tek cümleyle söylemeyi dene. Yeni bir sav mı kurdu, örnek mi verdi, önceki düşünceyi mi sınırladı?
 
-Bunu yapabiliyorsan kısa bir mola verip bölümü sürdürebilirsin. Yapamıyorsan birkaç sayfa geriye körlemesine dönmek yerine, ilişkinin koptuğu ilk paragrafa bakabilirsin. Bazen doğru karar o gün bitirmemektir. Sonraki başlangıç için bir cümlelik not bırakmak, aynı sayfalarda yönünü yeniden arama yükünü azaltır.`,[q('Ana düşünce','Metnin önerdiği yaklaşım nedir?',['Her koşulda bölüm bitirmek','Yorgunluğu yok saymak','Anlamı kontrol ederek devam veya dönüş kararı vermek'],2,'Tek cümlelik kontrol sonraki adımı belirliyor.',1),q('İlişki','Bir cümlelik not ne işe yarar?',['Sonraki başlangıçta yön bulmayı kolaylaştırır.','Kitabı tamamlamış sayar.','Metnin bütün ayrıntılarını saklar.'],0,'Son cümle dönüş yükünü azaltmayı belirtir.',1),q('Çıkarım','Anlam koptuğunda ne önerilir?',['Her zaman ilk sayfaya dönmek','Bağlantının koptuğu yere hedefli dönmek','Hızı sürekli yükseltmek'],1,'Körlemesine dönüş yerine ilgili paragraf öneriliyor.',1)],'Öz izleme, devam etme, hedefli dönme ve mola kararını amaca göre vermeye yardım eder.',['Paragrafın işini söyle.','Kopuş noktasına dön.','Sonraki başlangıca iz bırak.']);
-export const readings:Reading[]=[...drafts,...longReadings].map(r=>({...r,version:1,words:wordCount(r.paragraphs.join(' ')),skills:[...new Set(r.questions.map(q=>q.skill))],modes: (r.paragraphs.join(' ').length>4000 ? ['natural','guide','serial','skim','meaning','recall','long',...(r.scan?['scan']:[]),...(r.groups?['groups']:[])] : ['natural','guide','serial','skim','meaning','recall',...(r.scan?['scan']:[]),...(r.groups?['groups']:[])]) as Reading['modes']}));
-export const byId=(id:string)=>readings.find(r=>r.id===id)!;
+Bunu yapabiliyorsan kısa bir mola verip bölümü sürdürebilirsin. Yapamıyorsan birkaç sayfa geriye körlemesine dönmek yerine, ilişkinin koptuğu ilk paragrafa bakabilirsin. Bazen doğru karar o gün bitirmemektir. Sonraki başlangıç için bir cümlelik not bırakmak, aynı sayfalarda yönünü yeniden arama yükünü azaltır.`,
+  [
+    q(
+      "Ana düşünce",
+      "Metnin önerdiği yaklaşım nedir?",
+      [
+        "Her koşulda bölüm bitirmek",
+        "Yorgunluğu yok saymak",
+        "Anlamı kontrol ederek devam veya dönüş kararı vermek",
+      ],
+      2,
+      "Tek cümlelik kontrol sonraki adımı belirliyor.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Bir cümlelik not ne işe yarar?",
+      [
+        "Sonraki başlangıçta yön bulmayı kolaylaştırır.",
+        "Kitabı tamamlamış sayar.",
+        "Metnin bütün ayrıntılarını saklar.",
+      ],
+      0,
+      "Son cümle dönüş yükünü azaltmayı belirtir.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "Anlam koptuğunda ne önerilir?",
+      [
+        "Her zaman ilk sayfaya dönmek",
+        "Bağlantının koptuğu yere hedefli dönmek",
+        "Hızı sürekli yükseltmek",
+      ],
+      1,
+      "Körlemesine dönüş yerine ilgili paragraf öneriliyor.",
+      1,
+    ),
+  ],
+  "Öz izleme, devam etme, hedefli dönme ve mola kararını amaca göre vermeye yardım eder.",
+  [
+    "Paragrafın işini söyle.",
+    "Kopuş noktasına dön.",
+    "Sonraki başlangıca iz bırak.",
+  ],
+);
+export const readings: Reading[] = [...drafts, ...longReadings].map((r) => ({
+  ...r,
+  version: 1,
+  words: wordCount(r.paragraphs.join(" ")),
+  skills: [...new Set(r.questions.map((q) => q.skill))],
+  modes: (r.paragraphs.join(" ").length > 4000
+    ? [
+        "natural",
+        "guide",
+        "serial",
+        "skim",
+        "meaning",
+        "recall",
+        "long",
+        ...(r.scan ? ["scan"] : []),
+        ...(r.groups ? ["groups"] : []),
+      ]
+    : [
+        "natural",
+        "guide",
+        "serial",
+        "skim",
+        "meaning",
+        "recall",
+        ...(r.scan ? ["scan"] : []),
+        ...(r.groups ? ["groups"] : []),
+      ]) as Reading["modes"],
+}));
+export const byId = (id: string) => readings.find((r) => r.id === id)!;

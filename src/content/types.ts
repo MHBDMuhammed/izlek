@@ -1,6 +1,67 @@
-export type Skill = 'Ana düşünce' | 'Açık bilgi' | 'İlişki' | 'Çıkarım' | 'Bağlam';
-export type Mode = 'natural' | 'guide' | 'groups' | 'serial' | 'skim' | 'scan' | 'meaning' | 'recall' | 'long';
-export interface Question { skill: Skill; prompt: string; options: string[]; answer: number; why: string; evidence: number }
-export interface Reading { id: string; version: number; title: string; genre: string; level: 0|1|2|3; complexity: string; role: 'practice'|'baseline'|'mid'|'final'; paragraphs: string[]; questions: Question[]; summary: string; points: string[]; groups?: string[][]; scan?: {prompt:string; answer:string; paragraph:number}; words:number; skills:Skill[]; modes:Mode[] }
-export interface Lesson {id:string; chapter:string; title:string; subtitle:string; minutes:number; skill:string; sections:{title:string; paragraphs:string[]}[]; example:{before:string; after:string; explanation:string}; decision:{prompt:string; options:string[]; answer:number; why:string}; practice:string; reading:string; mode:Mode; takeaway:string[]; mistake:string; next:string}
-export const q = (skill:Skill,prompt:string,options:string[],answer:number,why:string,evidence=0):Question=>({skill,prompt,options,answer,why,evidence});
+export type Skill =
+  | "Ana düşünce"
+  | "Açık bilgi"
+  | "İlişki"
+  | "Çıkarım"
+  | "Bağlam";
+export type Mode =
+  | "natural"
+  | "guide"
+  | "groups"
+  | "serial"
+  | "skim"
+  | "scan"
+  | "meaning"
+  | "recall"
+  | "long";
+export interface Question {
+  skill: Skill;
+  prompt: string;
+  options: string[];
+  answer: number;
+  why: string;
+  evidence: number;
+}
+export interface Reading {
+  id: string;
+  version: number;
+  title: string;
+  genre: string;
+  level: 0 | 1 | 2 | 3;
+  complexity: string;
+  role: "practice" | "baseline" | "mid" | "final";
+  paragraphs: string[];
+  questions: Question[];
+  summary: string;
+  points: string[];
+  groups?: string[][];
+  scan?: { prompt: string; answer: string; paragraph: number };
+  words: number;
+  skills: Skill[];
+  modes: Mode[];
+}
+export interface Lesson {
+  id: string;
+  chapter: string;
+  title: string;
+  subtitle: string;
+  minutes: number;
+  skill: string;
+  sections: { title: string; paragraphs: string[] }[];
+  example: { before: string; after: string; explanation: string };
+  decision: { prompt: string; options: string[]; answer: number; why: string };
+  practice: string;
+  reading: string;
+  mode: Mode;
+  takeaway: string[];
+  mistake: string;
+  next: string;
+}
+export const q = (
+  skill: Skill,
+  prompt: string,
+  options: string[],
+  answer: number,
+  why: string,
+  evidence = 0,
+): Question => ({ skill, prompt, options, answer, why, evidence });
