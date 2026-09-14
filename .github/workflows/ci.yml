@@ -13,12 +13,11 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
+      - run: npm install --global pnpm@12.4.1
       - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: pnpm
-      - run: npm install --global pnpm@12.4.1
-      - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm lint
       - run: pnpm test
