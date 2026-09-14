@@ -1521,7 +1521,8 @@ hr {
 .book-toc h2 em {
   color: var(--accent);
 }
-.book-toc h4 {
+.book-toc h4,
+.book-toc .toc-chapter {
   font-size: 10px;
   margin: 22px 0 9px;
   color: var(--muted);
@@ -1580,7 +1581,7 @@ hr {
   font-family: var(--reading-font);
   font-size: 56px;
   line-height: 1.4;
-  color: #bfc7b4;
+  color: #5f6b58;
   display: block;
   margin-bottom: 11px;
 }

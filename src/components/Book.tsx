@@ -246,7 +246,7 @@ export default function Book({
         </button>
         {chapters.map((c) => (
           <div key={c}>
-            <h4>{c}</h4>
+            <h3 className="toc-chapter">{c}</h3>
             {lessons
               .filter((l) => l.chapter === c)
               .map((l) => (
@@ -308,7 +308,9 @@ export default function Book({
           </button>
         </div>
         <header className="book-title">
-          <span className="chapter-leaf">{current.id.slice(1)}</span>
+          <span className="chapter-leaf" aria-hidden="true">
+            {current.id.slice(1)}
+          </span>
           <h1>{current.title}</h1>
           <p>{current.subtitle}</p>
           <span className="eyebrow">
