@@ -586,6 +586,11 @@ hr {
   letter-spacing: 0;
   margin-left: 12px;
 }
+
+.page-footer a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 .home-greeting {
   display: flex;
   justify-content: space-between;

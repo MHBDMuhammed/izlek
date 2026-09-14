@@ -1,17 +1,47 @@
-# İzlek
+<p align="center">
+  <img src="public/favicon.svg" width="88" height="88" alt="İzlek logosu" />
+</p>
 
-Amaçlı Türkçe okuma, anlama ve hatırlama için tamamen yerel eğitim uygulaması.
-React + TypeScript + Vite; kayıt `localStorage` içinde tutulur. Backend, hesap,
-uzak depolama, analytics veya runtime yapay zekâ yoktur.
+<h1 align="center">İzlek</h1>
 
-## Ne yapar, ne yapmaz
+<p align="center">
+  Amaçlı Türkçe okuma, anlama ve hatırlama için kişisel eğitim alanın.<br />
+  <strong>Hesap yok. Sunucu yok. Takip yok. Verilerin cihazında.</strong>
+</p>
 
-- 16 derslik okuma kitabı: anlatım, çözülmüş örnek, anlam kararı, yeni metinde pratik.
-- 40 özgün Türkçe okuma metni (6 uzun okuma, 6 ayrılmış değerlendirme metni),
-  metne özel gerekçeli sorular, 9 çalışma biçimi, 4 anlam oyunu.
-- Günlük öneri, gecikmeli hatırlama, ara/bitirme değerlendirmeleri, kişisel plan.
-- Kendi metninle çalışma: yalnızca düz metin, hazır soru yok, anlama puanı üretilmez.
-- Yapmaz: hız yarışı, bilimsel standart test iddiası, bulut eşitleme, PWA/servis çalışanı.
+<p align="center">
+  <a href="https://github.com/MHBDMuhammed/izlek/actions/workflows/ci.yml"><img src="https://github.com/MHBDMuhammed/izlek/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="license: MIT" /></a>
+</p>
+
+<p align="center">
+  <a href="https://izlek.mhbd.dev"><strong>Canlı uygulamayı aç</strong></a>
+</p>
+
+İzlek, amaçlı okuma, anlama ve hatırlama becerilerini birlikte çalıştıran açık
+kaynak bir eğitim uygulamasıdır. Yalnızca hız göstermez; okuma amacı, dikkat,
+akıcılık, anlama, değerlendirme ve hatırlamayı gerçek Türkçe metinler üzerinde
+birlikte geliştirir.
+
+Uygulama React, TypeScript ve Vite ile hazırlanmış tamamen statik bir
+frontend'dir. Backend, kullanıcı hesabı, analitik veya harici içerik servisi
+kullanmaz. Kayıt `localStorage` içinde tutulur; temel işlevler ilk kurulumdan
+sonra internet bağlantısı olmadan çalışır.
+
+## Neler var?
+
+- Dört aşamalı 16 derslik okuma kitabı: anlatım, çözülmüş örnek, anlam kararı, yeni metinde pratik
+- 40 özgün Türkçe okuma metni (6 uzun okuma, 6 ayrılmış değerlendirme metni), metne özel gerekçeli sorular
+- 9 çalışma biçimi: doğal okuma, rehberli tempo, anlam grupları, seri sunum, göz gezdirme, bilgi tarama ve daha fazlası
+- 4 anlam oyunu: anlatı sıralama, kanıt bulma, ilişki eşleştirme, ilişkisel hafıza
+- Günlük öneri, gecikmeli hatırlama, ara/bitirme değerlendirmeleri, kişisel çalışma düzeni
+- Kendi metninle çalışma: yalnızca düz metin, hazır soru yok, anlama puanı üretilmez
+
+## Neler yok?
+
+Hız yarışı, bilimsel standart test iddiası, bulut eşitleme, PWA/servis çalışanı,
+sunucu taraflı işlem. Ders anlatımı, karar ve pratik ayrı izlenir; serbest
+özetler ve gecikmeli geri çağırma açıkça öz değerlendirme olarak kaydedilir.
 
 ## Gereksinimler
 
@@ -80,9 +110,9 @@ gevşetilmedi; `pnpm approve-builds` çıktısında bekleyen kurulum betiği yok
 - Güncel masaüstü ve mobil tarayıcılar; kurulumdan sonra internet gerekmez
   (fontlar, ikonlar, içerik yereldir). Kişisel okuma kayıtları, özetler ve
   kullanıcı metinleri cihazdan çıkmaz.
-- Kişisel günlük/özet/kullanıcı metni indekslenecek içerik değildir;
-  `public/robots.txt` varsayılan olarak taramaya kapalıdır. Herkese açık
-  yayın adresi yapılandırıldığında ilgili bölüm güncellenmelidir.
+- Canlı adres: https://izlek.mhbd.dev (statik sunum; kişisel veriler yine
+  cihazında kalır). Kişisel günlük/özet/kullanıcı metni indekslenecek içerik
+  değildir; `public/robots.txt` varsayılan olarak taramaya kapalıdır.
 
 ## Katkı ve güvenlik
 

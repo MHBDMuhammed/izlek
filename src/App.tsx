@@ -328,7 +328,10 @@ export default function App() {
             <span>
               izlek. <span>Biraz daha dikkat, biraz daha anlam.</span>
             </span>
-            <span>İçerikler özgün · Verilerin bu cihazda</span>
+            <span>
+              İçerikler özgün · Verilerin bu cihazda · Geliştirici{" "}
+              <a href="https://mhbd.dev">mhbd.dev</a>
+            </span>
           </footer>
         )}
       </main>
