@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f7f6f2"/>
+  <g stroke="#2f2b22" stroke-width="14" stroke-linecap="round" fill="none">
+    <path d="M120 140v330"/>
+    <path d="M200 180v290"/>
+    <path d="M280 140v330"/>
+    <path d="M360 180v290"/>
+    <path d="M120 440c70-52 160-52 230 0"/>
+  </g>
+  <circle cx="360" cy="105" r="22" fill="#5b54a6"/>
+  <text x="480" y="270" font-family="Georgia, 'Times New Roman', serif" font-size="120" fill="#2f2b22">izlek.</text>
+  <text x="482" y="340" font-family="Georgia, 'Times New Roman', serif" font-size="44" font-style="italic" fill="#5b54a6">Okumanın ötesine</text>
+  <text x="482" y="400" font-family="Georgia, 'Times New Roman', serif" font-size="28" fill="#6b6558">16 ders · 40 özgün metin · verilerin bu cihazda</text>
+</svg>

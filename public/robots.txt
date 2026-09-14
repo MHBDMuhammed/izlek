@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /
+
+# İzlek kişisel okuma günlüğü, özetler ve kullanıcı metinleri indekslenecek
+# içerik değildir. Herkese açık yayın adresi yapılandırıldığında bu dosya
+# ve dokümantasyondaki ilgili bölüm birlikte güncellenmelidir.
