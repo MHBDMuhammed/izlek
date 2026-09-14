@@ -10,8 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/MHBDMuhammed/izlek/actions/workflows/ci.yml"><img src="https://github.com/MHBDMuhammed/izlek/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
-  <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="license: MIT" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="license: MIT" /></a>
 </p>
 
 <p align="center">
@@ -131,3 +130,9 @@ gevşetilmedi; `pnpm approve-builds` çıktısında bekleyen kurulum betiği yok
   laboratuvar ölçümüdür, saha verisi değildir.
 - Ekran okuyucu akışı klavye + başlık/Landmark kontrolleriyle gözden geçirildi;
   zamanlı sunumların yanında durağan metin yolu bulunur.
+
+## Lisans
+
+- Uygulama kodu: [MIT](LICENSE) © 2026 İzlek contributors.
+- `src/content/` içindeki özgün Türkçe ders ve okuma metinleri: CC BY-SA 4.0.
+- Yazıtipleri (OFL 1.1) ve ikonlar (ISC) için ayrıntı `LICENSE` dosyasındadır.

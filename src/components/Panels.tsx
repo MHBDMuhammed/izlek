@@ -20,11 +20,13 @@ import {
   ChevronsRight,
   Sun,
   Moon,
+  MonitorSmartphone,
 } from "lucide-react";
 import type { Navigate, RouteState } from "../App";
 import {
   type Store,
   type Goal,
+  type Theme,
   fresh,
   validState,
   comparable,
@@ -1110,7 +1112,7 @@ function Onboarding({ store, go }: { store: Store; go: Navigate }) {
   const [daily, setDaily] = useState<5 | 10 | 20>(store.state.profile.daily);
   const [serif, setSerif] = useState(store.state.prefs.serif);
   const [font, setFont] = useState(store.state.prefs.font);
-  const [theme, setTheme] = useState(store.state.prefs.theme);
+  const [theme, setTheme] = useState<Theme>(store.state.prefs.theme);
   return (
     <div className="onboarding">
       <span className="eyebrow">TANIŞALIM · YAKLAŞIK BİR DAKİKA</span>
@@ -1216,11 +1218,11 @@ function Onboarding({ store, go }: { store: Store; go: Navigate }) {
             </select>
           </label>
           <label className="field">
-            Görünüm
             <select
               value={theme}
-              onChange={(e) => setTheme(e.target.value as "light" | "dark")}
+              onChange={(e) => setTheme(e.target.value as Theme)}
             >
+              <option value="system">Sistemi izle</option>
               <option value="light">Açık · kâğıt</option>
               <option value="dark">Koyu · gece</option>
             </select>
@@ -1306,9 +1308,19 @@ function Settings({ store, go }: { store: Store; go: Navigate }) {
       <div className="settings-grid">
         <section className="paper-panel">
           <h2>Okuma rahatlığı</h2>
-          <div className="theme-choices">
+          <div className="theme-choices" role="group" aria-label="Görünüm">
+            <button
+              className={state.prefs.theme === "system" ? "selected" : ""}
+              aria-pressed={state.prefs.theme === "system"}
+              onClick={() =>
+                update((s) => ({ ...s, prefs: { ...s.prefs, theme: "system" } }))
+              }
+            >
+              <MonitorSmartphone size={20} /> Sistem
+            </button>
             <button
               className={state.prefs.theme === "light" ? "selected" : ""}
+              aria-pressed={state.prefs.theme === "light"}
               onClick={() =>
                 update((s) => ({ ...s, prefs: { ...s.prefs, theme: "light" } }))
               }
@@ -1317,6 +1329,7 @@ function Settings({ store, go }: { store: Store; go: Navigate }) {
             </button>
             <button
               className={state.prefs.theme === "dark" ? "selected" : ""}
+              aria-pressed={state.prefs.theme === "dark"}
               onClick={() =>
                 update((s) => ({ ...s, prefs: { ...s.prefs, theme: "dark" } }))
               }

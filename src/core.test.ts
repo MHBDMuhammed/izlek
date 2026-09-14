@@ -6,6 +6,7 @@ import {
   lessonDone,
   record,
   recommend,
+  resolveTheme,
   validState,
   type Result,
 } from "./core";
@@ -159,7 +160,6 @@ describe("recommendation branches", () => {
     }
   });
 });
-
 describe("local state validation", () => {
   it("rejects corrupt payloads without throwing", () => {
     expect(validState(null)).toBe(false);
@@ -167,6 +167,15 @@ describe("local state validation", () => {
     expect(validState({ ...fresh(), profile: { ...fresh().profile, daily: 99 } })).toBe(
       false,
     );
+  });
+
+  it("accepts the system theme and resolves it against the OS", () => {
+    expect(
+      validState({ ...fresh(), prefs: { ...fresh().prefs, theme: "system" } }),
+    ).toBe(true);
+    expect(resolveTheme("light")).toBe("light");
+    expect(resolveTheme("dark")).toBe("dark");
+    expect(["light", "dark"]).toContain(resolveTheme("system"));
   });
 
   it("caps exposure growth for custom texts", () => {

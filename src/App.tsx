@@ -25,6 +25,7 @@ import {
   recommend,
   lessonDone,
   modes,
+  resolveTheme,
   type Store,
   type Recommendation,
 } from "./core";
@@ -114,8 +115,17 @@ export default function App() {
     return () => window.removeEventListener("hashchange", handler);
   }, []);
   useEffect(() => {
-    document.documentElement.dataset.theme = store.state.prefs.theme;
-    document.documentElement.style.colorScheme = store.state.prefs.theme;
+    const apply = () => {
+      const resolved = resolveTheme(store.state.prefs.theme);
+      document.documentElement.dataset.theme = resolved;
+      document.documentElement.style.colorScheme = resolved;
+    };
+    apply();
+    if (store.state.prefs.theme !== "system") return;
+    const query = window.matchMedia("(prefers-color-scheme: dark)");
+    const rerun = () => apply();
+    query.addEventListener("change", rerun);
+    return () => query.removeEventListener("change", rerun);
   }, [store.state.prefs.theme]);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -256,21 +266,33 @@ export default function App() {
               <button
                 className="icon-button"
                 aria-label={
-                  store.state.prefs.theme === "light"
+                  resolveTheme(store.state.prefs.theme) === "light"
                     ? "Koyu temaya geç"
                     : "Açık temaya geç"
                 }
+                title={`Tema: ${
+                  store.state.prefs.theme === "system"
+                    ? "sistemi izle"
+                    : store.state.prefs.theme === "light"
+                      ? "açık"
+                      : "koyu"
+                } (değiştirmek için bas)`}
                 onClick={() =>
                   store.update((s) => ({
                     ...s,
                     prefs: {
                       ...s.prefs,
-                      theme: s.prefs.theme === "light" ? "dark" : "light",
+                      theme:
+                        s.prefs.theme === "light"
+                          ? "dark"
+                          : s.prefs.theme === "dark"
+                            ? "system"
+                            : "light",
                     },
                   }))
                 }
               >
-                {store.state.prefs.theme === "light" ? (
+                {resolveTheme(store.state.prefs.theme) === "light" ? (
                   <Moon size={18} />
                 ) : (
                   <Sun size={18} />

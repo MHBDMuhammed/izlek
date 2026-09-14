@@ -49,7 +49,7 @@ export interface State {
   revision: number;
   profile: { name: string; goal: Goal; daily: 5 | 10 | 20; onboarded: boolean };
   prefs: {
-    theme: "light" | "dark";
+    theme: "light" | "dark" | "system";
     font: number;
     line: number;
     width: number;
@@ -81,7 +81,7 @@ export function fresh(): State {
     revision: 0,
     profile: { name: "", goal: "Öğrenmek", daily: 10, onboarded: false },
     prefs: {
-      theme: "light",
+      theme: "system",
       font: 21,
       line: 1.85,
       width: 680,
@@ -100,6 +100,22 @@ export function fresh(): State {
     notes: {},
     lastVisit: 0,
   };
+}
+export type Theme = State["prefs"]["theme"];
+export type ResolvedTheme = "light" | "dark";
+export function systemTheme(): ResolvedTheme {
+  if (
+    typeof window !== "undefined" &&
+    typeof window.matchMedia === "function"
+  ) {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+  return "light";
+}
+export function resolveTheme(theme: Theme): ResolvedTheme {
+  return theme === "system" ? systemTheme() : theme;
 }
 const str = (v: unknown, max = 100000): v is string =>
   typeof v === "string" && v.length <= max;
@@ -146,7 +162,7 @@ export function validState(v: unknown): v is State {
     ].includes(p.goal as string) &&
     [5, 10, 20].includes(p.daily as number) &&
     typeof p.onboarded === "boolean" &&
-    ["light", "dark"].includes(t.theme as string) &&
+    ["light", "dark", "system"].includes(t.theme as string) &&
     num(t.font, 16, 32) &&
     num(t.line, 1.4, 2.4) &&
     num(t.width, 480, 880) &&
