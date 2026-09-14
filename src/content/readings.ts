@@ -1939,4 +1939,4 @@ export const readings: Reading[] = [...drafts, ...longReadings].map((r) => ({
         ...(r.groups ? ["groups"] : []),
       ]) as Reading["modes"],
 }));
-export const byId = (id: string) => readings.find((r) => r.id === id)!;
+export const byId = (id: string) => readings.find((r) => r.id === id);

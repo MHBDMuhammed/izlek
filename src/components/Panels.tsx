@@ -142,8 +142,10 @@ export default function Panels({
                   !store.state.exposure[x.id] &&
                   x.level === r.level &&
                   x.id !== r.id,
-              ) || byId("r08");
-            go("reader", next.id, { mode: "natural" });
+              ) ??
+              byId("r08") ??
+              readings[0];
+            if (next) go("reader", next.id, { mode: "natural" });
           }}
         />
       );
@@ -2148,20 +2150,24 @@ function RecommendedReader({ store, go }: { store: Store; go: Navigate }) {
         !store.state.exposure[r.id] &&
         r.level === rec.level,
     );
-    const chosen =
+    const fallback =
+      readings.find(
+        (r) =>
+          r.role === "practice" &&
+          r.modes.includes(mode) &&
+          !store.state.exposure[r.id],
+      ) ??
+      preferred ??
+      readings[0];
+    if (!fallback) throw new Error("Okuma kütüphanesi boş; öneri üretilemedi.");
+    const freshPreferred =
       preferred &&
       !store.state.exposure[preferred.id] &&
       preferred.level === rec.level &&
       preferred.modes.includes(mode)
         ? preferred
-        : candidates[0] ||
-          readings.find(
-            (r) =>
-              r.role === "practice" &&
-              r.modes.includes(mode) &&
-              !store.state.exposure[r.id],
-          ) ||
-          preferred;
+        : undefined;
+    const chosen = freshPreferred ?? candidates[0] ?? fallback;
     return { reading: chosen, mode, tempo: rec.tempo, reason: rec.reason };
   });
   return (
