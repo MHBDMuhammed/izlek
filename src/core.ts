@@ -1,55 +1,678 @@
-import {useCallback,useEffect,useRef,useState} from 'react';
-import type {Mode,Skill} from './content/types';
-export type Goal='Öğrenmek'|'Sınava hazırlanmak'|'Mesleki okuma'|'Keyif için okumak';
-export interface Result {id:string; date:number; readingId:string; contentVersion:number; title:string; mode:Mode; purpose:string; level:number; words:number; seconds:number; questionSeconds:number; wpm:number|null; score:number|null; answers:{skill:Skill;correct:boolean}[]; interrupted:boolean; repeated:boolean; complete:boolean; assessment?:'baseline'|'mid'|'final'; lessonId?:string; comfort:'Rahat'|'Dengeli'|'Zorlandım'; note:string; tempo?:number; helped:boolean; summary?:string; selfRecall?:number; reviewed?:boolean; plannedSeconds:number|null; settingsChanged?:boolean}
-export interface Recall {id:string;readingId:string;resultId:string;due:number;done?:number;draft:string;selfScore?:number}
-export interface State {version:1;revision:number; profile:{name:string;goal:Goal;daily:5|10|20;onboarded:boolean}; prefs:{theme:'light'|'dark';font:number;line:number;width:number;serif:boolean;sound:boolean};readLessons:string[];decisions:string[];bookmarks:string[];book:{id:string;scroll:number};results:Result[];exposure:Record<string,number>;recalls:Recall[];games:{id:string;game:string;date:number;score:number;moves:number}[];custom:{id:string;title:string;body:string}[];notes:Record<string,string>; lastVisit:number }
-export const KEY='izlek:v1';
-export function fresh():State {return {version:1,revision:0,profile:{name:'',goal:'Öğrenmek',daily:10,onboarded:false},prefs:{theme:'light',font:21,line:1.85,width:680,serif:true,sound:false},readLessons:[],decisions:[],bookmarks:[],book:{id:'l01',scroll:0},results:[],exposure:{},recalls:[],games:[],custom:[],notes:{},lastVisit:0};}
-const str=(v:unknown,max=100000):v is string=>typeof v==='string'&&v.length<=max;
-const num=(v:unknown,min=0,max=Number.MAX_SAFE_INTEGER):v is number=>typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max;
-const obj=(v:unknown):v is Record<string,any>=>!!v&&typeof v==='object'&&!Array.isArray(v);
-const strings=(v:unknown,max=100)=>Array.isArray(v)&&v.length<=max&&v.every(x=>str(x,100));
-export const modes=['natural','guide','groups','serial','skim','scan','meaning','recall','long'];
-const skills=['Ana düşünce','Açık bilgi','İlişki','Çıkarım','Bağlam'];
-export function validState(v:unknown):v is State {if(!obj(v)||v.version!==1||!num(v.revision)||!obj(v.profile)||!obj(v.prefs)||!obj(v.book))return false;
-const p=v.profile,t=v.prefs;
-return str(p.name,60)&&['Öğrenmek','Sınava hazırlanmak','Mesleki okuma','Keyif için okumak'].includes(p.goal)&&[5,10,20].includes(p.daily)&&typeof p.onboarded==='boolean'&&['light','dark'].includes(t.theme)&&num(t.font,16,32)&&num(t.line,1.4,2.4)&&num(t.width,480,880)&&typeof t.serif==='boolean'&&typeof t.sound==='boolean'&&strings(v.readLessons,16)&&strings(v.decisions,16)&&strings(v.bookmarks,16)&&str(v.book.id,20)&&num(v.book.scroll,0,1000000)&&Array.isArray(v.results)&&v.results.length<=200&&v.results.every((r:any)=>obj(r)&&str(r.id,100)&&num(r.date)&&str(r.readingId,100)&&num(r.contentVersion,1,100)&&str(r.title,150)&&modes.includes(r.mode)&&str(r.purpose,100)&&num(r.level,0,3)&&num(r.words,0,100000)&&num(r.seconds,0,86400)&&num(r.questionSeconds,0,86400)&&(r.wpm===null||num(r.wpm,0,1000000))&&(r.score===null||num(r.score,0,100))&&Array.isArray(r.answers)&&r.answers.length<=20&&r.answers.every((a:any)=>obj(a)&&skills.includes(a.skill)&&typeof a.correct==='boolean')&&['interrupted','repeated','complete','helped'].every(k=>typeof r[k]==='boolean')&&(!r.assessment||['baseline','mid','final'].includes(r.assessment))&&(!r.lessonId||str(r.lessonId,20))&&['Rahat','Dengeli','Zorlandım'].includes(r.comfort)&&str(r.note,3000)&&(r.summary===undefined||str(r.summary,5000))&&(r.selfRecall===undefined||num(r.selfRecall,0,100))&&(r.tempo===undefined||num(r.tempo,60,600))&&(r.reviewed===undefined||typeof r.reviewed==='boolean')&&(r.settingsChanged===undefined||typeof r.settingsChanged==='boolean')&&(r.plannedSeconds===null||num(r.plannedSeconds,60,600)))&&obj(v.exposure)&&Object.keys(v.exposure).length<=500&&Object.entries(v.exposure).every(([k,x])=>str(k,100)&&num(x,0,100000))&&Array.isArray(v.recalls)&&v.recalls.length<=40&&v.recalls.every((r:any)=>obj(r)&&str(r.id,100)&&str(r.readingId,100)&&str(r.resultId,100)&&num(r.due)&&(r.done===undefined||num(r.done))&&str(r.draft,5000)&&(r.selfScore===undefined||num(r.selfScore,0,100)))&&Array.isArray(v.games)&&v.games.length<=80&&v.games.every((g:any)=>obj(g)&&str(g.id,100)&&str(g.game,40)&&num(g.date)&&num(g.score,0,100)&&num(g.moves,0,10000))&&Array.isArray(v.custom)&&v.custom.length<=10&&v.custom.every((c:any)=>obj(c)&&str(c.id,100)&&str(c.title,100)&&str(c.body,50000))&&obj(v.notes)&&Object.keys(v.notes).length<=100&&Object.entries(v.notes).every(([k,x])=>str(k,100)&&str(x,5000))&&num(v.lastVisit);}
-function read():{data:State;warning:string} {try {const raw=localStorage.getItem(KEY);if(!raw)return {data:fresh(),warning:''};const data=JSON.parse(raw);if(!validState(data))return {data:fresh(),warning:'Yerel kaydın biçimi veya sürümü okunamadı. Yeni bir başlangıç açıldı; varsa dışa aktardığın İzlek dosyasını geri yükleyebilirsin.'};return {data,warning:''};}catch{return {data:fresh(),warning:'Yerel kayıt okunamadı. Tarayıcının depolama iznini kontrol et; ilerleme henüz saklanmış sayılmıyor.'};}}
-export function useStore(){const [initial]=useState(read);const [state,setState]=useState(initial.data);const ref=useRef(state);const [error,setError]=useState(initial.warning);const [conflict,setConflict]=useState(false);const conflictRef=useRef(false);
-useEffect(()=>{const listener=(e:StorageEvent)=>{if(e.key===KEY){conflictRef.current=true;setConflict(true);setError('Başka bir sekmede kayıt değişti. Açık çalışman burada kalır; yeni kaydı alıp sonucunu yeniden kaydedebilirsin.');}};window.addEventListener('storage',listener);return()=>window.removeEventListener('storage',listener);},[]);
-const update=useCallback((fn:(s:State)=>State)=>{if(conflictRef.current){setError('Diğer sekmede değişiklik var. Önce yeni kaydı al. Açık sonucu sonra yeniden kaydedebilirsin; istersen önce bu sekmenin verisini dışa aktar.');return false;}try{const raw=localStorage.getItem(KEY);let existing:unknown=null;try{existing=raw?JSON.parse(raw):null;}catch{existing=null;}if(validState(existing)&&existing.revision!==ref.current.revision){conflictRef.current=true;setConflict(true);setError('Diğer sekmedeki ilerleme korunuyor. Önce yeni kaydı al, sonra işlemini tekrar kaydet.');return false;}const data={...fn(ref.current),revision:ref.current.revision+1,version:1 as const};localStorage.setItem(KEY,JSON.stringify(data));ref.current=data;setState(data);setError('');return true;}catch{setError('Kayıt saklanamadı. Depolama dolu veya kapalı olabilir. Çalışman bu ekranda duruyor; alan açıp yeniden kaydet ya da mevcut verini dışa aktar.');return false;}},[]);
-const sync=()=>{const next=read();ref.current=next.data;setState(next.data);conflictRef.current=false;setConflict(false);setError(next.warning);};
-return {state,update,error,setError,conflict,sync};}
-export type Store=ReturnType<typeof useStore>;
-export function expose(s:State,id:string):State {const entries=Object.entries({...s.exposure,[id]:(s.exposure[id]||0)+1});return {...s,exposure:Object.fromEntries([...entries.filter(([k])=>!k.startsWith('custom')), ...entries.filter(([k])=>k.startsWith('custom')).slice(-50)])};}
-export function record(s:State,r:Result):State {if(s.results.some(x=>x.id===r.id))return s;const recall=r.complete&&!r.readingId.startsWith('custom')&&['natural','long','recall'].includes(r.mode)?[{id:crypto.randomUUID(),readingId:r.readingId,resultId:r.id,due:Date.now()+86400000,draft:''}]:[];return {...(s.exposure[r.readingId]?s:expose(s,r.readingId)),results:[...s.results,r].slice(-200),recalls:[...s.recalls.filter(x=>!recall.length||x.readingId!==r.readingId||x.done),...recall].slice(-40),lastVisit:Date.now()};}
-export const lessonDone=(s:State,id:string)=>s.readLessons.includes(id)&&s.decisions.includes(id)&&s.results.some(r=>r.lessonId===id&&r.complete);
-export const comparable=(r:Result)=>r.complete&&r.mode==='natural'&&!r.interrupted&&!r.repeated&&!r.helped&&!r.readingId.startsWith('custom')&&r.wpm!==null&&r.score!==null&&r.seconds>=15;
-const average=(a:number[])=>a.reduce((s,x)=>s+x,0)/a.length;
-export interface Recommendation {title:string;reason:string;lessonId?:string;readingId?:string;mode?:Mode;assessment?:'baseline'|'mid'|'final';recallId?:string;tempo:number;level:1|2|3}
-export function recommend(s:State):Recommendation {const base={tempo:180,level:1 as 1|2|3};const assessments=s.results.filter(r=>r.assessment);const done=Array.from({length:16},(_,i)=>`l${String(i+1).padStart(2,'0')}`).filter(id=>lessonDone(s,id));const natural=s.results.filter(r=>['natural','long'].includes(r.mode)&&r.complete&&r.seconds>=15&&r.score!==null&&!r.repeated&&!r.helped&&!r.interrupted&&!r.readingId.startsWith('custom'));const recent=natural.slice(-5);const distinct=new Set(recent.map(r=>r.readingId));const last=s.results.at(-1);const guide=s.results.filter(r=>r.mode==='guide').at(-1);const paceAnchor=natural.filter(r=>r.mode==='natural').at(-1);const paceRecent=natural.filter(r=>r.mode==='natural'&&r.level===paceAnchor?.level&&r.purpose===paceAnchor?.purpose).slice(-5);const measured=paceRecent.filter(r=>r.wpm!==null);if(measured.length)base.tempo=Math.max(80,Math.min(400,Math.round(average(measured.map(r=>r.wpm!))/10)*10));
-if(s.lastVisit&&Date.now()-s.lastVisit>7*86400000)return {...base,title:'Kısa bir yeniden başlangıç',reason:'Bir haftadan uzun ara verdin; bugün eski tempoyu zorlamadan kısa bir gözlem yap.',readingId:'r31',mode:'natural'};
-if(!assessments.some(r=>r.assessment==='baseline'&&r.complete))return {...base,title:'Okumaya başladığın yeri tanı',reason:'İlk doğal okumanı ve anlamanı birlikte gözlemleyelim.',assessment:'baseline'};
-const due=s.recalls.find(r=>!r.done&&r.due<=Date.now());const recalledToday=s.recalls.some(r=>r.done&&new Date(r.done).toDateString()===new Date().toDateString());if(due&&!recalledToday)return {...base,title:'Dünden kalan fikri geri çağır',reason:'Bu okumadan en az bir gün geçti; metni açmadan hangi bağların kaldığını gör.',recallId:due.id};
-const recall=s.recalls.filter(r=>r.done&&r.selfScore!==undefined).slice(-2);if(recall.length===2&&new Set(recall.map(r=>r.readingId)).size===2&&recall.every(r=>r.selfScore!<60)&&!s.results.slice(-3).some(r=>r.lessonId==='l11'))return {...base,title:'Özetin içindeki ilişkileri güçlendir',reason:'Son iki gecikmeli öz değerlendirmende temel fikirlerin yarısından fazlası eksik kaldı.',lessonId:'l11'};
-if(done.length>=16&&!assessments.some(r=>r.assessment==='final'&&r.complete))return {...base,title:'Bitirme: yeni metinde kendi ritmin',reason:'Ders ve uygulamaları bitirdin; yeni içerikte bütünleşik bir gözlem zamanı.',assessment:'final'};
-if(done.length>=8&&!assessments.some(r=>r.assessment==='mid'&&r.complete))return {...base,title:'Yolun ortasında bir durak',reason:'İlk sekiz dersin ardından yeni metinde ara değerlendirme yap.',assessment:'mid'};
-if(distinct.size>=3){const inference=recent.flatMap(r=>r.answers.filter(a=>a.skill==='Çıkarım'));if(inference.length>=3&&average(inference.map(a=>a.correct?100:0))<60&&!s.results.slice(-3).some(r=>r.lessonId==='l08'))return {...base,title:'İpuçlarını birbirine bağla',reason:'En az üç yeni gözleminde çıkarım soruları diğer ilişkilerden daha fazla pratik istiyor.',lessonId:'l08'};
-if(paceRecent.length>=4){const a=paceRecent.slice(0,2),b=paceRecent.slice(-2);if(a.every(r=>r.wpm)&&b.every(r=>r.wpm)&&average(b.map(r=>r.wpm!))>average(a.map(r=>r.wpm!))&&average(b.map(r=>r.score!))<average(a.map(r=>r.score!))-15&&!s.results.slice(-3).some(r=>r.lessonId==='l10'))return {...base,tempo:Math.max(80,base.tempo-20),title:'Anlama biraz daha alan aç',reason:'Son doğal okumalarda hız yükselirken anlama düştü; bugün tempo baskısını azaltıyoruz.',lessonId:'l10'};}
-if(recent.slice(-3).every(r=>r.score!>=80&&r.comfort!=='Zorlandım')){base.level=recent.at(-1)!.level===3?3:(recent.at(-1)!.level+1) as 2|3;base.tempo=Math.min(400,base.tempo+10);}}
-if(guide&&(!natural.at(-1)||guide.date>natural.at(-1)!.date))return {...base,title:'Rehbersiz bir sayfaya geç',reason:'Son çalışmanda rehber kullandın; etkisini yeni bir doğal metinde ayrıca gözlemle.',readingId:'r08',mode:'natural'};
-if(recent.slice(-2).length===2&&recent.slice(-2).every(r=>r.comfort==='Zorlandım'))base.tempo=Math.max(80,base.tempo-20);
-const next=Array.from({length:16},(_,i)=>`l${String(i+1).padStart(2,'0')}`).find(id=>!lessonDone(s,id));if(next)return {...base,title:next==='l01'?'İlk adım: önce bir neden':'Okuma yoluna devam et',reason:`${s.profile.daily} dakikalık tercihinle sıradaki dersini ve yeni metin pratiğini birleştir.`,lessonId:next};
-return {...base,title:'Kendi okuma düzenini sürdür',reason:'Kurs tamamlandı. Yeni metin, ertesi gün hatırlama ve haftalık uzun okuma döngünü sürdür.',readingId:s.profile.goal==='Mesleki okuma'?'r26':s.profile.goal==='Sınava hazırlanmak'?'r25':s.profile.goal==='Keyif için okumak'?'r39':'r36',mode:s.profile.daily===20?'long':'natural'};}
-export function useClock(){const [phase,setPhase]=useState<'ready'|'active'|'paused'|'ended'>('ready');const phaseRef=useRef(phase);const total=useRef(0);const since=useRef(0);const [elapsed,setElapsed]=useState(0);const interrupted=useRef(false);
-const get=()=>Math.min(86400,(total.current+(phaseRef.current==='active'?performance.now()-since.current:0))/1000);
-const pause=useCallback((interrupt=false)=>{if(phaseRef.current!=='active')return;if(interrupt)interrupted.current=true;total.current+=performance.now()-since.current;phaseRef.current='paused';setPhase('paused');setElapsed(total.current/1000);},[]);
-const start=()=>{if(!['ready','paused'].includes(phaseRef.current))return;since.current=performance.now();phaseRef.current='active';setPhase('active');};
-const finish=()=>{if(phaseRef.current==='active')total.current+=performance.now()-since.current;phaseRef.current='ended';setPhase('ended');const seconds=Math.min(86400,total.current/1000);setElapsed(seconds);return seconds;};
-useEffect(()=>{const visibility=()=>{if(document.hidden)pause(true);};const blur=()=>pause(true);document.addEventListener('visibilitychange',visibility);window.addEventListener('blur',blur);return()=>{document.removeEventListener('visibilitychange',visibility);window.removeEventListener('blur',blur);};},[pause]);
-useEffect(()=>{if(phase!=='active')return;const id=setInterval(()=>setElapsed(get()),200);return()=>clearInterval(id);},[phase]);
-const reset=()=>{phaseRef.current='ready';total.current=0;since.current=0;interrupted.current=false;setElapsed(0);setPhase('ready');};
-return {phase,elapsed,start,pause,finish,interrupted,get,reset};}
+import { useCallback, useEffect, useRef, useState } from "react";
+import type { Mode, Skill } from "./content/types";
+export type Goal =
+  | "Öğrenmek"
+  | "Sınava hazırlanmak"
+  | "Mesleki okuma"
+  | "Keyif için okumak";
+export interface Result {
+  id: string;
+  date: number;
+  readingId: string;
+  contentVersion: number;
+  title: string;
+  mode: Mode;
+  purpose: string;
+  level: number;
+  words: number;
+  seconds: number;
+  questionSeconds: number;
+  wpm: number | null;
+  score: number | null;
+  answers: { skill: Skill; correct: boolean }[];
+  interrupted: boolean;
+  repeated: boolean;
+  complete: boolean;
+  assessment?: "baseline" | "mid" | "final";
+  lessonId?: string;
+  comfort: "Rahat" | "Dengeli" | "Zorlandım";
+  note: string;
+  tempo?: number;
+  helped: boolean;
+  summary?: string;
+  selfRecall?: number;
+  reviewed?: boolean;
+  plannedSeconds: number | null;
+  settingsChanged?: boolean;
+}
+export interface Recall {
+  id: string;
+  readingId: string;
+  resultId: string;
+  due: number;
+  done?: number;
+  draft: string;
+  selfScore?: number;
+}
+export interface State {
+  version: 1;
+  revision: number;
+  profile: { name: string; goal: Goal; daily: 5 | 10 | 20; onboarded: boolean };
+  prefs: {
+    theme: "light" | "dark";
+    font: number;
+    line: number;
+    width: number;
+    serif: boolean;
+    sound: boolean;
+  };
+  readLessons: string[];
+  decisions: string[];
+  bookmarks: string[];
+  book: { id: string; scroll: number };
+  results: Result[];
+  exposure: Record<string, number>;
+  recalls: Recall[];
+  games: {
+    id: string;
+    game: string;
+    date: number;
+    score: number;
+    moves: number;
+  }[];
+  custom: { id: string; title: string; body: string }[];
+  notes: Record<string, string>;
+  lastVisit: number;
+}
+export const KEY = "izlek:v1";
+export function fresh(): State {
+  return {
+    version: 1,
+    revision: 0,
+    profile: { name: "", goal: "Öğrenmek", daily: 10, onboarded: false },
+    prefs: {
+      theme: "light",
+      font: 21,
+      line: 1.85,
+      width: 680,
+      serif: true,
+      sound: false,
+    },
+    readLessons: [],
+    decisions: [],
+    bookmarks: [],
+    book: { id: "l01", scroll: 0 },
+    results: [],
+    exposure: {},
+    recalls: [],
+    games: [],
+    custom: [],
+    notes: {},
+    lastVisit: 0,
+  };
+}
+const str = (v: unknown, max = 100000): v is string =>
+  typeof v === "string" && v.length <= max;
+const num = (v: unknown, min = 0, max = Number.MAX_SAFE_INTEGER): v is number =>
+  typeof v === "number" && Number.isFinite(v) && v >= min && v <= max;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyRecord = Record<string, any>;
+const obj = (v: unknown): v is AnyRecord =>
+  !!v && typeof v === "object" && !Array.isArray(v);
+const field = (r: AnyRecord, k: string): unknown => r[k];
+const strings = (v: unknown, max = 100) =>
+  Array.isArray(v) && v.length <= max && v.every((x) => str(x, 100));
+export const modes = [
+  "natural",
+  "guide",
+  "groups",
+  "serial",
+  "skim",
+  "scan",
+  "meaning",
+  "recall",
+  "long",
+];
+const skills = ["Ana düşünce", "Açık bilgi", "İlişki", "Çıkarım", "Bağlam"];
+export function validState(v: unknown): v is State {
+  if (
+    !obj(v) ||
+    v.version !== 1 ||
+    !num(v.revision) ||
+    !obj(v.profile) ||
+    !obj(v.prefs) ||
+    !obj(v.book)
+  )
+    return false;
+  const p = v.profile,
+    t = v.prefs;
+  return (
+    str(p.name, 60) &&
+    [
+      "Öğrenmek",
+      "Sınava hazırlanmak",
+      "Mesleki okuma",
+      "Keyif için okumak",
+    ].includes(p.goal as string) &&
+    [5, 10, 20].includes(p.daily as number) &&
+    typeof p.onboarded === "boolean" &&
+    ["light", "dark"].includes(t.theme as string) &&
+    num(t.font, 16, 32) &&
+    num(t.line, 1.4, 2.4) &&
+    num(t.width, 480, 880) &&
+    typeof t.serif === "boolean" &&
+    typeof t.sound === "boolean" &&
+    strings(v.readLessons, 16) &&
+    strings(v.decisions, 16) &&
+    strings(v.bookmarks, 16) &&
+    str(v.book.id, 20) &&
+    num(v.book.scroll, 0, 1000000) &&
+    Array.isArray(v.results) &&
+    v.results.length <= 200 &&
+    v.results.every(
+      (r: unknown) =>
+        obj(r) &&
+        str(r.id, 100) &&
+        num(r.date) &&
+        str(r.readingId, 100) &&
+        num(r.contentVersion, 1, 100) &&
+        str(r.title, 150) &&
+        modes.includes(field(r, "mode") as string) &&
+        str(r.purpose, 100) &&
+        num(r.level, 0, 3) &&
+        num(r.words, 0, 100000) &&
+        num(r.seconds, 0, 86400) &&
+        num(r.questionSeconds, 0, 86400) &&
+        (r.wpm === null || num(r.wpm, 0, 1000000)) &&
+        (r.score === null || num(r.score, 0, 100)) &&
+        Array.isArray(r.answers) &&
+        r.answers.length <= 20 &&
+        r.answers.every(
+          (a: unknown) =>
+            obj(a) &&
+            skills.includes(field(a, "skill") as string) &&
+            typeof a.correct === "boolean",
+        ) &&
+        ["interrupted", "repeated", "complete", "helped"].every(
+          (k) => typeof field(r, k) === "boolean",
+        ) &&
+        (!r.assessment ||
+          ["baseline", "mid", "final"].includes(field(r, "assessment") as string)) &&
+        (!r.lessonId || str(r.lessonId, 20)) &&
+        ["Rahat", "Dengeli", "Zorlandım"].includes(field(r, "comfort") as string) &&
+        str(r.note, 3000) &&
+        (r.summary === undefined || str(r.summary, 5000)) &&
+        (r.selfRecall === undefined || num(r.selfRecall, 0, 100)) &&
+        (r.tempo === undefined || num(r.tempo, 60, 600)) &&
+        (r.reviewed === undefined || typeof r.reviewed === "boolean") &&
+        (r.settingsChanged === undefined ||
+          typeof r.settingsChanged === "boolean") &&
+        (r.plannedSeconds === null || num(r.plannedSeconds, 60, 600)),
+    ) &&
+    obj(v.exposure) &&
+    Object.keys(v.exposure).length <= 500 &&
+    Object.entries(v.exposure).every(
+      ([k, x]) => str(k, 100) && num(x, 0, 100000),
+    ) &&
+    Array.isArray(v.recalls) &&
+    v.recalls.length <= 40 &&
+    v.recalls.every(
+      (r: unknown) =>
+        obj(r) &&
+        str(r.id, 100) &&
+        str(r.readingId, 100) &&
+        str(r.resultId, 100) &&
+        num(r.due) &&
+        (r.done === undefined || num(r.done)) &&
+        str(r.draft, 5000) &&
+        (r.selfScore === undefined || num(r.selfScore, 0, 100)),
+    ) &&
+    Array.isArray(v.games) &&
+    v.games.length <= 80 &&
+    v.games.every(
+      (g: unknown) =>
+        obj(g) &&
+        str(g.id, 100) &&
+        str(g.game, 40) &&
+        num(g.date) &&
+        num(g.score, 0, 100) &&
+        num(g.moves, 0, 10000),
+    ) &&
+    Array.isArray(v.custom) &&
+    v.custom.length <= 10 &&
+    v.custom.every(
+      (c: unknown) =>
+        obj(c) && str(c.id, 100) && str(c.title, 100) && str(c.body, 50000),
+    ) &&
+    obj(v.notes) &&
+    Object.keys(v.notes).length <= 100 &&
+    Object.entries(v.notes).every(([k, x]) => str(k, 100) && str(x, 5000)) &&
+    num(v.lastVisit)
+  );
+}
+function read(): { data: State; warning: string } {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return { data: fresh(), warning: "" };
+    const data = JSON.parse(raw);
+    if (!validState(data))
+      return {
+        data: fresh(),
+        warning:
+          "Yerel kaydın biçimi veya sürümü okunamadı. Yeni bir başlangıç açıldı; varsa dışa aktardığın İzlek dosyasını geri yükleyebilirsin.",
+      };
+    return { data, warning: "" };
+  } catch {
+    return {
+      data: fresh(),
+      warning:
+        "Yerel kayıt okunamadı. Tarayıcının depolama iznini kontrol et; ilerleme henüz saklanmış sayılmıyor.",
+    };
+  }
+}
+export function useStore() {
+  const [initial] = useState(read);
+  const [state, setState] = useState(initial.data);
+  const ref = useRef(state);
+  const [error, setError] = useState(initial.warning);
+  const [conflict, setConflict] = useState(false);
+  const conflictRef = useRef(false);
+  useEffect(() => {
+    const listener = (e: StorageEvent) => {
+      if (e.key === KEY) {
+        conflictRef.current = true;
+        setConflict(true);
+        setError(
+          "Başka bir sekmede kayıt değişti. Açık çalışman burada kalır; yeni kaydı alıp sonucunu yeniden kaydedebilirsin.",
+        );
+      }
+    };
+    window.addEventListener("storage", listener);
+    return () => window.removeEventListener("storage", listener);
+  }, []);
+  const update = useCallback((fn: (s: State) => State) => {
+    if (conflictRef.current) {
+      setError(
+        "Diğer sekmede değişiklik var. Önce yeni kaydı al. Açık sonucu sonra yeniden kaydedebilirsin; istersen önce bu sekmenin verisini dışa aktar.",
+      );
+      return false;
+    }
+    try {
+      const raw = localStorage.getItem(KEY);
+      let existing: unknown = null;
+      try {
+        existing = raw ? JSON.parse(raw) : null;
+      } catch {
+        existing = null;
+      }
+      if (validState(existing) && existing.revision !== ref.current.revision) {
+        conflictRef.current = true;
+        setConflict(true);
+        setError(
+          "Diğer sekmedeki ilerleme korunuyor. Önce yeni kaydı al, sonra işlemini tekrar kaydet.",
+        );
+        return false;
+      }
+      const data = {
+        ...fn(ref.current),
+        revision: ref.current.revision + 1,
+        version: 1 as const,
+      };
+      localStorage.setItem(KEY, JSON.stringify(data));
+      ref.current = data;
+      setState(data);
+      setError("");
+      return true;
+    } catch {
+      setError(
+        "Kayıt saklanamadı. Depolama dolu veya kapalı olabilir. Çalışman bu ekranda duruyor; alan açıp yeniden kaydet ya da mevcut verini dışa aktar.",
+      );
+      return false;
+    }
+  }, []);
+  const sync = () => {
+    const next = read();
+    ref.current = next.data;
+    setState(next.data);
+    conflictRef.current = false;
+    setConflict(false);
+    setError(next.warning);
+  };
+  return { state, update, error, setError, conflict, sync };
+}
+export type Store = ReturnType<typeof useStore>;
+export function expose(s: State, id: string): State {
+  const entries = Object.entries({
+    ...s.exposure,
+    [id]: (s.exposure[id] || 0) + 1,
+  });
+  return {
+    ...s,
+    exposure: Object.fromEntries([
+      ...entries.filter(([k]) => !k.startsWith("custom")),
+      ...entries.filter(([k]) => k.startsWith("custom")).slice(-50),
+    ]),
+  };
+}
+export function record(s: State, r: Result): State {
+  if (s.results.some((x) => x.id === r.id)) return s;
+  const recall =
+    r.complete &&
+    !r.readingId.startsWith("custom") &&
+    ["natural", "long", "recall"].includes(r.mode)
+      ? [
+          {
+            id: crypto.randomUUID(),
+            readingId: r.readingId,
+            resultId: r.id,
+            due: Date.now() + 86400000,
+            draft: "",
+          },
+        ]
+      : [];
+  return {
+    ...(s.exposure[r.readingId] ? s : expose(s, r.readingId)),
+    results: [...s.results, r].slice(-200),
+    recalls: [
+      ...s.recalls.filter(
+        (x) => !recall.length || x.readingId !== r.readingId || x.done,
+      ),
+      ...recall,
+    ].slice(-40),
+    lastVisit: Date.now(),
+  };
+}
+export const lessonDone = (s: State, id: string) =>
+  s.readLessons.includes(id) &&
+  s.decisions.includes(id) &&
+  s.results.some((r) => r.lessonId === id && r.complete);
+export const comparable = (r: Result) =>
+  r.complete &&
+  r.mode === "natural" &&
+  !r.interrupted &&
+  !r.repeated &&
+  !r.helped &&
+  !r.readingId.startsWith("custom") &&
+  r.wpm !== null &&
+  r.score !== null &&
+  r.seconds >= 15;
+const average = (a: number[]) => a.reduce((s, x) => s + x, 0) / a.length;
+export interface Recommendation {
+  title: string;
+  reason: string;
+  lessonId?: string;
+  readingId?: string;
+  mode?: Mode;
+  assessment?: "baseline" | "mid" | "final";
+  recallId?: string;
+  tempo: number;
+  level: 1 | 2 | 3;
+}
+export function recommend(s: State): Recommendation {
+  const base = { tempo: 180, level: 1 as 1 | 2 | 3 };
+  const assessments = s.results.filter((r) => r.assessment);
+  const done = Array.from(
+    { length: 16 },
+    (_, i) => `l${String(i + 1).padStart(2, "0")}`,
+  ).filter((id) => lessonDone(s, id));
+  const natural = s.results.filter(
+    (r) =>
+      ["natural", "long"].includes(r.mode) &&
+      r.complete &&
+      r.seconds >= 15 &&
+      r.score !== null &&
+      !r.repeated &&
+      !r.helped &&
+      !r.interrupted &&
+      !r.readingId.startsWith("custom"),
+  );
+  const recent = natural.slice(-5);
+  const distinct = new Set(recent.map((r) => r.readingId));
+  const guide = s.results.filter((r) => r.mode === "guide").at(-1);
+  const paceAnchor = natural.filter((r) => r.mode === "natural").at(-1);
+  const paceRecent = natural
+    .filter(
+      (r) =>
+        r.mode === "natural" &&
+        r.level === paceAnchor?.level &&
+        r.purpose === paceAnchor?.purpose,
+    )
+    .slice(-5);
+  const measured = paceRecent.filter((r) => r.wpm !== null);
+  if (measured.length)
+    base.tempo = Math.max(
+      80,
+      Math.min(400, Math.round(average(measured.map((r) => r.wpm!)) / 10) * 10),
+    );
+  if (s.lastVisit && Date.now() - s.lastVisit > 7 * 86400000)
+    return {
+      ...base,
+      title: "Kısa bir yeniden başlangıç",
+      reason:
+        "Bir haftadan uzun ara verdin; bugün eski tempoyu zorlamadan kısa bir gözlem yap.",
+      readingId: "r31",
+      mode: "natural",
+    };
+  if (!assessments.some((r) => r.assessment === "baseline" && r.complete))
+    return {
+      ...base,
+      title: "Okumaya başladığın yeri tanı",
+      reason: "İlk doğal okumanı ve anlamanı birlikte gözlemleyelim.",
+      assessment: "baseline",
+    };
+  const due = s.recalls.find((r) => !r.done && r.due <= Date.now());
+  const recalledToday = s.recalls.some(
+    (r) =>
+      r.done && new Date(r.done).toDateString() === new Date().toDateString(),
+  );
+  if (due && !recalledToday)
+    return {
+      ...base,
+      title: "Dünden kalan fikri geri çağır",
+      reason:
+        "Bu okumadan en az bir gün geçti; metni açmadan hangi bağların kaldığını gör.",
+      recallId: due.id,
+    };
+  const recall = s.recalls
+    .filter((r) => r.done && r.selfScore !== undefined)
+    .slice(-2);
+  if (
+    recall.length === 2 &&
+    new Set(recall.map((r) => r.readingId)).size === 2 &&
+    recall.every((r) => r.selfScore! < 60) &&
+    !s.results.slice(-3).some((r) => r.lessonId === "l11")
+  )
+    return {
+      ...base,
+      title: "Özetin içindeki ilişkileri güçlendir",
+      reason:
+        "Son iki gecikmeli öz değerlendirmende temel fikirlerin yarısından fazlası eksik kaldı.",
+      lessonId: "l11",
+    };
+  if (
+    done.length >= 16 &&
+    !assessments.some((r) => r.assessment === "final" && r.complete)
+  )
+    return {
+      ...base,
+      title: "Bitirme: yeni metinde kendi ritmin",
+      reason:
+        "Ders ve uygulamaları bitirdin; yeni içerikte bütünleşik bir gözlem zamanı.",
+      assessment: "final",
+    };
+  if (
+    done.length >= 8 &&
+    !assessments.some((r) => r.assessment === "mid" && r.complete)
+  )
+    return {
+      ...base,
+      title: "Yolun ortasında bir durak",
+      reason: "İlk sekiz dersin ardından yeni metinde ara değerlendirme yap.",
+      assessment: "mid",
+    };
+  if (distinct.size >= 3) {
+    const inference = recent.flatMap((r) =>
+      r.answers.filter((a) => a.skill === "Çıkarım"),
+    );
+    if (
+      inference.length >= 3 &&
+      average(inference.map((a) => (a.correct ? 100 : 0))) < 60 &&
+      !s.results.slice(-3).some((r) => r.lessonId === "l08")
+    )
+      return {
+        ...base,
+        title: "İpuçlarını birbirine bağla",
+        reason:
+          "En az üç yeni gözleminde çıkarım soruları diğer ilişkilerden daha fazla pratik istiyor.",
+        lessonId: "l08",
+      };
+    if (paceRecent.length >= 4) {
+      const a = paceRecent.slice(0, 2),
+        b = paceRecent.slice(-2);
+      if (
+        a.every((r) => r.wpm) &&
+        b.every((r) => r.wpm) &&
+        average(b.map((r) => r.wpm!)) > average(a.map((r) => r.wpm!)) &&
+        average(b.map((r) => r.score!)) <
+          average(a.map((r) => r.score!)) - 15 &&
+        !s.results.slice(-3).some((r) => r.lessonId === "l10")
+      )
+        return {
+          ...base,
+          tempo: Math.max(80, base.tempo - 20),
+          title: "Anlama biraz daha alan aç",
+          reason:
+            "Son doğal okumalarda hız yükselirken anlama düştü; bugün tempo baskısını azaltıyoruz.",
+          lessonId: "l10",
+        };
+    }
+    if (
+      recent.slice(-3).every((r) => r.score! >= 80 && r.comfort !== "Zorlandım")
+    ) {
+      base.level =
+        recent.at(-1)!.level === 3 ? 3 : ((recent.at(-1)!.level + 1) as 2 | 3);
+      base.tempo = Math.min(400, base.tempo + 10);
+    }
+  }
+  if (guide && (!natural.at(-1) || guide.date > natural.at(-1)!.date))
+    return {
+      ...base,
+      title: "Rehbersiz bir sayfaya geç",
+      reason:
+        "Son çalışmanda rehber kullandın; etkisini yeni bir doğal metinde ayrıca gözlemle.",
+      readingId: "r08",
+      mode: "natural",
+    };
+  if (
+    recent.slice(-2).length === 2 &&
+    recent.slice(-2).every((r) => r.comfort === "Zorlandım")
+  )
+    base.tempo = Math.max(80, base.tempo - 20);
+  const next = Array.from(
+    { length: 16 },
+    (_, i) => `l${String(i + 1).padStart(2, "0")}`,
+  ).find((id) => !lessonDone(s, id));
+  if (next)
+    return {
+      ...base,
+      title:
+        next === "l01" ? "İlk adım: önce bir neden" : "Okuma yoluna devam et",
+      reason: `${s.profile.daily} dakikalık tercihinle sıradaki dersini ve yeni metin pratiğini birleştir.`,
+      lessonId: next,
+    };
+  return {
+    ...base,
+    title: "Kendi okuma düzenini sürdür",
+    reason:
+      "Kurs tamamlandı. Yeni metin, ertesi gün hatırlama ve haftalık uzun okuma döngünü sürdür.",
+    readingId:
+      s.profile.goal === "Mesleki okuma"
+        ? "r26"
+        : s.profile.goal === "Sınava hazırlanmak"
+          ? "r25"
+          : s.profile.goal === "Keyif için okumak"
+            ? "r39"
+            : "r36",
+    mode: s.profile.daily === 20 ? "long" : "natural",
+  };
+}
+export function useClock() {
+  const [phase, setPhase] = useState<"ready" | "active" | "paused" | "ended">(
+    "ready",
+  );
+  const phaseRef = useRef(phase);
+  const total = useRef(0);
+  const since = useRef(0);
+  const [elapsed, setElapsed] = useState(0);
+  const interrupted = useRef(false);
+  const get = () =>
+    Math.min(
+      86400,
+      (total.current +
+        (phaseRef.current === "active"
+          ? performance.now() - since.current
+          : 0)) /
+        1000,
+    );
+  const pause = useCallback((interrupt = false) => {
+    if (phaseRef.current !== "active") return;
+    if (interrupt) interrupted.current = true;
+    total.current += performance.now() - since.current;
+    phaseRef.current = "paused";
+    setPhase("paused");
+    setElapsed(total.current / 1000);
+  }, []);
+  const start = () => {
+    if (!["ready", "paused"].includes(phaseRef.current)) return;
+    since.current = performance.now();
+    phaseRef.current = "active";
+    setPhase("active");
+  };
+  const finish = () => {
+    if (phaseRef.current === "active")
+      total.current += performance.now() - since.current;
+    phaseRef.current = "ended";
+    setPhase("ended");
+    const seconds = Math.min(86400, total.current / 1000);
+    setElapsed(seconds);
+    return seconds;
+  };
+  useEffect(() => {
+    const visibility = () => {
+      if (document.hidden) pause(true);
+    };
+    const blur = () => pause(true);
+    document.addEventListener("visibilitychange", visibility);
+    window.addEventListener("blur", blur);
+    return () => {
+      document.removeEventListener("visibilitychange", visibility);
+      window.removeEventListener("blur", blur);
+    };
+  }, [pause]);
+  useEffect(() => {
+    if (phase !== "active") return;
+    const id = setInterval(() => setElapsed(get()), 200);
+    return () => clearInterval(id);
+  }, [phase]);
+  const reset = () => {
+    phaseRef.current = "ready";
+    total.current = 0;
+    since.current = 0;
+    interrupted.current = false;
+    setElapsed(0);
+    setPhase("ready");
+  };
+  return { phase, elapsed, start, pause, finish, interrupted, get, reset };
+}
 // Runnable development check for the shared scoring boundary; not invoked by the app.
-export function selfCheck(){const r={complete:true,mode:'natural',interrupted:false,repeated:false,helped:false,wpm:180,score:80,seconds:30} as Result;console.assert(comparable(r),'Fresh natural reading should be comparable');console.assert(!comparable({...r,repeated:true}),'Repeated texts must stay separate');console.assert(!comparable({...r,mode:'serial'}),'Display tempo is not natural reading');}
+export function selfCheck() {
+  const r = {
+    complete: true,
+    mode: "natural",
+    interrupted: false,
+    repeated: false,
+    helped: false,
+    wpm: 180,
+    score: 80,
+    seconds: 30,
+  } as Result;
+  console.assert(comparable(r), "Fresh natural reading should be comparable");
+  console.assert(
+    !comparable({ ...r, repeated: true }),
+    "Repeated texts must stay separate",
+  );
+  console.assert(
+    !comparable({ ...r, mode: "serial" }),
+    "Display tempo is not natural reading",
+  );
+}
