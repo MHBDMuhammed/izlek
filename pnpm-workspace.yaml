@@ -1,0 +1,7 @@
+allowBuilds:
+  esbuild: true
+# pnpm install (2026-09-14) bu kaydı kendisi üretti: lucide-react@1.46.0
+# kurulumdan <24 saat önce yayınlandığı için default minimumReleaseAge
+# karantinasına takıldı. Sürüm sabitlemeli dar istisna; genel politika gevşetilmedi.
+minimumReleaseAgeExclude:
+  - lucide-react@1.46.0
