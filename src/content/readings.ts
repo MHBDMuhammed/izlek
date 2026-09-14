@@ -1911,6 +1911,324 @@ Bunu yapabiliyorsan kısa bir mola verip bölümü sürdürebilirsin. Yapamıyor
     "Sonraki başlangıca iz bırak.",
   ],
 );
+add(
+  "r41",
+  "Merdivenin düzeni",
+  "Gündelik yaşam",
+  1,
+  "Günlük düzen ve kısa notlaşma.",
+  `Apartmanın asansörü bir sabah arızalandı. Yönetici kapıya kısa bir not astı: “Asansör bakımda, lütfen merdiveni kullanın.” Yönetici tamir için servis çağırdığını ve işin iki gün süreceğini de nota ekledi. İlk gün merdivenlerde kalabalık oldu. Üst katlarda oturanlar yoruldu. Alt katlardaki komşular ise merdivenin hiç bu kadar kalabalık olduğunu görmemişti. Bir komşu girişe ikinci bir not bıraktı: “Ağır eşyası olan yazsın, akşam birlikte taşıyalım.” Böylece herkes planını ona göre yaptı.
+
+Notun altındaki liste iki günde uzadı. Kimse listeyi kimin tuttuğunu sormadı. Herkes yalnızca kendi satırını yazdı. Merdiven sahanlığındaki boş köşe, taşınacak eşyaların bekleme yeri oldu. Asansör tamir edilip yeniden çalışmaya başladığında liste kapıdan indirildi. Fakat boş köşe boş kaldı. Komşular ağır bir şey taşıyacaklarında yine önce o köşeye bırakıp haberleşmeye devam etti. Arıza bitmişti; merdivende kurulan küçük düzen ise kalmıştı.`,
+  [
+    q(
+      "Ana düşünce",
+      "Metnin ana düşüncesi nedir?",
+      [
+        "Asansörler düzenli bakım ister.",
+        "Kısa bir aksaklık, komşular arasında kalıcı bir yardımlaşma düzeni doğurabilir.",
+        "Merdivenler asansörden daha güvenlidir.",
+      ],
+      1,
+      "Arıza bitmesine rağmen köşe ve haberleşme sürüyor.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "İkinci not ile bekleme köşesi arasında nasıl bir ilişki vardır?",
+      [
+        "Not listenin yerini tutmuştur.",
+        "Notla başlayan yardımlaşma, köşeyle somut bir yere kavuşmuştur.",
+        "Köşe notun asılmasını engellemiştir.",
+      ],
+      1,
+      "Liste uzayınca taşınacak eşyalar köşede bekletiliyor.",
+      1,
+    ),
+    q(
+      "Açık bilgi",
+      "Yöneticinin notunda ne yazıyordu?",
+      [
+        "Asansörün bakımda olduğu ve merdivenin kullanılması gerektiği",
+        "Taşıma işinin akşam yapılacağı",
+        "Servisin hangi gün geleceği",
+      ],
+      0,
+      "İlk paragraf notun sözlerini aktarıyor.",
+      0,
+    ),
+  ],
+  "Asansör arızası komşuları notla yardımlaşmaya yöneltti; arıza bitse de merdivendeki düzen sürdü.",
+  [
+    "İkinci not ağır eşyalar için ortak liste başlattı.",
+    "Arıza bitince liste indi, bekleme köşesi kaldı.",
+  ],
+);
+add(
+  "r42",
+  "Yaşlı çınarın budanması",
+  "Doğa",
+  2,
+  "Karşıt istekler arasında gözleme dayalı ölçülü karar.",
+  `Şehir parkının ortasındaki yaşlı çınarın bazı dalları yürüyüş yolunun üzerine sarkmıştı. Son fırtınada kırılan bir dal bankın üstüne düşmüştü. Kırılan dalda kimse yaralanmamıştı, fakat olay korku yaratmıştı. Park yönetimi dalların budanmasını önerdi. Bazı ziyaretçiler bu karara karşı çıktı. Ağacın gölgesinin yazın parkı serinlettiğini, budamanın kuş yuvalarına zarar verebileceğini söylediler. Yönetim ise yolun güvenliğini öne sürdü.
+
+Bunun üzerine bahçıvan iki hafta boyunca ağacı izledi. Hangi dalların sarktığını, yuvaların nerede olduğunu ve yolun en çok hangi saatlerde kullanıldığını not etti. Sonunda yalnızca yola sarkan ve kuruduğu görülen dallar kesildi. Yuvaların bulunduğu bölüm olduğu gibi bırakıldı. Karar ne bütün dalları korumuş ne de hepsini kesmişti. Yönetim gözlem notlarını panoda paylaştı; böylece kararın dayanağı herkes için görünür oldu. Gözlem, tartışmayı tarafların sesini kısmadan bir ölçüye bağlamıştı.`,
+  [
+    q(
+      "Ana düşünce",
+      "Metnin ana düşüncesi nedir?",
+      [
+        "Yaşlı ağaçlar parklardan kaldırılmalıdır.",
+        "Gözleme dayanan ölçülü bir karar, güvenlik ile koruma isteğini uzlaştırabilir.",
+        "Kuş yuvaları her kararda tek ölçüt olmalıdır.",
+      ],
+      1,
+      "Yalnızca sarkan kuru dallar kesiliyor, yuvalı bölüm korunuyor.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Bahçıvanın gözlemi kararla nasıl ilişkilidir?",
+      [
+        "Gözlem kararı geciktirmiştir.",
+        "Gözlem hangi dalların kesileceğini belirlemiştir.",
+        "Gözlem tartışmayı başlatmıştır.",
+      ],
+      1,
+      "Sarkan ve kuruyan dallar ile yuvaların yeri nota göre ayrılıyor.",
+      1,
+    ),
+    q(
+      "Bağlam",
+      "“Tarafların sesini kısmadan bir ölçüye bağlamıştı” ne anlatır?",
+      [
+        "Tartışmanın yasaklandığını",
+        "Kimseyi susturmadan ortak bir ölçü bulunduğunu",
+        "Ölçüm aletleri kullanıldığını",
+      ],
+      1,
+      "Ne bütün dallar korunuyor ne de hepsi kesiliyor.",
+      1,
+    ),
+  ],
+  "Yaşlı çınarın budanması tartışmasında iki haftalık gözlem, güvenlik ile yuvaların korunmasını uzlaştıran ölçülü bir karara yol açtı.",
+  [
+    "Yönetim güvenliği, ziyaretçiler gölge ve yuvaları savundu.",
+    "Yalnızca sarkan kuru dallar kesildi, yuvalı bölüm kaldı.",
+  ],
+);
+add(
+  "r43",
+  "Sis düdüğü",
+  "Kurgu",
+  2,
+  "Merhamet ile görev arasında öyküsel seçim.",
+  `Bu öyküde, kayalık bir burundaki deniz fenerinin bekçisi her sisli gecede aynı kararı verirdi: düdüğü çalmak. Düdük, geçen gemilere kayaları haber verirdi. Köydeki balıkçılar düdüğün sesiyle yön bulduklarını söylerdi. Fenerin ışığı sisi delmekte yetersiz kalıyordu. Fakat düdüğün sesi fenerin dibindeki küçük koyda uyuyan martıları ürkütürdü. Bekçi bir gece düdüğü susturmayı düşündü. Martıların kanat seslerini dinledi ve elini düdüğün kolundan çekti.
+
+O gece koyun sessizliğini uzaktan gelen bir gemi sesi böldü. Gemi kayalara yaklaşıyordu. Bekçi martılara baktı, sonra geminin fenerine baktı. Kolunu yeniden kavradı ve düdüğü öttürdü. Martılar havalandı, gemi yönünü değiştirdi. Sabah koy yine martılarla doluydu; gemi ise açık denizde yoluna devam ediyordu. Bekçi defterine tek cümle yazdı: “Düdük martıları bir gece ürkütür, sessizlik gemiyi bir daha döndürmez.” Bekçi o günden sonra kararını her gece aynı cümleyle sınadı.`,
+  [
+    q(
+      "Ana düşünce",
+      "Bu öykünün ana düşüncesi nedir?",
+      [
+        "Doğa her zaman insandan önce gelir.",
+        "Geçici bir rahatsızlık, geri dönülmez bir zararı önlemek için göze alınabilir.",
+        "Deniz fenerleri artık gereksizdir.",
+      ],
+      1,
+      "Defterdeki cümle bir gecelik ürküntü ile geminin dönüşsüzlüğünü karşılaştırıyor.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "Bekçi neden kolunu yeniden kavradı?",
+      [
+        "Martıların sesinden hoşlandığı için",
+        "Geminin kayalara yaklaştığını duyduğu için",
+        "Düdüğün bozuk olduğunu sınamak için",
+      ],
+      1,
+      "Uzaktan gelen gemi sesi ve yaklaşan kayalar anlatılıyor.",
+      1,
+    ),
+    q(
+      "Açık bilgi",
+      "Bekçi defterine ne yazdı?",
+      [
+        "Düdük martıları bir gece ürkütür, sessizlik gemiyi bir daha döndürmez.",
+        "Fenerin ışığı her gece yeterlidir.",
+        "Martılar koyu terk etmiştir.",
+      ],
+      0,
+      "Son paragrafta defter cümlesi aynen yer alıyor.",
+      1,
+    ),
+  ],
+  "Sisli bir gecede martıları ürkütmek istemeyen bekçi düdüğü susturmayı düşündü, ancak yaklaşan gemiyi görünce görevini seçti.",
+  [
+    "Bekçi önce merhametle düdüğü susturdu.",
+    "Geminin tehlikesi görev ile merhameti tartıp düdüğü öttürdü.",
+  ],
+);
+add(
+  "r44",
+  "Una bulanmış ekran",
+  "Tasarım",
+  2,
+  "Kullanım bağlamı ve anlamlı kontrol.",
+  `Mutfakta hamur yoğuran Elif, telefonundaki tarif uygulamasında sıradaki adımı görmek için ekrana yaklaştı. Yazılar küçüktü; parmakları unlu olduğu için kaydırmak da zordu. Uygulama, daha çok bilgiyi tek ekrana sığdırmak için yazı boyutunu sabit tutmuştu. Elif yanlışlıkla reklamı açtı, geri dönmek için ellerini yıkamak zorunda kaldı. O an tarifin yarım kalması değil, uygulamanın mutfak koşullarını hiç hesaba katmaması canını sıktı. Ölçü tablosu ile açıklama aynı ekrana sıkışmıştı; yarım çay bardağı yazısını okumak için telefonu una buladı.
+
+Ertesi gün uygulamanın ayarlarında mutfak kipini buldu. Kip açılınca yazılar büyüdü, adımlar sesli okunmaya başladı, düğmeler eldivenle basılacak genişliğe ulaştı. Sayfa bu kez daha uzun kaydırma istiyordu. Ama Elif ekrana dokunmadan üç adımı dinleyerek geçti. Mutfakta kazandıran şeyin kısa sayfa değil, ele bulaşmadan ilerlemek olduğunu anladı. Tarif bitince kipi kapatıp yazıları eski boyutuna döndürdü; ayar bir kez seçilince her tarifte hazırdı.`,
+  [
+    q(
+      "Ana düşünce",
+      "Metnin savunduğu tasarım ilkesi nedir?",
+      [
+        "Tek ekrana olabildiğince çok bilgi sığdırmak",
+        "Gerçek kullanım koşullarına uygun anlamlı kontrol sunmak",
+        "Bütün ayarları kaldırıp tek ölçüye dönmek",
+      ],
+      1,
+      "İkinci paragraf kazancın kısa sayfada değil ele bulaşmadan ilerlemekte olduğunu söyler.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Elif'in reklamı açması neyi gösterir?",
+      [
+        "Tariflerin gereğinden uzun yazıldığını",
+        "Telefonunun mutfak için uygun olmadığını",
+        "Küçük yazı ve dar düğmelerin unlu elle kullanımı güçleştirdiğini",
+      ],
+      2,
+      "İlk paragraf unlu parmak, küçük yazı ve kaydırma güçlüğünü birlikte anlatır.",
+      0,
+    ),
+    q(
+      "Açık bilgi",
+      "Mutfak kipi açılınca ne değişti?",
+      [
+        "Yazılar büyüdü, adımlar sesli okundu, düğmeler genişledi.",
+        "Ölçü tablosu ekrandan kaldırıldı.",
+        "Reklamlar tarifin içine taşındı.",
+      ],
+      0,
+      "İkinci paragraf kipin üç etkisini açıkça sıralar.",
+      1,
+    ),
+  ],
+  "Mutfak koşullarını yok sayan sabit tasarım aksamaya yol açtı; ele bulaşmadan ilerlemeyi sağlayan mutfak kipi tarifi kurtardı.",
+  [
+    "Kısa sayfa, kullanılabilir sayfa demek değildir.",
+    "Koşula uygun ayar bir kez seçilince her tarifte hazırdır.",
+  ],
+);
+add(
+  "r45",
+  "Olumsuz kökü çizmek",
+  "Öğrenme",
+  3,
+  "Soru yönünü denetleme ve dayanağa eleme.",
+  `Deneme sınavında Kerem, paragraf sorularının birinde "Bu parçadan hangisine ulaşılamaz?" cümlesini hızlı okudu. Seçeneklerde metinde geçen tanıdık bir yargıyı görünce sevindi ve işaretledi. Sonuçlar açıklanınca sorunun yanlış olduğunu gördü. Sorunun sonundaki "ulaşılamaz" sözcüğünü "ulaşılır" gibi okumuştu. Metni anlamıştı; ama soru, metinde olanı değil, metinden çıkarılamayanı istiyordu. Tanıdık gelen seçeneğin doğru olması gerektiğini sanmıştı. Öğretmeni kâğıdına "soruyu değil, seçeneği yanıtlamışsın" diye yazmıştı.
+
+Sonraki denemede yöntemini değiştirdi. Önce soru kökündeki olumsuzluğu çizdi ve görevi kendi cümlesiyle söyledi: "Metnin desteklemediği yargıyı buluyorum." Sonra her seçeneği tek tek metne dayandırdı; dayanağı olanları eledi. Geriye dayanağı bulunamayan seçenek kaldı. İşaretlerken "ulaşılamaz" ile "metinde geçmiyor" arasındaki farkı da denetledi: bir yargı aynı sözcüklerle geçmese bile metinden çıkabilirdi. Hızı düşmüştü, ama yanlışı da azalmıştı. Sınavın sonunda kâğıdına bakınca olumsuz köklü sorularda hiç hata yapmadığını gördü.`,
+  [
+    q(
+      "Ana düşünce",
+      "Metnin önerdiği çözüm nedir?",
+      [
+        "Soruları daha hızlı okuyup ilk tanıdık seçeneği işaretlemek",
+        "Soru yönünü kendi cümlesiyle söyleyip seçenekleri metne dayandırarak elemek",
+        "Metinde geçmeyen her seçeneği doğrudan doğru saymak",
+      ],
+      1,
+      "İkinci paragraf görevi söyleme ve dayanağa göre eleme adımlarını anlatır.",
+      1,
+    ),
+    q(
+      "Çıkarım",
+      "Kerem'in ilk yanlışı hakkında ne çıkarılabilir?",
+      [
+        "Paragrafı hiç anlamamıştır.",
+        "Seçenekleri okumadan rastgele işaretlemiştir.",
+        "Metni anlamış ama sorunun istediği yönü ters okumuştur.",
+      ],
+      2,
+      "İlk paragraf metni anladığını ama ulaşılamazı ulaşılır gibi okuduğunu belirtir.",
+      0,
+    ),
+    q(
+      "Bağlam",
+      "“Ulaşılamaz” ile “metinde geçmiyor” arasındaki fark nedir?",
+      [
+        "Bir yargı aynı sözcüklerle geçmese de metinden çıkarılabilir.",
+        "İki ifade her durumda aynı anlama gelir.",
+        "Metinde geçmeyen yargı her zaman ulaşılabilirdir.",
+      ],
+      0,
+      "İkinci paragraf aynı sözcükle geçmeyen yargının da çıkarılabileceğini söyler.",
+      1,
+    ),
+  ],
+  "Kerem olumsuz soru kökünü ters okudu; yönü çizip seçenekleri metne dayandırarak eleyince yanlışı azaldı.",
+  [
+    "Görevi kendi cümlenle söyle.",
+    "Dayanağı olanı ele, kalanı denetle.",
+  ],
+);
+add(
+  "r46",
+  "Camdaki yazı",
+  "Kültür",
+  1,
+  "Dayanışma uygulaması ve isimsiz kayıt.",
+  `Mahalle fırınının camında küçük bir yazı vardı: "Askıda ekmek." Parası olan, kendi ekmeğinin yanında bir ekmek parası daha bırakıyordu. İhtiyacı olan da tezgâhtara soruyor, ücreti ödenmiş ekmeği alıp gidiyordu. Fırıncı Hasan, kimin bıraktığını da kimin aldığını da kimseye söylemiyordu. Uygulama yıllar önce bir müşterinin fazla ekmek parasını bırakmasıyla başlamıştı. Çocuklar okuldan dönerken camdaki yazıyı okuyup annelerine soruyordu. Bir akşam yaşlı bir kadın tezgâha yaklaştı, parasını ödemeden iki ekmek aldı; çıkarken dua etti.
+
+Tezgâhın altındaki veresiye defterinin yanında ikinci bir defter duruyordu. Hasan askıda kaç ekmek kaldığını oraya çizgiyle işaretliyordu. Akşam dükkânı kapatırken çizgileri sayıyor, eksilen ekmeklerin parasının yerine ulaşıp ulaşmadığını denetliyordu. Defterde isim yoktu; yalnızca çizgiler vardı. Hasan çizgileri sayarken kimseyi ayırt etmiyordu; defter yalnız ekmek sayısını tutuyordu. Bazen askıda ekmek birikiyordu; Hasan o gün fazlasını yan sokaktaki ihtiyaç sahiplerine ayırıyordu. Uygulama, mahallede kimsenin kimseye borcu kalmadan ekmek yemesini sağlıyordu.`,
+  [
+    q(
+      "Ana düşünce",
+      "Metnin anlattığı uygulamanın özü nedir?",
+      [
+        "Ekmeği veresiye defteriyle borçlandırarak satmak",
+        "Fırının kazancını artırmak için kampanya yapmak",
+        "Parası olanın isimsizce bıraktığı ekmeği ihtiyacı olanın alması",
+      ],
+      2,
+      "İlk paragraf ödemeyi bırakan ile ekmeği alanın birbirini tanımadığını anlatır.",
+      0,
+    ),
+    q(
+      "Açık bilgi",
+      "Hasan askıda kalan ekmekleri nasıl izliyor?",
+      [
+        "Alanların adını veresiye defterine yazarak",
+        "İkinci deftere çizgi atıp akşam sayarak",
+        "Camdaki yazıyı her gün değiştirerek",
+      ],
+      1,
+      "İkinci paragraf çizgiyle işaretleme ve akşam sayma işini açıkça verir.",
+      1,
+    ),
+    q(
+      "İlişki",
+      "Defterde isim olmaması neyi sağlar?",
+      [
+        "Kimseyi ayırt etmeden ve kimseyi ifşa etmeden yardımlaşmayı",
+        "Fırının borçlarını gizlemeyi",
+        "Ekmek sayısını artırmayı",
+      ],
+      0,
+      "Hasan kimsenin adını söylemez ve defter yalnız çizgilerden oluşur.",
+      1,
+    ),
+  ],
+  "Askıda ekmekle parası olan isimsizce bırakır, ihtiyacı olan sorup alır; fırıncı çizgilerle sayıyı tutar.",
+  [
+    "Yardım alan ile veren birbirini tanımaz.",
+    "Defter kişi değil ekmek sayar.",
+  ],
+);
 export const readings: Reading[] = [...drafts, ...longReadings].map((r) => ({
   ...r,
   version: 1,
